@@ -1144,6 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomNameInputField: {fileID: 1626505379}
+  isPlayerOne: 1
   isTest: 0
   MaxPlayers: 2
 --- !u!114 &1441747939
