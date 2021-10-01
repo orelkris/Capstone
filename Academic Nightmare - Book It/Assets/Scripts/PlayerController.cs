@@ -103,26 +103,7 @@ public class PlayerController : MonoBehaviourPun
                     Cursor.lockState = CursorLockMode.Confined;
                     canPlayerOneMove = false;
 
-                    //Detect if the Player is looking at any item
-                    RaycastHit hit;
-                    //Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));///TH
-                    Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
-
-
-                    if (Physics.Raycast(ray, out hit, 100))
-                    {
-                        Transform objectHit = hit.transform;
-                        Debug.Log(hit.transform.name);
-
-                        if (hit.collider == GameObject.Find("Button"))
-                        {
-                            if(Input.GetMouseButtonDown(0))
-                            {
-                                Debug.Log("MINIMAP SPOTTED");
-                            }
-                        }
-
-                    }
+                    
                 }
                 else
                 {
@@ -135,19 +116,10 @@ public class PlayerController : MonoBehaviourPun
 
         if (photonView.IsMine)
         {
-            if(!GameStateController.isPlayerOne)
-            {
-                myInput();
-                Look();
-            }
-            else
-            {
 
-                myInput();
-                Look();
-                
-                
-            }
+            myInput();
+            Look();
+
         }
 
         if(!GameStateController.isPlayerOne)

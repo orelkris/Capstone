@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameEnvironment
 {
+    public const int numOfSymbols = 4;
+
+    public int GetNumOfSymbols { get { return numOfSymbols; } }
     public struct coordinates
     {
         public float x;
@@ -24,6 +28,11 @@ public class GameEnvironment
 
     public List<Material> Materials = new List<Material>();
 
+    //Hacker screen list of symbols
+    public List<Image> ScreenSymbols = new List<Image>();
+    public List<Sprite> SpriteSymbols = new List<Sprite>();
+    private List<Button> symbolButtons = new List<Button>();
+
     public List<string> Code = new List<string>();
 
     public List<GameObject> Shelves { get { return shelves; } }
@@ -36,7 +45,7 @@ public class GameEnvironment
 
     public List<int> symbolIndex { get; set; }
 
-    public int currentTreasureIndex;
+    public int currentSymbolIndex;
 
 
     public static GameEnvironment Singleton
@@ -59,24 +68,30 @@ public class GameEnvironment
 
                 instance.checkpoints = instance.checkpoints.OrderBy(waypoint => waypoint.name).ToList();
 
-                for (int i = 1; i <= 4; i++)
-                {
-                    instance.Materials.Add((Material)Resources.Load($"Materials/Symbol{i}", typeof(Material)));
+                GameObject canvasGlobal = GameObject.Find("CanvasGlobal");
 
+                // this will select the symbol materials and keep track of them to be randomly applied
+                // to the symbol objects in the scene through SpawnSymbol.cs 
+                for (int i = 0; i < numOfSymbols; i++)
+                {
+                    instance.Materials.Add((Material)Resources.Load($"Materials/Symbol{i + 1}", typeof(Material)));
                 }
 
-                for (int i = 1; i <= 4; i++)
+                // this will generate a list of 3 letter codes that will be attached to symbol objects
+                // once they are spawned through the SpawnSymbol.cs class
+                for (int i = 0; i < numOfSymbols; i++)
                 {
                     instance.Code.Add(RandomNameGenerator());
                 }
 
+                // shuffle the materials 
                 Shuffle(instance.Materials);
 
                 instance.Symbol = new List<SymbolObject>();
 
                 instance.symbolIndex = new List<int>();
 
-                instance.currentTreasureIndex = 0;
+                instance.currentSymbolIndex = 0;
             }
 
             return instance;
@@ -116,7 +131,7 @@ public class GameEnvironment
 
     public static bool CorrectPick(SymbolObject symbol)
     {
-        if (GameEnvironment.Singleton.Symbol[GameEnvironment.Singleton.currentTreasureIndex].m_code == symbol.m_code)
+        if (GameEnvironment.Singleton.Symbol[GameEnvironment.Singleton.currentSymbolIndex].m_code == symbol.m_code)
         {
             return true;
         }
@@ -126,7 +141,8 @@ public class GameEnvironment
 
     public static SymbolObject CurrentSymbol()
     {
-        return GameEnvironment.Singleton.Symbol[GameEnvironment.Singleton.currentTreasureIndex];
+        
+        return GameEnvironment.Singleton.Symbol[GameEnvironment.Singleton.currentSymbolIndex];
     }
     public static bool ContainsSymbol(SymbolObject symbol)
     {

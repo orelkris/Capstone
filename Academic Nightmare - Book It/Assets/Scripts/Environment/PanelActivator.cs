@@ -38,28 +38,6 @@ public class PanelActivator : MonoBehaviour
 
         panelToActivate.SetActive(true);
     }
-
-
-    /// ALTERNATE WAY
-
-    //Animate Panel Hide Alternate
-    public void AnimatePanelHideAlternate()
-    {
-        //panelToDeactivate.GetComponent<Animator>().SetTrigger("changeState");
-        Invoke("HideAndActivatePanelAfterDelay", 1.0f);//calls after 1 second of delay
-    }
-
-
-    void HideAndActivatePanelAfterDelay()
-    {
-        // play slideout animation
-        // wait for 1 second
-        // turn off current panel
-        // turn on the other panel
-        panelToDeactivate.SetActive(false);
-
-        panelToActivate.SetActive(true);
-    }
 }
 
 

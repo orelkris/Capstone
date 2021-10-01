@@ -11,17 +11,18 @@ public class GameController : MonoBehaviour
     {
         if (GameStateController.isPlayerOne)
         {
-            PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
+            PhotonNetwork.Instantiate("PlayerThree", player1SpawnPosition.transform.position,
                         Quaternion.identity);
 
             // Hide the player 2 canvas object from player 1
-            GameObject.Find("CanvasPlayer2").SetActive(false);
+            GameObject.Find("PanelCode").SetActive(false);
+            GameObject.Find("Crosshair").SetActive(false);
         }
         else
         {
-            GameObject player2 = PhotonNetwork.Instantiate("PlayerThree", player2SpawnPosition.transform.position, Quaternion.identity);
-            GameObject.Find("CanvasPlayer1").SetActive(false);
-            GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
+            GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
+            GameObject.Find("PanelHomepage").SetActive(false);
+            //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
 
         }
     }

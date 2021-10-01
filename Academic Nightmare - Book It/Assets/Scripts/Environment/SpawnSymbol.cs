@@ -12,33 +12,37 @@ public class SpawnSymbol: MonoBehaviour
     GameObject temp;
     Text code;
     Material shelfColour;
+    Sprite sprite;
 
 
     public static List<SymbolObject> testSymbol = new List<SymbolObject>();
 
     void Start()
     {
-        if(!GameStateController.isPlayerOne)
+
+        if (!GameStateController.isPlayerOne)
         {
             code = GameObject.Find("Code").GetComponent<Text>();
         }
 
         // attach code and material to objects
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < GameEnvironment.Singleton.GetNumOfSymbols; i++)
         {
             // find the colour of the shelf based on the parent tag
             string colour = GameEnvironment.Singleton.Symbols[i].transform.parent.tag;
             shelfColour = ((Material)Resources.Load($"Materials/Shelf/{colour}", typeof(Material)));
             //shelfColour = GameEnvironment.Singleton.Symbols[i].transform.parent.GetComponent<Renderer>().material;
-            SymbolObject symbol = new SymbolObject(GameEnvironment.Singleton.Symbols[i],
+            string name = GameEnvironment.Singleton.Materials[i].name;
+            SymbolObject symbol = new SymbolObject(name, GameEnvironment.Singleton.Symbols[i],
                 GameEnvironment.Singleton.Materials[i],
                 shelfColour,
                 GameEnvironment.Singleton.Code[i]);
 
+            //Symbols need to be added to hacker screen as well
+            
 
             // apply the material onto the symbols object
             GameEnvironment.Singleton.Symbols[i].GetComponent<Renderer>().material = GameEnvironment.Singleton.Materials[i];
-            //Debug.Log(shelfColour.ToString());
 
             testSymbol.Add(symbol);
         }
@@ -50,6 +54,8 @@ public class SpawnSymbol: MonoBehaviour
         GameEnvironment.AddSymbol(testSymbol[symbol1]);
 
         //SpawnSymbol.LoadImage($"Materials/Images/{testSymbol[symbol1].m_material.name}");
+
+        Debug.Log(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_name);
     }
 
     // Update is called once per frame
@@ -60,8 +66,6 @@ public class SpawnSymbol: MonoBehaviour
         //Debug.Log(screen.name);
 
         Sprite sprite = (Sprite)Resources.Load(symbolPath, typeof(Sprite));
-
-        Debug.Log(sprite.name);
 
         screen.GetComponent<Image>().sprite = sprite;
     }
@@ -82,14 +86,16 @@ public class SpawnSymbol: MonoBehaviour
 
 public class SymbolObject
 {
+    public string m_name;
     public GameObject m_symbol;
     public Material m_material;
     public Material m_shelfColour;
     public string m_code;
     public string m_fileName;
 
-    public SymbolObject(GameObject symbol, Material material, Material shelfColour, string code, string fileName = "")
+    public SymbolObject(string name, GameObject symbol, Material material, Material shelfColour, string code, string fileName = "")
     {
+        m_name = name;
         m_symbol = symbol;
         m_material = material;
         m_shelfColour = shelfColour;
