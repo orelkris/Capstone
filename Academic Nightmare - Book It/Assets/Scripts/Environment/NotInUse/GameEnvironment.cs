@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class GameEnvironment
+[PunRPC]
+public class GameEnvironment : MonoBehaviour
 {
-    public const int numOfSymbols = 4;
+    private const int numOfSymbols = 3;
 
     public int GetNumOfSymbols { get { return numOfSymbols; } }
     public struct coordinates
@@ -16,6 +18,7 @@ public class GameEnvironment
         public float z;
     };
 
+    bool runOnce = false;
     private static GameEnvironment instance;
 
     private List<GameObject> checkpoints = new List<GameObject>();
@@ -47,21 +50,31 @@ public class GameEnvironment
 
     public int currentSymbolIndex;
 
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            
+            
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public static GameEnvironment Singleton
     {
-
-
         get
         {
-            if (instance == null)
+            if(!instance.runOnce)
             {
-                instance = new GameEnvironment();
                 //instance.Checkpoints.AddRange(
-                  //  GameObject.FindGameObjectsWithTag("Checkpoint"));
+                //  GameObject.FindGameObjectsWithTag("Checkpoint"));
 
                 //instance.Shelves.AddRange(
-                   // GameObject.FindGameObjectsWithTag("Shelf"));
+                // GameObject.FindGameObjectsWithTag("Shelf"));
 
                 instance.Symbols.AddRange(
                     GameObject.FindGameObjectsWithTag("Symbol"));
@@ -92,7 +105,11 @@ public class GameEnvironment
                 instance.symbolIndex = new List<int>();
 
                 instance.currentSymbolIndex = 0;
+
+                instance.runOnce = true;
             }
+               
+            
 
             return instance;
         }

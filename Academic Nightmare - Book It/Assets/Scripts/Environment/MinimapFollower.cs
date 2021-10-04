@@ -8,6 +8,7 @@ public class MinimapFollower : MonoBehaviour
     bool foundPlayerTwo = false;
     void Start()
     {
+        
         if(GameObject.Find("PlayerTwo(Clone)") != null)
         {
             player2 = GameObject.Find("PlayerTwo(Clone)").transform;

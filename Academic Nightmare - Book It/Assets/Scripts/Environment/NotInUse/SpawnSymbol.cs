@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 
-public class SpawnSymbol: MonoBehaviour
+public class SpawnSymbol : MonoBehaviour
 {
     public GameObject book;
     public GameObject player;
@@ -12,48 +15,56 @@ public class SpawnSymbol: MonoBehaviour
     GameObject temp;
     Text code;
     Material shelfColour;
-    Sprite sprite;
 
-
+    [PunRPC]
     public static List<SymbolObject> testSymbol = new List<SymbolObject>();
 
     void Start()
     {
 
+        
+        LoadSymbols();
+
+
         if (!GameStateController.isPlayerOne)
         {
             code = GameObject.Find("Code").GetComponent<Text>();
         }
+    }
 
+    [PunRPC]
+    public void LoadSymbols()
+    {
+
+       
         // attach code and material to objects
         for (int i = 0; i < GameEnvironment.Singleton.GetNumOfSymbols; i++)
         {
             // find the colour of the shelf based on the parent tag
             string colour = GameEnvironment.Singleton.Symbols[i].transform.parent.tag;
             shelfColour = ((Material)Resources.Load($"Materials/Shelf/{colour}", typeof(Material)));
-            //shelfColour = GameEnvironment.Singleton.Symbols[i].transform.parent.GetComponent<Renderer>().material;
             string name = GameEnvironment.Singleton.Materials[i].name;
+            //shelfColour = GameEnvironment.Singleton.Symbols[i].transform.parent.GetComponent<Renderer>().material;
             SymbolObject symbol = new SymbolObject(name, GameEnvironment.Singleton.Symbols[i],
                 GameEnvironment.Singleton.Materials[i],
                 shelfColour,
                 GameEnvironment.Singleton.Code[i]);
 
-            //Symbols need to be added to hacker screen as well
-            
+            Debug.Log(GameEnvironment.Singleton.Code[i]);
 
             // apply the material onto the symbols object
             GameEnvironment.Singleton.Symbols[i].GetComponent<Renderer>().material = GameEnvironment.Singleton.Materials[i];
+            //Debug.Log(shelfColour.ToString());
 
             testSymbol.Add(symbol);
+            Debug.Log("FROM TEST " + testSymbol[0].m_code);
         }
 
-        int symbol1 = Random.Range(0, 3);
+        int symbol1 = Random.Range(0, GameEnvironment.Singleton.GetNumOfSymbols - 1);
 
         GameEnvironment.Singleton.symbolIndex.Add(symbol1);
 
         GameEnvironment.AddSymbol(testSymbol[symbol1]);
-
-        //SpawnSymbol.LoadImage($"Materials/Images/{testSymbol[symbol1].m_material.name}");
 
         Debug.Log(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_name);
     }
@@ -67,9 +78,10 @@ public class SpawnSymbol: MonoBehaviour
 
         Sprite sprite = (Sprite)Resources.Load(symbolPath, typeof(Sprite));
 
+        Debug.Log(sprite.name);
+
         screen.GetComponent<Image>().sprite = sprite;
     }
-
     public static SymbolObject FindSymbol(string name)
     {
         foreach (var t in testSymbol)
@@ -84,6 +96,8 @@ public class SpawnSymbol: MonoBehaviour
     }
 }
 
+
+/*
 public class SymbolObject
 {
     public string m_name;
@@ -103,3 +117,4 @@ public class SymbolObject
         m_fileName = fileName;
     }
 }
+*/

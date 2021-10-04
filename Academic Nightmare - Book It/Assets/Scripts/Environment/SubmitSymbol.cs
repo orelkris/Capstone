@@ -7,7 +7,7 @@ public class SubmitSymbol : MonoBehaviour
 {
     public void Submit()
     {
-        string name = SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_name;
+        string name = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfObject.m_name;
         if (this.GetComponent<Image>().sprite.name == name)
         {
             Debug.Log("Correct");

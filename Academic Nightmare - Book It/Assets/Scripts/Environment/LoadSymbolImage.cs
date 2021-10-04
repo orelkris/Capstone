@@ -2,36 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoadSymbolImage : MonoBehaviour
 {
 
     GameObject symbolButton;
     GameObject panelSymbolHolder;
-    Button button;
+    public Button button;
+    Image imageSymbolColour;
+    TextMeshProUGUI textSymbolCode;
+    bool first = true;
 
+    
     private void Start()
     {
+        
         // find the symbol holding panel
         panelSymbolHolder = GameObject.Find("PanelSymbolHolder");
+        imageSymbolColour = GameObject.Find("ImageSymbolColour").GetComponent<Image>();
+
+        // this is the object to use when accessing the TextMeshPro text item
+        textSymbolCode = GameObject.Find("TextSymbolCode").GetComponent<TextMeshProUGUI>();
         
         LoadSymbols();
     }
+
     public void LoadSymbols()
     {
+        //Debug.Log("LOAD SYMBOL " + GameController.ListOfSymbols[GameController.correctSymbolIndex].name);
+        imageSymbolColour.color = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().shelfColour.color;
         
+        //imageSymbolColour.color = SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_shelfColour.color;
+
+        textSymbolCode.SetText(GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfCode);
+        //textSymbolCode.SetText(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_code);
         // Hacker screen symbol list
-        for (int i = 0; i < GameEnvironment.Singleton.GetNumOfSymbols; i++)
+        for (int i = 0; i <= GameController.numOfSymbols; i++)
         {
-            // add buttons dynamically to the panel
-            // this way we can add as many buttons as needed in the future if
-            // we choose to add more symbols
-            button = panelSymbolHolder.AddComponent<Button>();
-            button.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
-            button.GetComponentInChildren<Text>().text = "";
-            // find the symbol sprites and apply them to the newly created buttons
-            //button = GameObject.Find($"ButtonSymbol{i}");
+
+            // instantiate a button prefab and assign the symbol sprites to it
+            Instantiate<Button>(button, panelSymbolHolder.transform);
             button.GetComponent<Image>().sprite = (Sprite)Resources.Load($"Materials/Images/Symbol{i + 1}", typeof(Sprite));
+
         }
+
+        // ask about why this extra button is appearing...super weird stuff!!!!!!!!!!
+        DestroyImmediate(panelSymbolHolder.GetComponentsInChildren<Button>()[0].gameObject);
     }
 }

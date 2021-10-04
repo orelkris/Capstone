@@ -7,6 +7,20 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPun
 {
+    /// <summary>
+    /// 
+    /// ADDED FOR TEST
+    public GameObject book;
+    public GameObject player;
+    int spawnTreasure = -1;
+    int last = 0;
+    GameObject temp;
+    Text textcode;
+    Material shelfColour;
+
+    public static List<SymbolObject> testSymbol = new List<SymbolObject>();
+    /// </summary>
+    /// 
     public Camera playerCam;
     public GameObject spherePrefab;
 
@@ -45,10 +59,18 @@ public class PlayerController : MonoBehaviourPun
 
     private void Awake()
     {
-
+        
     }
     void Start()
     {
+
+        if (!GameStateController.isPlayerOne)
+        {
+            textcode = GameObject.Find("Code").GetComponent<Text>();
+            
+        }
+        
+
         //start following player 2 using the minimap
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -151,7 +173,15 @@ public class PlayerController : MonoBehaviourPun
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        code.text = SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code;
+                        /*
+                        code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+                            hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+                            SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
+                        */
+                        if(photonView.IsMine)
+                        {
+                            code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
+                        }
 
                         //if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
 
@@ -189,6 +219,5 @@ public class PlayerController : MonoBehaviourPun
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         this.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
-
-   
 }
+
