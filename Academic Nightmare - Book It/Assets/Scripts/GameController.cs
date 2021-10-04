@@ -29,18 +29,19 @@ public class GameController : MonoBehaviour
             GameObject.Find("Crosshair").SetActive(false);
 
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
+            
             //keep track of symbol location and the shelf colour they are associated with
             for (int i = 1; i < spawnLocation.Length; i++)
             {
-                Debug.Log("SHELF COLOUR : " + ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material))).name);
+                //Debug.Log("SHELF COLOUR : " + ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material))).name);
                 ListOflocationColour.Add(new LocationTracker(spawnLocation[i].transform.position,
                     ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material)))));
             }
 
-            Shuffle(ListOflocationColour);
+            Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
 
-            Debug.Log(spawnLocation[1].transform.position);
-            Debug.Log(spawnLocation[2].transform.position);
+            //Debug.Log(spawnLocation[1].transform.position);
+            //Debug.Log(spawnLocation[2].transform.position);
             //Attempting to instantiate a symbol at a specified location
             //getting a list of code
             for(int i = 0; i < numOfSymbols; i++)
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour
                 ListOfSymbols.Add(GameObject.Find($"Symbol{i + 1}(Clone)"));
             }
 
-            Shuffle(ListOfSymbols);
+            Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
 
         }
         else
@@ -74,10 +75,10 @@ public class GameController : MonoBehaviour
         return null;
     }
 
-    public List<T> Shuffle<T>(List<T> list)
+    public List<T> Shuffle<T>(List<T> list, int startIndex, int endIndex)
     {
         System.Random rnd = new System.Random();
-        for (int i = 0; i < list.Count; i++)
+        for (int i = startIndex ; i < endIndex; i++)
         {
             int k = rnd.Next(0, i);
             T value = list[k];

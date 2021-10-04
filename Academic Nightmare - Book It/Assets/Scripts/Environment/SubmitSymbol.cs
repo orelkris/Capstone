@@ -11,6 +11,9 @@ public class SubmitSymbol : MonoBehaviour
         if (this.GetComponent<Image>().sprite.name == name)
         {
             Debug.Log("Correct");
+            //advance the correct symbol
+            GameController.correctSymbolIndex++;
+            GameObject.Find("PanelSymbolHolder").GetComponent<LoadSymbolImage>().LoadColourCode();
         }
         else
         {

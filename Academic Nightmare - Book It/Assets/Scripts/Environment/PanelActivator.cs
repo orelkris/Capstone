@@ -12,6 +12,22 @@ public class PanelActivator : MonoBehaviour
     // hook up this function to onClick of the button via inspector panel
     public void AnimatePanelHide()
     {
+        if (this.name == "ButtonHomepage")
+        {
+            CellphoneView.currentPanelIndex = 0;
+            Debug.Log("ButtonHomepage Pressed " + CellphoneView.currentPanelIndex);
+        }
+        else if (this.name == "ButtonMinimap")
+        {
+            CellphoneView.currentPanelIndex = 1;
+            Debug.Log("ButtonMinimap Pressed " + CellphoneView.currentPanelIndex);
+        }
+        else if (this.name == "ButtonSymbols")
+        {
+            CellphoneView.currentPanelIndex = 2;
+            Debug.Log("ButtonSymbol Pressed " + CellphoneView.currentPanelIndex);
+        }
+
         StartCoroutine(Deactivate(1.0f));
         // StartCoroutine("Deactivate", 1.0f);
         // why do this? Not a good idea       

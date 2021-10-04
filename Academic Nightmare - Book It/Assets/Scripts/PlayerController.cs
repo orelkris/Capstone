@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviourPun
     public Camera playerCam;
     public GameObject spherePrefab;
 
-    public bool canPlayerOneMove = true;
+    public static bool canPlayerOneMove = true;
 
     float x, y;
 
@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviourPun
     private void Update()
     {
         //Show/Hide inventory
+        /*
         if (GameStateController.isPlayerOne)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -135,6 +136,7 @@ public class PlayerController : MonoBehaviourPun
                 }
             }
         }
+        */
 
         if (photonView.IsMine)
         {

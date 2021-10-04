@@ -30,13 +30,7 @@ public class LoadSymbolImage : MonoBehaviour
 
     public void LoadSymbols()
     {
-        //Debug.Log("LOAD SYMBOL " + GameController.ListOfSymbols[GameController.correctSymbolIndex].name);
-        imageSymbolColour.color = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().shelfColour.color;
-        
-        //imageSymbolColour.color = SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_shelfColour.color;
-
-        textSymbolCode.SetText(GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfCode);
-        //textSymbolCode.SetText(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_code);
+        LoadColourCode();
         // Hacker screen symbol list
         for (int i = 0; i <= GameController.numOfSymbols; i++)
         {
@@ -49,5 +43,16 @@ public class LoadSymbolImage : MonoBehaviour
 
         // ask about why this extra button is appearing...super weird stuff!!!!!!!!!!
         DestroyImmediate(panelSymbolHolder.GetComponentsInChildren<Button>()[0].gameObject);
+    }
+
+    public void LoadColourCode()
+    {
+        //Debug.Log("LOAD SYMBOL " + GameController.ListOfSymbols[GameController.correctSymbolIndex].name);
+        imageSymbolColour.color = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().shelfColour.color;
+
+        //imageSymbolColour.color = SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_shelfColour.color;
+
+        textSymbolCode.SetText(GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfCode);
+        //textSymbolCode.SetText(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_code);
     }
 }
