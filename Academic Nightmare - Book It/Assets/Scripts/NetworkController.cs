@@ -10,7 +10,6 @@ using Photon.Realtime;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController Instance;
-
     [SerializeField] TMP_InputField roomNameInputField;
 
     //bool to check if using for quick testing
