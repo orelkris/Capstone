@@ -37,7 +37,7 @@ public class LoadSymbolImage : MonoBehaviour
 
             // instantiate a button prefab and assign the symbol sprites to it
             Instantiate<Button>(button, panelSymbolHolder.transform);
-            button.GetComponent<Image>().sprite = (Sprite)Resources.Load($"Materials/Images/Symbol{i + 1}", typeof(Sprite));
+            button.GetComponent<Image>().sprite = (Sprite)Resources.Load($"Materials/Symbols/Symbol{i + 1}", typeof(Sprite));
 
         }
 
