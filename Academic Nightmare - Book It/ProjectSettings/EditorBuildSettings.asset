@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 29b803fc13fadc54bbe8cc79d3a67028
   - enabled: 1
-    path: Assets/Scenes/MazeLevel.unity
-    guid: 66d238cf9aa45424da1580c9ee7848c7
-  - enabled: 1
     path: Assets/Scenes/Sandbox Scene.unity
     guid: e83e8516796577c46aacb0b300d7eddf
+  - enabled: 1
+    path: Assets/Scenes/MazeLevel.unity
+    guid: 66d238cf9aa45424da1580c9ee7848c7
   - enabled: 0
     path: Assets/Scenes/Level.unity
     guid: 332db54dc9986204b84d982dcd06ea7f
