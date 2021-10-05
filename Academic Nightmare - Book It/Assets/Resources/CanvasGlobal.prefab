@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: d6c7376d23ee4f14aa77679ef42fdfaa, type: 2}
+  m_Texture: {fileID: 8400000, guid: 918a48604daaefe4098d644ea25b20ac, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1815,7 +1815,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -7504434351277357638}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
