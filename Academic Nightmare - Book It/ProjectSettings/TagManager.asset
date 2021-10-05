@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Lounge
+  - WaitingArea
+  - Home
+  - Door
+  - Reception
+  - Symbol
+  - Blue
+  - Red
+  - Yellow
+  - Green
   layers:
   - Default
   - TransparentFX
