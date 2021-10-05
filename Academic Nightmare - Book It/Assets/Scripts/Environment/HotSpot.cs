@@ -28,35 +28,38 @@ public class HotSpot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 spot1 = new Vector3 { x = 12f, y = 3.5f, z = 33f };
+        if(GameStateController.isPlayerOne)
+        {
+            Vector3 spot1 = new Vector3 { x = 12f, y = 3.5f, z = 33f };
 
-        Vector3 spot2 = new Vector3 { x = 26f, y = 3.5f, z = -33f };
+            Vector3 spot2 = new Vector3 { x = 26f, y = 3.5f, z = -33f };
 
-        Vector3 spot3 = new Vector3 { x = 22f, y = 3.5f, z = 39f };
+            Vector3 spot3 = new Vector3 { x = 22f, y = 3.5f, z = 39f };
 
-        Vector3 spot4 = new Vector3 { x = 31f, y = 3.5f, z = 39f };
+            Vector3 spot4 = new Vector3 { x = 31f, y = 3.5f, z = 39f };
 
-        HotSpotLocation.Add(spot1);
-        HotSpotLocation.Add(spot2);
-        HotSpotLocation.Add(spot3);
-        HotSpotLocation.Add(spot4);
+            HotSpotLocation.Add(spot1);
+            HotSpotLocation.Add(spot2);
+            HotSpotLocation.Add(spot3);
+            HotSpotLocation.Add(spot4);
 
-        hotSpotIndex = 0;
+            hotSpotIndex = 0;
 
-        //audioHotSpot.GetComponent<AudioSource>();
-        counter = 0f;
-        canDownload = 0f;
+            //audioHotSpot.GetComponent<AudioSource>();
+            counter = 0f;
+            canDownload = 0f;
 
-        player = GameObject.Find("PlayerOne(Clone)");
+            player = GameObject.Find("PlayerOne(Clone)");
 
-        // create a sphere object
-        hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            // create a sphere object
+            hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
-        SpawnHotSpot();
+            SpawnHotSpot();
 
-        //***********LOADBAR********//
-        loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
-        progressBar = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+            //***********LOADBAR********//
+            loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
+            progressBar = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+        }
 
     }
 
@@ -81,68 +84,72 @@ public class HotSpot : MonoBehaviour
 
     void Update()
     {
-        counter += Time.deltaTime;
-
-        if (this.GetComponent<Collider>().bounds.Contains(player.transform.position))
+        if(GameStateController.isPlayerOne)
         {
+            counter += Time.deltaTime;
 
-            hasWifi = true;
-            Debug.Log("Has Wifi");
-
-            if(CellphoneView.cellphoneVisible && !downloadComplete)
+            if (this.GetComponent<Collider>().bounds.Contains(player.transform.position))
             {
-                // download image only if load image is active
-                // this happens only when the image has not yet been downloaded
 
-                canDownload += Time.deltaTime;
+                hasWifi = true;
+                Debug.Log("Has Wifi");
 
-
-                //********LOADBAR*******//
-                progressBar = GameObject.Find("ProgressBar").GetComponent<Slider>();
-                progressBar.value = 0.1f * Mathf.Round(canDownload);
-                Debug.Log(progressBar.value);
-
-                if (progressBar.value == 1)
+                if (CellphoneView.cellphoneVisible && !downloadComplete)
                 {
-                    downloadComplete = true;
-                    canDownload = 0;
-                    GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
-                    GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+                    // download image only if load image is active
+                    // this happens only when the image has not yet been downloaded
+
+                    canDownload += Time.deltaTime;
+
+
+                    //********LOADBAR*******//
+                    progressBar = GameObject.Find("ProgressBar").GetComponent<Slider>();
+                    progressBar.value = 0.1f * Mathf.Round(canDownload);
+                    Debug.Log(progressBar.value);
+
+                    if (progressBar.value == 1)
+                    {
+                        downloadComplete = true;
+                        canDownload = 0;
+                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
+                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+                    }
                 }
             }
-        }
-        else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
-        {
-            hasWifi = false;
-        }
+            else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
+            {
+                hasWifi = false;
+            }
 
-        //if (hasWifi && audioToggle)
-       // {
+            //if (hasWifi && audioToggle)
+            // {
             //audioHotSpot.Play();
-         //   audioToggle = false;
-       // }
+            //   audioToggle = false;
+            // }
 
-        if (!hasWifi)
-        {
-            // audioHotSpot.Stop();
-            //audioToggle = true;
-            //loadImagePanel.SetActive(true);
-        }
+            if (!hasWifi)
+            {
+                // audioHotSpot.Stop();
+                //audioToggle = true;
+                //loadImagePanel.SetActive(true);
+            }
 
-        if (Mathf.Round(counter) == 20)
-        {
-            SpawnHotSpot();
-            counter = 0;
-        }
+            if (Mathf.Round(counter) == 20)
+            {
+                SpawnHotSpot();
+                counter = 0;
+            }
 
-        // if the random float is above 40, change the colour of the sphere based on the list of colours
-        if (Mathf.Round(counter) % 2 == 0)
-        {
-            hotSpot.GetComponent<Renderer>().material.color = Color.magenta;
+            // if the random float is above 40, change the colour of the sphere based on the list of colours
+            if (Mathf.Round(counter) % 2 == 0)
+            {
+                hotSpot.GetComponent<Renderer>().material.color = Color.magenta;
+            }
+            else
+            {
+                hotSpot.GetComponent<Renderer>().material.color = Color.yellow;
+            }
         }
-        else
-        {
-            hotSpot.GetComponent<Renderer>().material.color = Color.yellow;
-        }
+        
     }
 }

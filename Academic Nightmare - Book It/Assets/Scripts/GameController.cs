@@ -56,7 +56,6 @@ public class GameController : MonoBehaviour
         else
         {
             GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
-            GameObject.Find("PanelHomepage").SetActive(false);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
 
         }
@@ -75,6 +74,8 @@ public class GameController : MonoBehaviour
         return null;
     }
 
+    //make sure to seed the random generator with a fixed seed for testing purposes
+    //otherwise you can see it with time and thus ensuring it is always different
     public List<T> Shuffle<T>(List<T> list, int startIndex, int endIndex)
     {
         System.Random rnd = new System.Random();
