@@ -10,10 +10,12 @@ using Photon.Realtime;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController Instance;
+
     [SerializeField] TMP_InputField roomNameInputField;
 
     //bool to check if using for quick testing
     public bool isTest = false;
+
     //Room option to set the number of players to 2
     public byte MaxPlayers = 2;
 
@@ -45,7 +47,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-
         Debug.Log("Joined Lobby");
     }
 
@@ -53,19 +54,30 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void DevTestCreateJoinRoom()
     {
         isTest = true;
-        Photon.Realtime.RoomOptions opts = new Photon.Realtime.RoomOptions();
-        opts.IsOpen = true;
-        opts.IsVisible = true;
-        opts.MaxPlayers = MaxPlayers;
+        RoomOptions opts = new RoomOptions
+        {
+            IsOpen = true,
+            IsVisible = true,
+            MaxPlayers = MaxPlayers
+        };
 
-        PhotonNetwork.JoinOrCreateRoom(roomNameInputField.text, opts, Photon.Realtime.TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomNameInputField.text, opts, TypedLobby.Default);
+    }
+
+    //Joined Room
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+
+        //If running test load level
+        if (isTest)
+            PhotonNetwork.LoadLevel(1);
     }
 
     //Failed to create a room
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
-
         Debug.Log("Room Failed to Create");
     }
 
@@ -81,16 +93,5 @@ public class NetworkController : MonoBehaviourPunCallbacks
         GameStateController.isPlayerOne = false;
     }
 
-    //Joined Room
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-
-        //If running test load level
-        if (isTest)
-        {
-            PhotonNetwork.LoadLevel(1);
-        }
-
-    }
+    
 }

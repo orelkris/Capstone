@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -73,17 +74,26 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		private PhotonView PV;
+
 		private void Awake()
 		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
-			{
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			}
+			PV = GetComponent<PhotonView>();
+
+            if (!PV.IsMine)
+            {
+				Destroy(GetComponentInChildren<Camera>().gameObject);
+				// get a reference to our main camera
+				if (_mainCamera == null)
+					_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            }
 		}
 
 		private void Start()
 		{
+			if (!PV.IsMine)
+				return;
+
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
@@ -94,6 +104,9 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			if (!PV.IsMine) 
+				return;
+
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
@@ -101,6 +114,9 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
+			if (!PV.IsMine) 
+				return;
+			
 			CameraRotation();
 		}
 
