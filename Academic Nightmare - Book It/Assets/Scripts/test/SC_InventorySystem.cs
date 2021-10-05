@@ -63,12 +63,12 @@ public class SC_InventorySystem : MonoBehaviour
         if (showInventory)
         {
             windowAnimation = Mathf.Lerp(windowAnimation, 0, animationTimer);
-            playerController.canPlayerOneMove = false;
+            PlayerController.canPlayerOneMove = false;
         }
         else
         {
             windowAnimation = Mathf.Lerp(windowAnimation, 1f, animationTimer);
-            playerController.canPlayerOneMove = true;
+            PlayerController.canPlayerOneMove = true;
         }
 
         

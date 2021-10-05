@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9172849176284700486
+--- !u!1 &3463311475801787985
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9172849176284700490}
-  - component: {fileID: 9172849176284700491}
-  - component: {fileID: 9172849176284700484}
-  - component: {fileID: 9172849176284700485}
-  - component: {fileID: 8237082500022090898}
-  - component: {fileID: -890922181734939517}
-  - component: {fileID: -5187127507732390045}
-  - component: {fileID: 4156790190757943422}
+  - component: {fileID: 3463311475801787991}
+  - component: {fileID: 3463311475801787988}
+  - component: {fileID: 3463311475801787989}
+  - component: {fileID: 3463311475801787986}
+  - component: {fileID: 3463311475801787987}
+  - component: {fileID: 3463311475801787984}
+  - component: {fileID: -2048864244806590502}
   m_Layer: 0
-  m_Name: PlayerTwo
-  m_TagString: Untagged
+  m_Name: Symbol3
+  m_TagString: Symbol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9172849176284700490
+--- !u!4 &3463311475801787991
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1.4, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_GameObject: {fileID: 3463311475801787985}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 101.00608, y: -56.051975, z: 71.305725}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9172849176284700491
+--- !u!33 &3463311475801787988
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &9172849176284700484
+  m_GameObject: {fileID: 3463311475801787985}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &3463311475801787989
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
+  m_GameObject: {fileID: 3463311475801787985}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a2614a73258e0a04dbca534e33ade805, type: 2}
+  - {fileID: 2100000, guid: 1b65fd9103359284e867ede45126e72e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,47 +85,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &9172849176284700485
-CapsuleCollider:
+--- !u!65 &3463311475801787986
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
+  m_GameObject: {fileID: 3463311475801787985}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8237082500022090898
+--- !u!114 &3463311475801787987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f9ffeb307329f1438045119e4c9687b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  book: {fileID: 0}
-  player: {fileID: 0}
-  playerCam: {fileID: 0}
-  spherePrefab: {fileID: 597556390604901388, guid: d12486dec5bbfb14ba2021a41e50ec6a, type: 3}
-  movespeed: 5
-  sensitivity: 50
-  selectableTag: Symbols
-  _selection: {fileID: 0}
---- !u!114 &-890922181734939517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
+  m_GameObject: {fileID: 3463311475801787985}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -139,17 +117,17 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -5187127507732390045}
+  - {fileID: 3463311475801787984}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-5187127507732390045
+--- !u!114 &3463311475801787984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
+  m_GameObject: {fileID: 3463311475801787985}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
@@ -159,21 +137,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!143 &4156790190757943422
-CharacterController:
+--- !u!114 &-2048864244806590502
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172849176284700486}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 3463311475801787985}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f225476e8d17b19428fd937a4f1bfc8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfCode: 
+  selfMaterial: {fileID: 0}
+  shelfColour: {fileID: 0}
+  selfName: 

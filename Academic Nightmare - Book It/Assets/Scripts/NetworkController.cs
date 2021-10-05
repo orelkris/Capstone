@@ -91,5 +91,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel(1);
         }
+
     }
 }

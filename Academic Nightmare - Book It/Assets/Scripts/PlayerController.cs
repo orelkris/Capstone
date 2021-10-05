@@ -7,10 +7,24 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPun
 {
+    /// <summary>
+    /// 
+    /// ADDED FOR TEST
+    public GameObject book;
+    public GameObject player;
+    int spawnTreasure = -1;
+    int last = 0;
+    GameObject temp;
+    Text textcode;
+    Material shelfColour;
+
+    public static List<SymbolObject> testSymbol = new List<SymbolObject>();
+    /// </summary>
+    /// 
     public Camera playerCam;
     public GameObject spherePrefab;
 
-    public bool canPlayerOneMove = true;
+    public static bool canPlayerOneMove = true;
 
     float x, y;
 
@@ -45,10 +59,18 @@ public class PlayerController : MonoBehaviourPun
 
     private void Awake()
     {
-
+        
     }
     void Start()
     {
+
+        if (!GameStateController.isPlayerOne)
+        {
+            textcode = GameObject.Find("Code").GetComponent<Text>();
+            
+        }
+        
+
         //start following player 2 using the minimap
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -91,6 +113,7 @@ public class PlayerController : MonoBehaviourPun
     private void Update()
     {
         //Show/Hide inventory
+        /*
         if (GameStateController.isPlayerOne)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -103,26 +126,7 @@ public class PlayerController : MonoBehaviourPun
                     Cursor.lockState = CursorLockMode.Confined;
                     canPlayerOneMove = false;
 
-                    //Detect if the Player is looking at any item
-                    RaycastHit hit;
-                    //Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));///TH
-                    Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
-
-
-                    if (Physics.Raycast(ray, out hit, 100))
-                    {
-                        Transform objectHit = hit.transform;
-                        Debug.Log(hit.transform.name);
-
-                        if (hit.collider == GameObject.Find("Button"))
-                        {
-                            if(Input.GetMouseButtonDown(0))
-                            {
-                                Debug.Log("MINIMAP SPOTTED");
-                            }
-                        }
-
-                    }
+                    
                 }
                 else
                 {
@@ -132,22 +136,14 @@ public class PlayerController : MonoBehaviourPun
                 }
             }
         }
+        */
 
         if (photonView.IsMine)
         {
-            if(!GameStateController.isPlayerOne)
-            {
-                myInput();
-                Look();
-            }
-            else
-            {
 
-                myInput();
-                Look();
-                
-                
-            }
+            myInput();
+            Look();
+
         }
 
         if(!GameStateController.isPlayerOne)
@@ -179,7 +175,15 @@ public class PlayerController : MonoBehaviourPun
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        code.text = SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code;
+                        /*
+                        code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+                            hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+                            SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
+                        */
+                        if(photonView.IsMine)
+                        {
+                            code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
+                        }
 
                         //if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
 
@@ -217,6 +221,5 @@ public class PlayerController : MonoBehaviourPun
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         this.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
-
-   
 }
+

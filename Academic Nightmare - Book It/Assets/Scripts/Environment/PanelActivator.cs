@@ -12,6 +12,22 @@ public class PanelActivator : MonoBehaviour
     // hook up this function to onClick of the button via inspector panel
     public void AnimatePanelHide()
     {
+        if (this.name == "ButtonHomepage")
+        {
+            CellphoneView.currentPanelIndex = 0;
+            Debug.Log("ButtonHomepage Pressed " + CellphoneView.currentPanelIndex);
+        }
+        else if (this.name == "ButtonMinimap")
+        {
+            CellphoneView.currentPanelIndex = 1;
+            Debug.Log("ButtonMinimap Pressed " + CellphoneView.currentPanelIndex);
+        }
+        else if (this.name == "ButtonSymbols")
+        {
+            CellphoneView.currentPanelIndex = 2;
+            Debug.Log("ButtonSymbol Pressed " + CellphoneView.currentPanelIndex);
+        }
+
         StartCoroutine(Deactivate(1.0f));
         // StartCoroutine("Deactivate", 1.0f);
         // why do this? Not a good idea       
@@ -30,28 +46,6 @@ public class PanelActivator : MonoBehaviour
         // notice this is associated with IEnumerator
         yield return new WaitForSeconds(delay);//means put this funciton on sleep before continuing
 
-        // play slideout animation
-        // wait for 1 second
-        // turn off current panel
-        // turn on the other panel
-        panelToDeactivate.SetActive(false);
-
-        panelToActivate.SetActive(true);
-    }
-
-
-    /// ALTERNATE WAY
-
-    //Animate Panel Hide Alternate
-    public void AnimatePanelHideAlternate()
-    {
-        //panelToDeactivate.GetComponent<Animator>().SetTrigger("changeState");
-        Invoke("HideAndActivatePanelAfterDelay", 1.0f);//calls after 1 second of delay
-    }
-
-
-    void HideAndActivatePanelAfterDelay()
-    {
         // play slideout animation
         // wait for 1 second
         // turn off current panel
