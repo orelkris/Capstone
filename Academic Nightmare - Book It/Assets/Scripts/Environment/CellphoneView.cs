@@ -17,6 +17,8 @@ public class CellphoneView : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
+
+
                 Animator animator = this.GetComponent<Animator>();
 
                 if (animator != null)
