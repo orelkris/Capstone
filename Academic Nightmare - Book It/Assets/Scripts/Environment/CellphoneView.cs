@@ -23,7 +23,7 @@ public class CellphoneView : MonoBehaviour
 
                 if (animator != null)
                 {
-                    bool isOpen = animator.GetBool("open");
+                    //bool isOpen = animator.GetBool("open");
                     if (!cellphoneVisible)
                     {
                         Cursor.visible = true;
@@ -61,7 +61,7 @@ public class CellphoneView : MonoBehaviour
                         PlayerController.canPlayerOneMove = true;
                     }
 
-                    animator.SetBool("open", !isOpen);
+                    //animator.SetBool("open", !isOpen);
                 }
             }
         }

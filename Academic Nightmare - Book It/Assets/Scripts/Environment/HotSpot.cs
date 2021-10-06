@@ -30,13 +30,13 @@ public class HotSpot : MonoBehaviour
     {
         if(GameStateController.isPlayerOne)
         {
-            Vector3 spot1 = new Vector3 { x = 12f, y = 3.5f, z = 33f };
+            Vector3 spot1 = new Vector3 { x = 56f, y = 55f, z = -48f };
 
-            Vector3 spot2 = new Vector3 { x = 26f, y = 3.5f, z = -33f };
+            Vector3 spot2 = new Vector3 { x = 56f, y = 55f, z = -133f };
 
-            Vector3 spot3 = new Vector3 { x = 22f, y = 3.5f, z = 39f };
+            Vector3 spot3 = new Vector3 { x = -60f, y = 55f, z = -133f };
 
-            Vector3 spot4 = new Vector3 { x = 31f, y = 3.5f, z = 39f };
+            Vector3 spot4 = new Vector3 { x = -60f, y = 55f, z = 94f };
 
             HotSpotLocation.Add(spot1);
             HotSpotLocation.Add(spot2);
@@ -134,7 +134,7 @@ public class HotSpot : MonoBehaviour
                 //loadImagePanel.SetActive(true);
             }
 
-            if (Mathf.Round(counter) == 20)
+            if (Mathf.Round(counter) == 120)
             {
                 SpawnHotSpot();
                 counter = 0;
