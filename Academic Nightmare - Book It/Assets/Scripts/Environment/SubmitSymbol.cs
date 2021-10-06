@@ -14,6 +14,12 @@ public class SubmitSymbol : MonoBehaviour
             //advance the correct symbol
             GameController.correctSymbolIndex++;
             GameObject.Find("PanelSymbolHolder").GetComponent<LoadSymbolImage>().LoadColourCode();
+
+            // reset the downloading bar
+            HotSpot.downloadComplete = false;
+            GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+            CellphoneView.currentPanelIndex = 4;
+            GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
         }
         else
         {

@@ -113,6 +113,7 @@ public class HotSpot : MonoBehaviour
                     {
                         downloadComplete = true;
                         canDownload = 0;
+                        progressBar.value = 0;
                         // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
                         // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
                         GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
