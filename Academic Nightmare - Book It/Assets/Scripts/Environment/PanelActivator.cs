@@ -8,6 +8,8 @@ public class PanelActivator : MonoBehaviour
 
     public GameObject panelToDeactivate;
 
+    public GameObject panelBlocking;
+
     //this function will be called when the button is clicked to switch a panel
     // hook up this function to onClick of the button via inspector panel
     public void AnimatePanelHide()
@@ -26,6 +28,11 @@ public class PanelActivator : MonoBehaviour
         {
             CellphoneView.currentPanelIndex = 2;
             Debug.Log("ButtonSymbol Pressed " + CellphoneView.currentPanelIndex);
+        }
+        else if (this.name == "ButtonCompass")
+        {
+            CellphoneView.currentPanelIndex = 3;
+            Debug.Log("ButtonCompass Pressed " + CellphoneView.currentPanelIndex);
         }
 
         StartCoroutine(Deactivate(1.0f));
@@ -50,9 +57,23 @@ public class PanelActivator : MonoBehaviour
         // wait for 1 second
         // turn off current panel
         // turn on the other panel
-        panelToDeactivate.SetActive(false);
+        if (!HotSpot.downloadComplete && (CellphoneView.currentPanelIndex == 1 || CellphoneView.currentPanelIndex == 2))
+        {
+            CellphoneView.currentPanelIndex = 4;
 
-        panelToActivate.SetActive(true);
+            panelToDeactivate.SetActive(false);
+
+            panelBlocking.SetActive(true);
+        }
+        else
+        {
+
+            panelToDeactivate.SetActive(false);
+
+            panelToActivate.SetActive(true);
+        }
+
+
     }
 }
 

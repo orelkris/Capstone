@@ -15,13 +15,14 @@ public class HotSpot : MonoBehaviour
     public static int hotSpotIndex;
     public List<Vector3> HotSpotLocation = new List<Vector3>();
     public static bool downloadComplete = false;
+    public Slider progressBar;
 
     public static Animator animator;
 
 
     //***********LOADBAR********//
     public static GameObject loadImagePanel;
-    public static Slider progressBar;
+    //public static Slider progressBar;
 
     // random list of colours
     Color32[] colorList = { Color.red, Color.blue, Color.green, Color.magenta };
@@ -53,6 +54,7 @@ public class HotSpot : MonoBehaviour
 
             // create a sphere object
             hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            hotSpot.GetComponent<MeshRenderer>().enabled = false;
 
             SpawnHotSpot();
 
@@ -94,7 +96,7 @@ public class HotSpot : MonoBehaviour
                 hasWifi = true;
                 Debug.Log("Has Wifi");
 
-                if (CellphoneView.cellphoneVisible && !downloadComplete)
+                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null)
                 {
                     // download image only if load image is active
                     // this happens only when the image has not yet been downloaded
@@ -111,8 +113,12 @@ public class HotSpot : MonoBehaviour
                     {
                         downloadComplete = true;
                         canDownload = 0;
-                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
+                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
+                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+                        CellphoneView.currentPanelIndex = 2;
                         GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+
                     }
                 }
             }
