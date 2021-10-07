@@ -34,7 +34,7 @@ public class PushToTalk : MonoBehaviourPun
             if (view.IsMine)
             {
                 Debug.Log("Stop talking");
-                VoiceRecorder.enabled = false;
+                VoiceRecorder.TransmitEnabled = false;
             }
         }
     }
