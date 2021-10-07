@@ -48,6 +48,10 @@ MonoBehaviour:
   - RandomNameGenerator
   - GetObjectCode
   - ReceiveCode
+  - RPC_GetPlayer
+  - RPC_SetPlayer
+  - RPC_GetLevelSelect
+  - RPC_SetLevelSelect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
