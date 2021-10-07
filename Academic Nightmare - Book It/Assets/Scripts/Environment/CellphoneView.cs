@@ -29,16 +29,28 @@ public class CellphoneView : MonoBehaviour
                         Cursor.visible = true;
                         Cursor.lockState = CursorLockMode.Confined;
                         PlayerController.canPlayerOneMove = false;
+                        cellphonePanels[currentPanelIndex].SetActive(true);
 
+                        /*
                         if (HotSpot.downloadComplete)
                         {
-                            cellphonePanels[currentPanelIndex].SetActive(true);
-                            cellphonePanels[3].SetActive(false);
+                            cellphonePanels[2].SetActive(true);
+                            cellphonePanels[currentPanelIndex].SetActive(false);
                         }
-                        else
+                        else 
                         {
-                            cellphonePanels[3].SetActive(true);
+                            if(currentPanelIndex == 1 || currentPanelIndex == 2)
+                            {
+                                cellphonePanels[4].SetActive(true);
+                            }
+                            else
+                            {
+                                cellphonePanels[currentPanelIndex].SetActive(true);
+                            }
                         }
+                        */
+
+
 
 
                         cellphoneVisible = true;
@@ -46,14 +58,29 @@ public class CellphoneView : MonoBehaviour
                     }
                     else
                     {
+                        cellphonePanels[currentPanelIndex].SetActive(false);
+                        Debug.Log("CURRENT INDEX " + currentPanelIndex);
+                        /*
                         if(HotSpot.downloadComplete)
                         {
                             cellphonePanels[currentPanelIndex].SetActive(false);
                         }
                         else
                         {
-                            cellphonePanels[3].SetActive(false);
+                            if (currentPanelIndex == 1 || currentPanelIndex == 2)
+                            {
+                                cellphonePanels[4].SetActive(false);
+                            }
+                            else
+                            {
+                                cellphonePanels[currentPanelIndex].SetActive(false);
+
+                            }
+                            //cellphonePanels[4].SetActive(false);
                         }
+                        */                       
+
+
                         cellphoneVisible = false;
 
                         Cursor.visible = false;
