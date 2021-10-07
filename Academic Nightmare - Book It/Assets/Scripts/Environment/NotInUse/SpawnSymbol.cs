@@ -10,11 +10,13 @@ public class SpawnSymbol : MonoBehaviour
 {
     public GameObject book;
     public GameObject player;
-    int spawnTreasure = -1;
+/*    int spawnTreasure = -1;
     int last = 0;
-    GameObject temp;
-    Text code;
+    GameObject temp;*/
+
     Material shelfColour;
+
+    Text code;
 
     [PunRPC]
     public static List<SymbolObject> testSymbol = new List<SymbolObject>();
