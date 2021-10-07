@@ -10,7 +10,7 @@ public class Assistant : MonoBehaviour
 
     NavMeshAgent agent;
     Animator anim;
-    private Transform player;
+    private Transform player = null;
     public static List<GameObject> checkpoints = new List<GameObject>();
     State currentState;
     // Start is called before the first frame update
