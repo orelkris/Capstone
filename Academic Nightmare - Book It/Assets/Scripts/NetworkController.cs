@@ -13,8 +13,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     [SerializeField] TMP_InputField roomNameInputField;
 
-
-
     //bool to check if using for quick testing
     public bool isTest = false;
 
@@ -73,22 +71,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         //If running test load level
         if (isTest) PhotonNetwork.LoadLevel(1);
-    }
-
-    public void CreateRoom()
-    {
-        if (string.IsNullOrEmpty(roomNameInputField.text))
-        {
-            return;
-        }
-
-        PhotonNetwork.CreateRoom(roomNameInputField.text);
-        MenuController.Instance.OpenMenu("loading");
-    }
-
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("room created: ");
     }
 
     //Failed to create a room

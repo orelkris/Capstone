@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
         if (!PV.IsMine)
         {
-            Destroy(GameObject.FindGameObjectWithTag("MainCamera"));
+            Destroy(GameObject.FindGameObjectWithTag("Main Camera"));
         }
     }
 }
