@@ -15,13 +15,12 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
         if (GameStateController.isPlayerOne)
         {
-            PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
+            PhotonNetwork.Instantiate("Player", player1SpawnPosition.transform.position,
                         Quaternion.identity);
 
             // Hide the player 2 canvas object from player 1
@@ -55,7 +54,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
+            GameObject player2 = PhotonNetwork.Instantiate("PlayerOne", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
 
         }
