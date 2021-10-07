@@ -7,7 +7,7 @@ public class State
 {
     public enum STATE
     {
-        IDLE, ROAM, PURSUE, STACK, ATTACK, SLEEP, SUSPECT
+        IDLE, ROAM, PURSUE, SUSPECT
     };
 
     public enum EVENT
@@ -19,10 +19,11 @@ public class State
     protected EVENT stage;
     protected GameObject npc;
     protected Transform player;
+    protected STATE prevState;
     protected State nextState; // not the enum state
     protected NavMeshAgent agent;
 
-    float visDist = 1000.0f;
+    float visDist = 20.0f;
     float visAngle = 30.0f;
     float shootDist = 7.0f;
 
@@ -65,12 +66,11 @@ public class State
     {
         Vector3 direction = player.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
-        float maxRange = 15f;
         RaycastHit hit;
         if (direction.magnitude < visDist && angle < visAngle)
         {
             //Debug.Log("Object detected between AI and player at"+ hit.distance);
-            if (Physics.Raycast(agent.transform.position, (player.position - agent.transform.position), out hit, maxRange))
+            if (Physics.Raycast(agent.transform.position, (player.position - agent.transform.position), out hit, Mathf.Infinity))
             {
                 if (hit.transform == player)
                 {
@@ -80,7 +80,7 @@ public class State
             }
             return true;
         }
-
+        Debug.Log("Player not seen");
         return false;
     }
 
@@ -103,6 +103,7 @@ public class Idle : State
         : base(_npc, _agent, _player)
     {
         name = STATE.IDLE;
+        prevState = STATE.IDLE;
     }
 
     public override void Enter()
@@ -135,6 +136,7 @@ public class Idle : State
     {
         Debug.Log("Exit Idle");
         // clean up animation
+        prevState = STATE.IDLE;
         base.Exit();
     }
 }
@@ -148,22 +150,21 @@ public class Roam : State
         : base(_npc, _agent, _player)
     {
         name = STATE.ROAM;
-        agent.speed = 2f;
+        agent.speed = 3.5f;
         agent.isStopped = false;
     }
 
     public override void Enter()
     {
         Debug.Log("Enter Roam");
-        //Why compare to infinity?
         float lastDist = Mathf.Infinity;
-        for (int i = 0; i < GameEnvironment.Singleton.Checkpoints.Count; i++)
+        for (int i = 0; i < Assistant.checkpoints.Count; i++)
         {
-            GameObject thisWP = GameEnvironment.Singleton.Checkpoints[i];
+            GameObject thisWP = Assistant.checkpoints[i];
             float distance = Vector3.Distance(npc.transform.position, thisWP.transform.position);
             if (distance < lastDist)
             {
-                currentIndex = i - 1;
+                currentIndex = i-1;
                 lastDist = distance;
             }
         }
@@ -174,11 +175,12 @@ public class Roam : State
     public override void Update()
     {
         Debug.Log("Update Roam");
+        Debug.Log(currentIndex);
         //TODO: can we randomize the patrol pattern?
         if (agent.remainingDistance < 1)
         {
             //reach to the end of the checkpoint list
-            if (currentIndex >= GameEnvironment.Singleton.Checkpoints.Count - 1)
+            if (currentIndex >= Assistant.checkpoints.Count - 1)
             {
                 currentIndex = 0;
             }
@@ -188,7 +190,7 @@ public class Roam : State
             }
             //move to next check point
             //add rotation
-            agent.SetDestination(GameEnvironment.Singleton.Checkpoints[currentIndex].transform.position);
+            agent.SetDestination(Assistant.checkpoints[currentIndex].transform.position);
         }
         //start chasing player if it sees one
         if (CanSeePlayer())
@@ -202,6 +204,7 @@ public class Roam : State
     public override void Exit()
     {
         Debug.Log("Exit Roam");
+        prevState = STATE.ROAM;
         base.Exit();
     }
 }
@@ -222,6 +225,7 @@ public class Pursue : State
     public override void Enter()
     {
         Debug.Log("Enter Pursue");
+        Debug.Log("Prev: " + prevState);
         base.Enter();
     }
 
@@ -252,6 +256,7 @@ public class Pursue : State
             Debug.Log("Purse time left: " + pursueTime);
             if (CanSeePlayer())
             {
+                Debug.Log("Reset to 5");
                 pursueTime = 5f;
             }
             else
@@ -271,6 +276,7 @@ public class Pursue : State
     public override void Exit()
     {
         Debug.Log("Exit Pursue");
+        prevState = STATE.PURSUE;
         base.Exit();
     }
 }
