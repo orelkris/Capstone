@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -73,12 +74,14 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		public PhotonView PV;
+
 		private void Awake()
 		{
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
-				_mainCamera = GameObject.FindGameObjectWithTag("Main Camera");
+				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
 		}
 
@@ -94,7 +97,12 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+			if(!PV.IsMine)
+            {
+                return;
+            }
+
+            JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
@@ -234,6 +242,7 @@ namespace StarterAssets
 
 		private void OnDrawGizmosSelected()
 		{
+			if (!PV.IsMine) return;
 			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
 			Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 

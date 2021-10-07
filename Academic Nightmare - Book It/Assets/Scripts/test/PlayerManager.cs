@@ -4,7 +4,7 @@ using Photon.Pun;
 
 public class PlayerManager : MonoBehaviour
 {
-    PhotonView PV;
+    private PhotonView PV;
 
     void Awake()
     {

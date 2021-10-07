@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviourPun
     /// ADDED FOR TEST
     public GameObject book;
     public GameObject player;
-    int spawnTreasure = -1;
+ /*   int spawnTreasure = -1;
     int last = 0;
     GameObject temp;
+    Material shelfColour;*/
+
     Text textcode;
-    Material shelfColour;
 
     public static List<SymbolObject> testSymbol = new List<SymbolObject>();
     /// </summary>
@@ -49,9 +50,9 @@ public class PlayerController : MonoBehaviourPun
 
     public static Text codePanel;
 
-    Text codeCollector;
+/*    Text codeCollector;
 
-    bool showInventory = false;
+    bool showInventory = false;*/
 
 
     ////////////////////////////////////////
