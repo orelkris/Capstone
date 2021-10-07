@@ -7,7 +7,7 @@ public class State
 {
     public enum STATE
     {
-        IDLE, ROAM, PURSUE, STACK, ATTACK, SLEEP
+        IDLE, ROAM, PURSUE, STACK, ATTACK, SLEEP, SUSPECT
     };
 
     public enum EVENT
@@ -22,7 +22,7 @@ public class State
     protected State nextState; // not the enum state
     protected NavMeshAgent agent;
 
-    float visDist = 10.0f;
+    float visDist = 1000.0f;
     float visAngle = 30.0f;
     float shootDist = 7.0f;
 
@@ -107,20 +107,24 @@ public class Idle : State
 
     public override void Enter()
     {
+        Debug.Log("Enter Idle");
         base.Enter();
     }
 
     public override void Update()
     {
+        Debug.Log("Update Idle");
 
         if (CanSeePlayer())
         {
+            Debug.Log("Player spotted");
             nextState = new Pursue(npc, agent, player);
             stage = EVENT.EXIT;
         }
         // 10% of the time...go to next stage
         else if (Random.Range(0, 100) < 30)
         {
+            Debug.Log("Patrol");
             nextState = new Roam(npc, agent, player);
             stage = EVENT.EXIT;
         }
@@ -129,6 +133,7 @@ public class Idle : State
 
     public override void Exit()
     {
+        Debug.Log("Exit Idle");
         // clean up animation
         base.Exit();
     }
@@ -149,6 +154,7 @@ public class Roam : State
 
     public override void Enter()
     {
+        Debug.Log("Enter Roam");
         //Why compare to infinity?
         float lastDist = Mathf.Infinity;
         for (int i = 0; i < GameEnvironment.Singleton.Checkpoints.Count; i++)
@@ -167,6 +173,7 @@ public class Roam : State
 
     public override void Update()
     {
+        Debug.Log("Update Roam");
         //TODO: can we randomize the patrol pattern?
         if (agent.remainingDistance < 1)
         {
@@ -194,6 +201,7 @@ public class Roam : State
 
     public override void Exit()
     {
+        Debug.Log("Exit Roam");
         base.Exit();
     }
 }
@@ -206,19 +214,21 @@ public class Pursue : State
         : base(_npc, _agent, _player)
     {
         name = STATE.PURSUE;
-        agent.speed = 5;
+        agent.speed = 4.8f;
         agent.isStopped = false;
         pursueTime = Time.deltaTime;
     }
 
     public override void Enter()
     {
+        Debug.Log("Enter Pursue");
         base.Enter();
     }
 
     //TODO: Change the stop chasing condition to increase difficulty
     public override void Update()
     {
+        Debug.Log("Update Pursue");
         //pursueTime += Time.deltaTime;
         //Debug.Log("Pursue for: " + pursueTime);
         //agent.SetDestination(player.position);
@@ -256,6 +266,32 @@ public class Pursue : State
                 }
             }
         }
+    }
+
+    public override void Exit()
+    {
+        Debug.Log("Exit Pursue");
+        base.Exit();
+    }
+}
+
+public class Suspect : State
+{
+    public Suspect(GameObject _npc, NavMeshAgent _agent, Transform _player)
+    : base(_npc, _agent, _player)
+    {
+        name = STATE.SUSPECT;
+    }
+
+    public override void Enter()
+    {
+        Debug.Log("Enter Pursue");
+        base.Enter();
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 
     public override void Exit()

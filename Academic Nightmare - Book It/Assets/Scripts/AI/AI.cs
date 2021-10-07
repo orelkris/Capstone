@@ -14,7 +14,7 @@ public class AI : MonoBehaviour
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
-        currentState = new Idle(this.gameObject, agent, player);
+         currentState = new Idle(this.gameObject, agent, player);
     }
 
     // Update is called once per frame
@@ -22,6 +22,7 @@ public class AI : MonoBehaviour
     {
         // ENTER UPDATE EXIT
         //add footstep sound
+        //Debug.Log("Current State: " + currentState);
         currentState = currentState.Process();
     }
 }
