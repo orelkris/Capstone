@@ -70,8 +70,7 @@ public class GameEnvironment : MonoBehaviour
         {
             if(!instance.runOnce)
             {
-                //instance.Checkpoints.AddRange(
-                //  GameObject.FindGameObjectsWithTag("Checkpoint"));
+                instance.Checkpoints.AddRange(GameObject.FindGameObjectsWithTag("Checkpoints"));
 
                 //instance.Shelves.AddRange(
                 // GameObject.FindGameObjectsWithTag("Shelf"));
