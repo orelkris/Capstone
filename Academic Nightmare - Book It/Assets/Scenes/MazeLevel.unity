@@ -19666,7 +19666,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 4, z: 3}
+  m_Size: {x: 5, y: 4, z: 5}
   m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &869296087
 GameObject:
@@ -47191,6 +47191,14 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1947554479698712639, guid: 4abe5803b1737c84f85315ef3bf60109, type: 3}
+      propertyPath: hotSpot
+      value: 
+      objectReference: {fileID: 866834696}
+    - target: {fileID: 4257815369887891480, guid: 4abe5803b1737c84f85315ef3bf60109, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7338908918322134412, guid: 4abe5803b1737c84f85315ef3bf60109, type: 3}
       propertyPath: button
       value: 
@@ -47297,6 +47305,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7338908919715869688, guid: 4abe5803b1737c84f85315ef3bf60109, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975907206282799016, guid: 4abe5803b1737c84f85315ef3bf60109, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -103,10 +103,10 @@ public class PlayerController : MonoBehaviourPun
             }
             else
             {
-                if (canPlayerOneMove)
-                {
+                //if (canPlayerOneMove)
+                //{
                     Movement();
-                }
+                //}
             }
         }
     }
