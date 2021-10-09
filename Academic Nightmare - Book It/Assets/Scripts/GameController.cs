@@ -15,17 +15,18 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
         if (GameStateController.isPlayerOne)
         {
-            /*PhotonNetwork.Instantiate("Player", player1SpawnPosition.transform.position,
+            PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
                         Quaternion.identity);
 
             // Hide the player 2 canvas object from player 1
             GameObject.Find("PanelCode").SetActive(false);
-            GameObject.Find("Crosshair").SetActive(false);*/
+            GameObject.Find("Crosshair").SetActive(false);
 
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
@@ -50,14 +51,14 @@ public class GameController : MonoBehaviour
             }
 
             Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
-            
+
         }
- /*       else
+        else
         {
-            PhotonNetwork.Instantiate("Player", player2SpawnPosition.transform.position, Quaternion.identity);
+            GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
 
-        }*/
+        }
     }
 
     public static Material FindColour(Vector3 v)

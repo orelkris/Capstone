@@ -1,21 +1,21 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
     public string menuName;
-    public bool open;
+    public bool isOpen;
 
     public void Open()
     {
-        open = true;
+        isOpen = true;
         gameObject.SetActive(true);
     }
 
     public void Close()
     {
-        open = false;
+        isOpen = false;
         gameObject.SetActive(false);
     }
 }
