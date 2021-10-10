@@ -19,11 +19,11 @@ public class LoadSymbolImage : MonoBehaviour
     {
         
         // find the symbol holding panel
-        panelSymbolHolder = GameObject.Find("PanelSymbolHolder");
-        imageSymbolColour = GameObject.Find("ImageSymbolColour").GetComponent<Image>();
+        panelSymbolHolder = GameObject.Find("SymbolHolderPanel");
+        imageSymbolColour = GameObject.Find("ShelfColourImage").GetComponent<Image>();
 
         // this is the object to use when accessing the TextMeshPro text item
-        textSymbolCode = GameObject.Find("TextSymbolCode").GetComponent<TextMeshProUGUI>();
+        textSymbolCode = GameObject.Find("CodeText").GetComponent<TextMeshProUGUI>();
         
         LoadSymbols();
     }
@@ -50,9 +50,6 @@ public class LoadSymbolImage : MonoBehaviour
         //Debug.Log("LOAD SYMBOL " + GameController.ListOfSymbols[GameController.correctSymbolIndex].name);
         imageSymbolColour.color = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().shelfColour.color;
 
-        //imageSymbolColour.color = SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_shelfColour.color;
-
         textSymbolCode.SetText(GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfCode);
-        //textSymbolCode.SetText(SpawnSymbol.testSymbol[GameEnvironment.Singleton.currentSymbolIndex].m_code);
     }
 }

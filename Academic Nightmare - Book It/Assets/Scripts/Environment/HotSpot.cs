@@ -16,6 +16,7 @@ public class HotSpot : MonoBehaviour
     public List<Vector3> HotSpotLocation = new List<Vector3>();
     public static bool downloadComplete = false;
     public Slider progressBar;
+    public GameObject symbolPanel;
 
     public static Animator animator;
 
@@ -27,6 +28,10 @@ public class HotSpot : MonoBehaviour
     // random list of colours
     Color32[] colorList = { Color.red, Color.blue, Color.green, Color.magenta };
     // Start is called before the first frame update
+
+    //PHONE Canvas//
+    GameObject phone;
+
     void Start()
     {
         if(GameStateController.isPlayerOne)
@@ -59,8 +64,12 @@ public class HotSpot : MonoBehaviour
             SpawnHotSpot();
 
             //***********LOADBAR********//
-            loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
-            progressBar = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+            //loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
+            progressBar = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+
+            phone = GameObject.Find("CanvasPlayerOne(Clone)");
+
+            symbolPanel = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().symbolPanel;
         }
 
     }
@@ -105,7 +114,7 @@ public class HotSpot : MonoBehaviour
 
 
                     //********LOADBAR*******//
-                    progressBar = GameObject.Find("ProgressBar").GetComponent<Slider>();
+                    progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
                     progressBar.value = 0.1f * Mathf.Round(canDownload);
                     Debug.Log(progressBar.value);
 
@@ -114,11 +123,10 @@ public class HotSpot : MonoBehaviour
                         downloadComplete = true;
                         canDownload = 0;
                         progressBar.value = 0;
-                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
-                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
-                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-                        CellphoneView.currentPanelIndex = 2;
-                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+
+                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+                        CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
 
                     }
                 }

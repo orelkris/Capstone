@@ -5,6 +5,17 @@ using UnityEngine.UI;
 
 public class SubmitSymbol : MonoBehaviour
 {
+
+    GameObject phone;
+    GameObject downloadPanel;
+
+    private void Start()
+    {
+        phone = GameObject.Find("CanvasPlayerOne(Clone)");
+        downloadPanel = phone.GetComponent<CellphoneView>().downloadPanel;
+
+
+    }
     public void Submit()
     {
         string name = GameController.ListOfSymbols[GameController.correctSymbolIndex].GetComponent<SymbolInformation>().selfObject.m_name;
@@ -13,13 +24,13 @@ public class SubmitSymbol : MonoBehaviour
             Debug.Log("Correct");
             //advance the correct symbol
             GameController.correctSymbolIndex++;
-            GameObject.Find("PanelSymbolHolder").GetComponent<LoadSymbolImage>().LoadColourCode();
+            GameObject.Find("SymbolHolderPanel").GetComponent<LoadSymbolImage>().LoadColourCode();
 
             // reset the downloading bar
             HotSpot.downloadComplete = false;
-            GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-            CellphoneView.currentPanelIndex = 4;
-            GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+            CellphoneView.currentPanelIndex = downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
         }
         else
         {

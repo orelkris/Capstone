@@ -23,10 +23,10 @@ public class GameController : MonoBehaviour
         {
             PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
                         Quaternion.identity);
-
+            PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
             // Hide the player 2 canvas object from player 1
-            GameObject.Find("PanelCode").SetActive(false);
-            GameObject.Find("Crosshair").SetActive(false);
+            //GameObject.Find("PanelCode").SetActive(false);
+            //GameObject.Find("Crosshair").SetActive(false);
 
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
