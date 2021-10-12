@@ -47,7 +47,6 @@ public class AudioBehaviour : MonoBehaviour
         micHot = true;
 
         _audio.Play();
-
     }
 
     public void MicOff()

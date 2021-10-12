@@ -83,12 +83,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
             return;
         }
 
-        Photon.Realtime.RoomOptions opts = new Photon.Realtime.RoomOptions();
+        RoomOptions opts = new RoomOptions();
         opts.IsOpen = true;
         opts.IsVisible = true;
         opts.MaxPlayers = MaxPlayers;
 
-        PhotonNetwork.CreateRoom(roomNameInputField.text, opts, Photon.Realtime.TypedLobby.Default);
+        PhotonNetwork.CreateRoom(roomNameInputField.text, opts, TypedLobby.Default);
         MenuManager.Instance.OpenMenu("LoadingMenu");
     }
 
@@ -96,12 +96,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void DevTestCreateJoinRoom()
     {
         isTest = true;
-        Photon.Realtime.RoomOptions opts = new Photon.Realtime.RoomOptions();
+        RoomOptions opts = new RoomOptions();
         opts.IsOpen = true;
         opts.IsVisible = true;
         opts.MaxPlayers = MaxPlayers;
 
-        PhotonNetwork.JoinOrCreateRoom(devroomNameInputField.text, opts, Photon.Realtime.TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(devroomNameInputField.text, opts, TypedLobby.Default);
     }
 
     //Failed to create a room
@@ -178,7 +178,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
 
-    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    public override void OnMasterClientSwitched(Player newMasterClient)
     {
         base.OnMasterClientSwitched(newMasterClient);
 
@@ -215,7 +215,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
