@@ -13,18 +13,18 @@ public class Compass : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameObject.Find("PlayerOne(Clone)") != null)
+        if(GameObject.Find("PlayerOne(Clone)") != null || GameObject.Find("Player(Clone)") != null)
         {
             player1 = GameObject.Find("PlayerOne(Clone)").transform;
             camera = GameObject.Find("PlayerOne(Clone)").GetComponent<Camera>();
-
         }
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
-        if(GameObject.Find("PlayerOne(Clone)") != null)
+        if(GameObject.Find("PlayerOne(Clone)") != null || GameObject.Find("PlayerOne(Clone)") != null)
         {
 
             Vector3 toPosition = (hotSpot.position-player1.position);

@@ -39,7 +39,7 @@ public class AudioBehaviour : MonoBehaviour
 
     void Update()
     {
-        /*if (!PV.IsMine) return;*/
+        if (!PV.IsMine) return;
         EmitAudio(6);
     }
 

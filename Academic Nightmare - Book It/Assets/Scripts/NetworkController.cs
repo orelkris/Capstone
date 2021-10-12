@@ -124,12 +124,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void SetPlayerOne()
     {
         GameStateController.isPlayerOne = true;
+
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Hacker");
     }
 
     //Set the current player to be player two
     public void SetPlayerTwo()
     {
         GameStateController.isPlayerOne = false;
+        
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Thief");
     }
 
     //Joined Room
