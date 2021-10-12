@@ -15,11 +15,13 @@ TagManager:
   - Yellow
   - Green
   - CinemachineTarget
+  - Assistant
+  - Librarian
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - testing
+  - 
   - Water
   - UI
   - 

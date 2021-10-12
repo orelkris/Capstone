@@ -6,7 +6,11 @@ LightingSettings:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Academic Nightmare - Book It/Assets/Scenes/Default Lighting.lighting
   m_Name: Default Lighting
+=======
+  m_Name: New Lighting Settings 1
+>>>>>>> develop:Academic Nightmare - Book It/Assets/Scenes/New Lighting Settings 1.lighting
   serializedVersion: 3
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
