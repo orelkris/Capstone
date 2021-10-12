@@ -13,16 +13,19 @@ public class Assistant : MonoBehaviour
     private Transform player = null;
     public static List<GameObject> checkpoints = new List<GameObject>();
     State currentState;
+    int suspicionRate;
+    
     // Start is called before the first frame update
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
         player = GameObject.Find("PlayerTwo(Clone)").transform;
-        currentState = new Idle(this.gameObject, agent, player);
-        for(int i = 1; i < 24; i++)
+        suspicionRate = 0;
+        for (int i = 1; i < 24; i++)
         {
             checkpoints.Add(GameObject.Find("cp" + i));
         }
+        //currentState = new Idle(this.gameObject, agent, player);
         Debug.Log(checkpoints.Count);
     }
 
