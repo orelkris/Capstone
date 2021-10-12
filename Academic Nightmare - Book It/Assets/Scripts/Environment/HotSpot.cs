@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class HotSpot : MonoBehaviour
 {
@@ -34,8 +35,6 @@ public class HotSpot : MonoBehaviour
 
     void Start()
     {
-        if(GameStateController.isPlayerOne)
-        {
             Vector3 spot1 = new Vector3 { x = 56f, y = 55f, z = -48f };
 
             Vector3 spot2 = new Vector3 { x = 56f, y = 55f, z = -133f };
@@ -63,6 +62,8 @@ public class HotSpot : MonoBehaviour
 
             SpawnHotSpot();
 
+            if(GameStateController.isPlayerOne)
+            {
             //***********LOADBAR********//
             //loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
             progressBar = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
@@ -72,8 +73,11 @@ public class HotSpot : MonoBehaviour
             symbolPanel = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().symbolPanel;
         }
 
+       
+
     }
 
+    [PunRPC]
     void SpawnHotSpot()
     {
         hotSpot.transform.position = new Vector3(HotSpotLocation[hotSpotIndex].x,
@@ -95,7 +99,7 @@ public class HotSpot : MonoBehaviour
 
     void Update()
     {
-        if(GameStateController.isPlayerOne)
+        if(player != null)
         {
             counter += Time.deltaTime;
 
@@ -105,7 +109,7 @@ public class HotSpot : MonoBehaviour
                 hasWifi = true;
                 Debug.Log("Has Wifi");
 
-                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null)
+                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
                 {
                     // download image only if load image is active
                     // this happens only when the image has not yet been downloaded
@@ -165,6 +169,8 @@ public class HotSpot : MonoBehaviour
                 hotSpot.GetComponent<Renderer>().material.color = Color.yellow;
             }
         }
+
+    
         
     }
 }

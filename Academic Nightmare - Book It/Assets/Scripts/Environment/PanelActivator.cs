@@ -8,6 +8,8 @@ public class PanelActivator : MonoBehaviour
 
     public GameObject panelToActivate;
 
+    public GameObject panelToActivatePlayerTwo;
+
     public GameObject panelToDeactivate;
 
     public GameObject panelBlocking;
@@ -20,10 +22,18 @@ public class PanelActivator : MonoBehaviour
     // hook up this function to onClick of the button via inspector panel
     public void AnimatePanelHide()
     {
-
-        StartCoroutine(Deactivate(1.0f));
-        // StartCoroutine("Deactivate", 1.0f);
-        // why do this? Not a good idea       
+        if(GameStateController.isPlayerOne)
+        {
+            StartCoroutine(Deactivate(1.0f));
+            // StartCoroutine("Deactivate", 1.0f);
+            // why do this? Not a good idea 
+        }
+        else
+        {
+            StartCoroutine(DeactivatePlayerTwo(1.0f));
+            // StartCoroutine("Deactivate", 1.0f);
+            // why do this? Not a good idea 
+        }
     }
 
     public void Homepage()
@@ -36,15 +46,30 @@ public class PanelActivator : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        panelToDeactivate = phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex];
+        if(GameStateController.isPlayerOne)
+        {
+            panelToDeactivate = phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex];
 
-        alwaysActivate.SetActive(true);
+            alwaysActivate.SetActive(true);
 
-        panelToDeactivate.SetActive(false);
+            panelToDeactivate.SetActive(false);
 
-        panelToActivate.SetActive(true);
+            panelToActivate.SetActive(true);
 
-        CellphoneView.currentPanelIndex = panelToActivate.GetComponent<SelfPanelIndex>().SelfIndex;
+            CellphoneView.currentPanelIndex = panelToActivate.GetComponent<SelfPanelIndex>().SelfIndex;
+        }
+        else
+        {
+            panelToDeactivate = phone.GetComponent<CellphoneView>().cellphonePanelsPlayerTwo[CellphoneView.currentPanelIndexPlayerTwo];
+
+            alwaysActivate.SetActive(true);
+
+            panelToDeactivate.SetActive(false);
+
+            panelToActivatePlayerTwo.SetActive(true);
+
+            CellphoneView.currentPanelIndexPlayerTwo = panelToActivate.GetComponent<SelfPanelIndex>().SelfIndex;
+        }
     }
 
     // what is a coroutine?
@@ -58,11 +83,6 @@ public class PanelActivator : MonoBehaviour
         // 1 means 1 second
         // notice this is associated with IEnumerator
         yield return new WaitForSeconds(delay);//means put this funciton on sleep before continuing
-
-        // play slideout animation
-        // wait for 1 second
-        // turn off current panel
-        // turn on the other panel
 
         alwaysActivate.SetActive(true);
 
@@ -83,6 +103,23 @@ public class PanelActivator : MonoBehaviour
 
             panelToActivate.SetActive(true);
         }
+    }
+
+    private IEnumerator DeactivatePlayerTwo(float delay)
+    {
+        CellphoneView.currentPanelIndexPlayerTwo = panelToActivate.GetComponent<SelfPanelIndex>().SelfIndex;
+
+        //important line!!!
+        // 1 means 1 second
+        // notice this is associated with IEnumerator
+        yield return new WaitForSeconds(delay);//means put this funciton on sleep before continuing
+
+        alwaysActivate.SetActive(true);
+
+        panelToDeactivate.SetActive(false);
+
+        panelToActivate.SetActive(true);
+        
     }
 }
 

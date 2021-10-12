@@ -53,16 +53,36 @@ public class PlayerController : MonoBehaviourPun
 
     bool showInventory = false;
 
+    ///////////////////SENDING LOCATION TO PLAYER TWO!
+    public Vector3 toPosition;
+    public Vector3 playerOneForward;
+
+    
+    public GameObject hotSpot;
+    public GameObject player1;
+    PhotonView pv;
+
 
     ////////////////////////////////////////
 
 
-    private void Awake()
+    [PunRPC]
+    public void SendLocationPosition(Vector3 newLoc)
     {
-        
+        toPosition = newLoc;
+
+    }
+
+    [PunRPC]
+    public  void SendLocationForward(Vector3 newLoc)
+    {
+        playerOneForward = newLoc;
+
     }
     void Start()
     {
+
+        pv = GetComponent<PhotonView>();
 
         if (!GameStateController.isPlayerOne)
         {
@@ -94,7 +114,6 @@ public class PlayerController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
-
         if (photonView.IsMine)
         {   
             if(!GameStateController.isPlayerOne)
@@ -112,6 +131,17 @@ public class PlayerController : MonoBehaviourPun
     }
     private void Update()
     {
+        /*
+        if(GameStateController.isPlayerOne)
+        {
+            Vector3 newPos = (GameObject.Find("HotSpot(Clone)").transform.position - this.transform.position);
+            Vector3 forward = this.transform.forward;
+            photonView.RPC(nameof(SendLocationPosition), RpcTarget.Others, newPos);
+            photonView.RPC(nameof(SendLocationForward), RpcTarget.Others, forward);
+
+            Debug.Log("MOVEMENT DETECTED " + toPosition);
+        }
+        */
         //Show/Hide inventory
         /*
         if (GameStateController.isPlayerOne)

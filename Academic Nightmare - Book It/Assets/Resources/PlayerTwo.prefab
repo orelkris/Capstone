@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 8920113069958896193}
   m_Layer: 0
   m_Name: PlayerTwo
-  m_TagString: Untagged
+  m_TagString: Thief
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,10 @@ MonoBehaviour:
   sensitivity: 50
   selectableTag: Symbols
   _selection: {fileID: 0}
+  toPosition: {x: 0, y: 0, z: 0}
+  playerOneForward: {x: 0, y: 0, z: 0}
+  hotSpot: {fileID: 0}
+  player1: {fileID: 0}
 --- !u!114 &-890922181734939517
 MonoBehaviour:
   m_ObjectHideFlags: 0

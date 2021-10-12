@@ -11,22 +11,35 @@ public class GameController : MonoBehaviour
     public static List<GameObject> ListOfSymbols;
     public static int numOfSymbols = 4;
     public static int correctSymbolIndex = 0;
+    PhotonView pv;
+    private bool onlyOneCanvas = false;
+
+    public GameObject PlayerOne;
+    public GameObject PlayerTwo;
+    public GameObject HotSpot;
     //public GameObject symbolSpawnPosition;
 
     private void Awake()
     {
-        
+        PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
+
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
         if (GameStateController.isPlayerOne)
         {
+
             PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
                         Quaternion.identity);
-            PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
-            // Hide the player 2 canvas object from player 1
-            //GameObject.Find("PanelCode").SetActive(false);
-            //GameObject.Find("Crosshair").SetActive(false);
+
+            GameObject.Find("Crosshair").SetActive(false);
+            GameObject.Find("PanelCode").SetActive(false);
+
+            PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
+
+            HotSpot = GameObject.FindGameObjectWithTag("HotSpot");
+
+            PlayerOne = GameObject.FindGameObjectWithTag("Hacker");
 
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
@@ -57,6 +70,10 @@ public class GameController : MonoBehaviour
         {
             GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
+            //PhotonNetwork.Instantiate("CanvasPlayerTwo", Vector3.zero, Quaternion.identity);
+            //GameObject.Find("PlayerOneApps").SetActive(false);
+
+            PlayerTwo = GameObject.FindGameObjectWithTag("Thief");
 
         }
     }
@@ -87,6 +104,39 @@ public class GameController : MonoBehaviour
             list[i] = value;
         }
         return list;
+    }
+
+    private void Update()
+    {
+        if(!onlyOneCanvas)
+        {
+            GameObject[] canvasList = GameObject.FindGameObjectsWithTag("Cellphone");
+            //GameObject[] hotSpotList = GameObject.FindGameObjectsWithTag("HotSpot");
+            for (int i = 0; i < canvasList.Length; i++)
+            {
+
+                bool ID = canvasList[i].GetComponent<PhotonView>().IsMine;
+                //bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
+                Debug.Log("PHOTONE ID MINE? " + ID);
+
+                if (!ID)
+                {
+                    DestroyImmediate(canvasList[i]);
+                    onlyOneCanvas = true;
+
+                }
+
+               // if(!hotSpotID)
+               // {
+                 //   DestroyImmediate(hotSpotList[i]);
+               // }
+            }
+
+            //if(canvasList.Length == 1)
+            //{
+              //  onlyOneCanvas = true;
+            //}
+        }
     }
 }
 
