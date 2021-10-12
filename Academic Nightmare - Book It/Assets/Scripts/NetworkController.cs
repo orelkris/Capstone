@@ -35,6 +35,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     //Intiate connection to server
@@ -123,12 +124,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void SetPlayerOne()
     {
         GameStateController.isPlayerOne = true;
+
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Hacker");
     }
 
     //Set the current player to be player two
     public void SetPlayerTwo()
     {
         GameStateController.isPlayerOne = false;
+        
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Thief");
     }
 
     //Joined Room
@@ -146,7 +153,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-            Player[] players = PhotonNetwork.PlayerList;
+            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
 
             foreach (Transform child in playerListContent)
             {
@@ -171,7 +178,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
         base.OnMasterClientSwitched(newMasterClient);
 
@@ -208,7 +215,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
