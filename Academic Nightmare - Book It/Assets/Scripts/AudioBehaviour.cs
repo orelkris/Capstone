@@ -7,53 +7,68 @@ using UnityEngine.AI;
 
 public class AudioBehaviour : MonoBehaviour
 {
-    // 
+    // Some values
     private float currentVolume;
+    private bool micHot = false;
 
-    // Mic Input
+    // Mic Settings
+    public float threshold;
     private float sensitivity = 200;
     private float loudness = 0;
-
+    
     //Player stuff
     PhotonView PV;
     AudioSource _audio;
     SphereCollider sc;
 
+    public bool MicHot { get => micHot; }
+    public float CurrentVolume { get => currentVolume; set => currentVolume = value; }
+
     private void Awake()
     {
-
         PV = GetComponent<PhotonView>();
-    }
-
-    void Start()
-    {
         sc = GetComponentInChildren<SphereCollider>();
         _audio = GetComponent<AudioSource>();
+    }
 
-        _audio.clip = Microphone.Start(null, true, 10, 44100);
+    private void FixedUpdate()
+    {
+        if (!PV.IsMine) return;
+
+        if(micHot) EmitAudio(6.0f);
+    }
+
+    public void MicOn()
+    {
+        _audio.clip = Microphone.Start(null, true, 100, 44100);
         _audio.loop = false;
 
         while (!(Microphone.GetPosition(null) > 0)) { }
+        micHot = true;
+
         _audio.Play();
+
     }
 
-    void Update()
+    public void MicOff()
     {
-        if (!PV.IsMine) return;
-        EmitAudio(6);
+        _audio.clip.UnloadAudioData();
+        _audio.Stop();
+
+        micHot = false;
     }
 
     void EmitAudio(float thresh)
     {
         // Mic Input
-        GameObject sphere = sc.gameObject;
         float scaling = GetAverageVolume(thresh);
         /*Debug.Log(GetAverageVolume());*/
 
-        if (scaling == 3)
+        if (scaling == thresh)
             sc.radius = 0;
         else
             sc.radius = scaling;
+
         Debug.Log(sc.radius);
     }
 

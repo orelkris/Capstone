@@ -1,46 +1,77 @@
-using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using Photon.Pun;
+using Photon.Realtime;
+using Cinemachine;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
+    private Player pPlayer;
+    private string playerType;
+
     private PhotonView PV;
+    private AudioBehaviour AB;
 
-    public GameObject player1SpawnPosition;
-    public GameObject player2SpawnPosition;
+    public InputActionReference pttReference;
+    public PlayerInput playerInput;
+    public UnityEvent onMicToggle;
 
-    void Awake()
+
+    public string PlayerType { get => playerType; }
+    public Player PPlayer { get => pPlayer; }
+
+    private void Awake()
     {
         PV = GetComponent<PhotonView>();
+        AB = GetComponentInChildren<AudioBehaviour>();
 
-        player1SpawnPosition = GameObject.Find("Player1SpawnPosition");
-        player2SpawnPosition = GameObject.Find("Player2SpawnPosition");
+        // Set network values
+        pPlayer = PhotonNetwork.LocalPlayer;
+        playerType = (string)pPlayer.CustomProperties["class"];
+
+        // Destroy what we dont need
+        if (!PV.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
+        }
     }
 
+    // Start is called before the first frame update
     void Start()
     {
-        if (PV.IsMine)
-        {
-            CreatePlayer();
-        }
+        pttReference.action.started += ActivateMic;
+        pttReference.action.canceled += DeactivateMic;
+/*        pttReference.action.performed += ToggleMic;
+        pttReference.action.performed -= ToggleMic;*/
     }
-
-    void CreatePlayer()
+/*    private void ToggleMic(InputAction.CallbackContext obj)
     {
-        /*    if(GameStateController.isPlayerOne)
-              PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(0, 2, 0), Quaternion.identity);*/
-
-        if (GameStateController.isPlayerOne)
+        if (obj.started)
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), player1SpawnPosition.transform.position, Quaternion.identity);
-
-            // Hide the player 2 canvas object from player 1
-            GameObject.Find("PanelCode").SetActive(false);
-            GameObject.Find("Crosshair").SetActive(false);
+            Debug.Log("mic activated");
         }
-        else
+        else if (obj.canceled)
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), player2SpawnPosition.transform.position, Quaternion.identity);
+            Debug.Log("mic deactivated");
         }
+    }*/
+    
+    private void ActivateMic(InputAction.CallbackContext obj)
+    {
+        Debug.Log("mic activated");
+        AB.MicOn();
     }
+
+    private void DeactivateMic(InputAction.CallbackContext obj)
+    {
+        Debug.Log("mic deactivated");
+        AB.MicOff();
+    }
+
+  
 }

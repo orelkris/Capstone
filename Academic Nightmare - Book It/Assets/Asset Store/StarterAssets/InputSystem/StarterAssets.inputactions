@@ -47,9 +47,9 @@
                 },
                 {
                     "name": "Press to Talk",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "5ee9d071-9644-4574-892c-1f54bd1e72a3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -246,7 +246,7 @@
                     "name": "",
                     "id": "626f7631-0aca-47c1-bc37-d1e761cc673b",
                     "path": "<Keyboard>/f",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Press to Talk",
