@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
