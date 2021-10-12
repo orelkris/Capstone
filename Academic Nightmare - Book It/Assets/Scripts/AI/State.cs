@@ -22,7 +22,7 @@ public class State
     protected STATE prevState;
     protected State nextState; // not the enum state
     protected NavMeshAgent agent;
-
+    private MonoBehaviour mb;
 
 
     public State(AI _npc, NavMeshAgent _agent, Transform _player)
@@ -97,6 +97,26 @@ public class State
         return false;
     }
 
+    public void StartCoroutine()
+    {
+        mb = GameObject.FindObjectOfType<MonoBehaviour>();
+        if (mb != null)
+        {
+            mb.StartCoroutine(WaitForXSeconds(5));
+        }
+        else
+        {
+            Debug.Log("No MonoBehaviour object was found");
+        }
+            
+    }
+
+    private IEnumerator WaitForXSeconds(int x)
+    {
+        Debug.Log("Hi");
+        yield return new WaitForSeconds(x);
+    }
+
 }
 
 public class Idle : State
@@ -110,6 +130,7 @@ public class Idle : State
     public override void Enter()
     {
         //Debug.Log("Enter Idle");
+        StartCoroutine();
         base.Enter();
     }
 

@@ -61,6 +61,7 @@ public class AI : MonoBehaviourPun
         if (GameStateController.isPlayerOne)
         {
             // create librarian
+            this.tag = "Librarian";
             player = GameObject.Find("PlayerOne(Clone)").transform;
         }
         else
