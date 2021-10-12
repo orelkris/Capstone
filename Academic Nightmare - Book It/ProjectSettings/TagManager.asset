@@ -14,11 +14,12 @@ TagManager:
   - Red
   - Yellow
   - Green
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - testing
   - Water
   - UI
   - 

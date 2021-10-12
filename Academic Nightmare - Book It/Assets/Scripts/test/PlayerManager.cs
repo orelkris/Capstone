@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
 
         if (GameStateController.isPlayerOne)
         {
-            PhotonNetwork.Instantiate("Player", player1SpawnPosition.transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), player1SpawnPosition.transform.position, Quaternion.identity);
 
             // Hide the player 2 canvas object from player 1
             GameObject.Find("PanelCode").SetActive(false);
@@ -40,7 +40,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            PhotonNetwork.Instantiate("Player", player2SpawnPosition.transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), player2SpawnPosition.transform.position, Quaternion.identity);
         }
     }
 }

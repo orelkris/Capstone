@@ -35,6 +35,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     //Intiate connection to server
@@ -146,7 +147,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-            Player[] players = PhotonNetwork.PlayerList;
+            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
 
             foreach (Transform child in playerListContent)
             {
@@ -171,7 +172,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
         base.OnMasterClientSwitched(newMasterClient);
 
@@ -208,7 +209,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
