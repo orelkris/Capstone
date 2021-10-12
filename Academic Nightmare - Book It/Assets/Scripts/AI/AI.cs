@@ -26,8 +26,8 @@ public class AI : MonoBehaviourPun
 
 
     // AI vision
-    public float visDist = 20.0f;
-    public float visAngle = 45.0f;
+    public float visDist = 40.0f;
+    public float visAngle = 130.0f;
 
     // AI chase
     public float movingSpeed;
@@ -36,7 +36,7 @@ public class AI : MonoBehaviourPun
     // AI hearing
     public float soundDetected = 0;
     public Vector3 noisePosition;
-    public float hearingRange = 50f;
+    public float hearingRange = 75f;
     public float spinSpeed = 3f;
     public bool canSpin = false;
     public float isSpinningTime;
@@ -78,6 +78,7 @@ public class AI : MonoBehaviourPun
         // start updating when game is ready
         if (player)
         {
+            Debug.Log(currentState);
             currentState = currentState.Process();
         }
     }
@@ -85,6 +86,7 @@ public class AI : MonoBehaviourPun
     [PunRPC]
     public void SetSoundDetected(float s)
     {
+        //Debug.Log("Noise: " + s);
         this.soundDetected = s;
         this.noisePosition = player.transform.position;
     }
