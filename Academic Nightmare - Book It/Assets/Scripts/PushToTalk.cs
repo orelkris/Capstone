@@ -11,6 +11,8 @@ public class PushToTalk : MonoBehaviourPun
     public KeyCode PushButton = KeyCode.L;
     public Recorder VoiceRecorder;
     private PhotonView view;
+
+    public static float currentPeak = 0f;
     void Start()
     {
         Debug.Log("start voice");
@@ -20,7 +22,10 @@ public class PushToTalk : MonoBehaviourPun
 
     void Update()
     {
-        if(Input.GetKeyDown(PushButton))
+        //currentPeak = VoiceRecorder.LevelMeter.CurrentPeakAmp;
+        //Debug.Log("FINDING SECOND LEVEL " + VoiceRecorder.LevelMeter.CurrentAvgAmp);
+
+        if (Input.GetKeyDown(PushButton))
         {
             Debug.Log("here");
             if(view.IsMine)
@@ -28,6 +33,7 @@ public class PushToTalk : MonoBehaviourPun
                 Debug.Log("Start talking");
                 VoiceRecorder.TransmitEnabled = true;
             }
+
         }
         else if(Input.GetKeyUp(PushButton))
         {
@@ -36,6 +42,20 @@ public class PushToTalk : MonoBehaviourPun
                 Debug.Log("Stop talking");
                 VoiceRecorder.TransmitEnabled = false;
             }
+
+            currentPeak = 0;
         }
+
+        if(VoiceRecorder.TransmitEnabled)
+        {
+            currentPeak = VoiceRecorder.LevelMeter.CurrentPeakAmp;
+        }
+        else
+        {
+            currentPeak = 0;
+        }
+
+        Debug.Log("FINDING LEVEL " + VoiceRecorder.LevelMeter.CurrentPeakAmp);
+        
     }
 }
