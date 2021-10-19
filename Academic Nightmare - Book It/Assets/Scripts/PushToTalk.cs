@@ -22,6 +22,8 @@ public class PushToTalk : MonoBehaviourPun
     private Vector3 noisePosition;
     public float spinSpeed = 3f;
 
+    public static float currentPeak = 0f;
+
     private PhotonView view;
     void Start()
     {
@@ -64,6 +66,16 @@ public class PushToTalk : MonoBehaviourPun
             //if(view.IsMine) view.RPC("SensingSound", RpcTarget.Others, loudness);
             enemy.SetSoundDetected(loudness);
         }
+
+        if(VoiceRecorder.TransmitEnabled)
+        {
+            currentPeak = loudness;
+        }
+        else
+        {
+            currentPeak = 0f;
+        }
+
     }
 
     void InitMic()

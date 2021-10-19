@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class HotSpot : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class HotSpot : MonoBehaviour
     public List<Vector3> HotSpotLocation = new List<Vector3>();
     public static bool downloadComplete = false;
     public Slider progressBar;
+    public GameObject symbolPanel;
 
     public static Animator animator;
 
@@ -27,44 +29,55 @@ public class HotSpot : MonoBehaviour
     // random list of colours
     Color32[] colorList = { Color.red, Color.blue, Color.green, Color.magenta };
     // Start is called before the first frame update
+
+    //PHONE Canvas//
+    GameObject phone;
+
     void Start()
     {
-        if(GameStateController.isPlayerOne)
+        Vector3 spot1 = new Vector3 { x = 56f, y = 55f, z = -48f };
+
+        Vector3 spot2 = new Vector3 { x = 56f, y = 55f, z = -133f };
+
+        Vector3 spot3 = new Vector3 { x = -60f, y = 55f, z = -133f };
+
+        Vector3 spot4 = new Vector3 { x = -60f, y = 55f, z = 94f };
+
+        HotSpotLocation.Add(spot1);
+        HotSpotLocation.Add(spot2);
+        HotSpotLocation.Add(spot3);
+        HotSpotLocation.Add(spot4);
+
+        hotSpotIndex = 0;
+
+        //audioHotSpot.GetComponent<AudioSource>();
+        counter = 0f;
+        canDownload = 0f;
+
+        player = GameObject.FindGameObjectWithTag("Hacker");
+
+        // create a sphere object
+        hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        hotSpot.GetComponent<MeshRenderer>().enabled = false;
+
+        SpawnHotSpot();
+
+        if (GameStateController.isPlayerOne)
         {
-            Vector3 spot1 = new Vector3 { x = 56f, y = 55f, z = -48f };
-
-            Vector3 spot2 = new Vector3 { x = 56f, y = 55f, z = -133f };
-
-            Vector3 spot3 = new Vector3 { x = -60f, y = 55f, z = -133f };
-
-            Vector3 spot4 = new Vector3 { x = -60f, y = 55f, z = 94f };
-
-            HotSpotLocation.Add(spot1);
-            HotSpotLocation.Add(spot2);
-            HotSpotLocation.Add(spot3);
-            HotSpotLocation.Add(spot4);
-
-            hotSpotIndex = 0;
-
-            //audioHotSpot.GetComponent<AudioSource>();
-            counter = 0f;
-            canDownload = 0f;
-
-            player = GameObject.Find("PlayerOne(Clone)");
-
-            // create a sphere object
-            hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            hotSpot.GetComponent<MeshRenderer>().enabled = false;
-
-            SpawnHotSpot();
-
             //***********LOADBAR********//
-            loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
-            progressBar = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+            //loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
+            progressBar = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+
+            phone = GameObject.Find("CanvasPlayerOne(Clone)");
+
+            symbolPanel = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().symbolPanel;
         }
+
+
 
     }
 
+    [PunRPC]
     void SpawnHotSpot()
     {
         hotSpot.transform.position = new Vector3(HotSpotLocation[hotSpotIndex].x,
@@ -86,7 +99,7 @@ public class HotSpot : MonoBehaviour
 
     void Update()
     {
-        if(GameStateController.isPlayerOne)
+        if (player != null)
         {
             counter += Time.deltaTime;
 
@@ -96,7 +109,7 @@ public class HotSpot : MonoBehaviour
                 hasWifi = true;
                 Debug.Log("Has Wifi");
 
-                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null)
+                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
                 {
                     // download image only if load image is active
                     // this happens only when the image has not yet been downloaded
@@ -105,7 +118,7 @@ public class HotSpot : MonoBehaviour
 
 
                     //********LOADBAR*******//
-                    progressBar = GameObject.Find("ProgressBar").GetComponent<Slider>();
+                    progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
                     progressBar.value = 0.1f * Mathf.Round(canDownload);
                     Debug.Log(progressBar.value);
 
@@ -114,11 +127,10 @@ public class HotSpot : MonoBehaviour
                         downloadComplete = true;
                         canDownload = 0;
                         progressBar.value = 0;
-                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[3].SetActive(false);
-                        // GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
-                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-                        CellphoneView.currentPanelIndex = 2;
-                        GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+
+                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+                        CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
 
                     }
                 }
@@ -157,6 +169,8 @@ public class HotSpot : MonoBehaviour
                 hotSpot.GetComponent<Renderer>().material.color = Color.yellow;
             }
         }
-        
+
+
+
     }
 }
