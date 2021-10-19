@@ -11,8 +11,8 @@ public class PlayerManager : MonoBehaviourPun
 
     private AudioBehaviour AB;
 
-    [SerializeField] 
-    private readonly InputActionReference pttReference;
+    [SerializeField]
+    private InputActionReference pttReference;
 
     public string PlayerType { get => playerType; }
     public Player Player { get => player; }
