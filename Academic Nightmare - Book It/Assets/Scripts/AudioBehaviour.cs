@@ -1,45 +1,47 @@
 using Photon;
 using Photon.Pun;
+using Photon.Voice.Unity;
+using Photon.Voice.PUN;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AudioBehaviour : MonoBehaviour
+public class AudioBehaviour : MonoBehaviourPun
 {
     // Some values
-    private float currentVolume;
+    private float volume;
     private bool micHot = false;
 
     // Mic Settings
     public float threshold;
-    private float sensitivity = 200;
-    private float loudness = 0;
+
+    // Photon Voice
+    Recorder recorder;
     
     //Player stuff
-    PhotonView PV;
     AudioSource _audio;
     SphereCollider sc;
 
     public bool MicHot { get => micHot; }
-    public float CurrentVolume { get => currentVolume; set => currentVolume = value; }
+    public float Volume { get => volume; set => volume = value; }
 
-    private void Awake()
+    private void Start()
     {
-        PV = GetComponent<PhotonView>();
         sc = GetComponentInChildren<SphereCollider>();
         _audio = GetComponent<AudioSource>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (!PV.IsMine) return;
+        if (!photonView.IsMine) return;
 
-        if(micHot) EmitAudio(6.0f);
+        if (micHot) { EmitAudio(6.0f); }
     }
 
     public void MicOn()
     {
+        recorder.TransmitEnabled = true;
         _audio.clip = Microphone.Start(null, true, 100, 44100);
         _audio.loop = false;
 
@@ -51,6 +53,7 @@ public class AudioBehaviour : MonoBehaviour
 
     public void MicOff()
     {
+        recorder.TransmitEnabled = false;
         _audio.clip.UnloadAudioData();
         _audio.Stop();
 

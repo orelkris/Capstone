@@ -1,40 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using Photon.Realtime;
 using Cinemachine;
-using System;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
-    private Player pPlayer;
+    private Player player;
     private string playerType;
 
-    private PhotonView PV;
     private AudioBehaviour AB;
 
-    public InputActionReference pttReference;
-    public PlayerInput playerInput;
-    public UnityEvent onMicToggle;
-
+    [SerializeField] 
+    private readonly InputActionReference pttReference;
 
     public string PlayerType { get => playerType; }
-    public Player PPlayer { get => pPlayer; }
+    public Player Player { get => player; }
 
     private void Awake()
     {
-        PV = GetComponent<PhotonView>();
-        AB = GetComponentInChildren<AudioBehaviour>();
-
         // Set network values
-        pPlayer = PhotonNetwork.LocalPlayer;
-        playerType = (string)pPlayer.CustomProperties["class"];
+        player = PhotonNetwork.LocalPlayer;
+        playerType = (string)player.CustomProperties["class"];
 
         // Destroy what we dont need
-        if (!PV.IsMine)
+        if (!photonView.IsMine)
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
@@ -44,34 +34,14 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AB = GetComponentInChildren<AudioBehaviour>();
+
+        // Event handling
         pttReference.action.started += ActivateMic;
         pttReference.action.canceled += DeactivateMic;
-/*        pttReference.action.performed += ToggleMic;
-        pttReference.action.performed -= ToggleMic;*/
-    }
-/*    private void ToggleMic(InputAction.CallbackContext obj)
-    {
-        if (obj.started)
-        {
-            Debug.Log("mic activated");
-        }
-        else if (obj.canceled)
-        {
-            Debug.Log("mic deactivated");
-        }
-    }*/
-    
-    private void ActivateMic(InputAction.CallbackContext obj)
-    {
-        Debug.Log("mic activated");
-        AB.MicOn();
     }
 
-    private void DeactivateMic(InputAction.CallbackContext obj)
-    {
-        Debug.Log("mic deactivated");
-        AB.MicOff();
-    }
-
-  
+    // Mic Input
+    private void ActivateMic(InputAction.CallbackContext obj) => AB.MicOn();
+    private void DeactivateMic(InputAction.CallbackContext obj) => AB.MicOff();
 }

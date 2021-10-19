@@ -432,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelToActivate: {fileID: 7338908919451803194}
   panelToDeactivate: {fileID: 7338908919122294704}
+  panelBlocking: {fileID: 0}
 --- !u!1 &4209580955967606858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelToActivate: {fileID: 7338908919451803194}
   panelToDeactivate: {fileID: 7338908919122294704}
+  panelBlocking: {fileID: 0}
 --- !u!1 &7338908917917523827
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelToActivate: {fileID: 7338908919715869688}
   panelToDeactivate: {fileID: 7338908919451803194}
+  panelBlocking: {fileID: 0}
 --- !u!1 &7338908919016404007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2636,6 +2639,8 @@ GameObject:
   - component: {fileID: 7338908919116410849}
   - component: {fileID: -7504434351277357638}
   - component: {fileID: -5698191041839464810}
+  - component: {fileID: 1057958603429953296}
+  - component: {fileID: 5498779802495584097}
   m_Layer: 5
   m_Name: CanvasGlobal
   m_TagString: Untagged
@@ -2768,6 +2773,46 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &1057958603429953296
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338908919116410848}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0ff3920c9d58e74096861e7bedd113e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5498779802495584097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338908919116410848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3292c7b7c2d9c1c4d9a1621b8f31522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellphonePanel: {fileID: 7338908919451803194}
+  cellphonePanels:
+  - {fileID: 7338908919451803194}
+  - {fileID: 7338908919715869688}
+  - {fileID: 7338908919122294704}
+  - {fileID: 6575039764598424864}
+  - {fileID: 0}
+  slider: {fileID: 0}
+  cover: {fileID: 0}
 --- !u!1 &7338908919122294704
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,6 +3518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelToActivate: {fileID: 7338908919451803194}
   panelToDeactivate: {fileID: 7338908919715869688}
+  panelBlocking: {fileID: 0}
 --- !u!1 &7338908919586205125
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,6 +3667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelToActivate: {fileID: 7338908919122294704}
   panelToDeactivate: {fileID: 7338908919451803194}
+  panelBlocking: {fileID: 0}
 --- !u!1 &7338908919715869688
 GameObject:
   m_ObjectHideFlags: 0

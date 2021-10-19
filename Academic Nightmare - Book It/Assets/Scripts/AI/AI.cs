@@ -61,13 +61,13 @@ public class AI : MonoBehaviourPun
         if (GameStateController.isPlayerOne)
         {
             // create librarian
-            player = GameObject.Find("PlayerOne(Clone)").transform;
+            player = GameObject.Find("Player(Clone)").transform;
         }
         else
         {
             // create assistant
             this.tag = "Assistant";
-            player = GameObject.Find("PlayerTwo(Clone)").transform;
+            player = GameObject.Find("Player(Clone)").transform;
         }
         currentState = new Idle(this, agent, player);
     }

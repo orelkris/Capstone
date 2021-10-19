@@ -9,6 +9,7 @@ using Photon.Realtime;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController Instance;
+
     [SerializeField] TMP_InputField roomNameInputField;
     [SerializeField] TMP_InputField devroomNameInputField;
     [SerializeField] TMP_Dropdown sceneSelectDropdown;
@@ -25,6 +26,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject levelSelectDropdown;
     [SerializeField] GameObject startGameButton;
 
+    public bool isDevBuild = true;
     //bool to check if using for quick testing
     public bool isTest = false;
     //Room option to set the number of players to 2
@@ -35,13 +37,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
-        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     //Intiate connection to server
     private void Start()
     {
-        isTest = false;
         Debug.Log("Connecting to Server");
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -49,11 +49,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //Get message back from connecting to server
     public override void OnConnectedToMaster()
     {
-        base.OnConnectedToMaster();
-
-        PhotonNetwork.AutomaticallySyncScene = true;
-
         Debug.Log("Connected to Server");
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.JoinLobby();
     }
 
@@ -126,7 +123,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         GameStateController.isPlayerOne = true;
 
         // Test
-        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Hacker");
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "hacker");
     }
 
     //Set the current player to be player two
@@ -135,7 +132,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         GameStateController.isPlayerOne = false;
         
         // Test
-        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Thief");
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief");
     }
 
     //Joined Room
@@ -153,7 +150,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+            Player[] players = PhotonNetwork.PlayerList;
 
             foreach (Transform child in playerListContent)
             {
@@ -174,7 +171,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
             MenuManager.Instance.OpenMenu("RoomMenu");
 
         }
-
     }
 
 
@@ -217,8 +213,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        base.OnPlayerEnteredRoom(newPlayer);
-
         Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
     }
 
