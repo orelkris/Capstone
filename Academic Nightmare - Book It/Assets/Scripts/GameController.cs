@@ -56,7 +56,6 @@ public class GameController : MonoBehaviour
         {
             GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
-
         }
     }
 

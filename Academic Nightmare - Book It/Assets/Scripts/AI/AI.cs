@@ -11,7 +11,8 @@ public class AI : MonoBehaviourPun
     NavMeshAgent agent;
     Animator anim;
     private Transform player = null;
-    public List<GameObject> checkpoints = new List<GameObject>();
+    public GameObject patrolPath = null; 
+    public List<Transform> checkpoints = new List<Transform>();
     public enum DIFFICULTY
     {
         EASY, MEDIUM, HARD
@@ -22,8 +23,7 @@ public class AI : MonoBehaviourPun
     public AudioSource footstep;
 
     // AI attributes
-    //public int suspicionRate;
-
+    public float suspicionRate;
 
     // AI vision
     public float visDist = 40.0f;
@@ -37,6 +37,7 @@ public class AI : MonoBehaviourPun
     public float soundDetected = 0;
     public Vector3 noisePosition;
     public float hearingRange = 75f;
+    public float hearingSensitivity = 0.01f;
     public float spinSpeed = 3f;
     public bool canSpin = false;
     public float isSpinningTime;
@@ -51,26 +52,28 @@ public class AI : MonoBehaviourPun
     {
         agent = this.GetComponent<NavMeshAgent>();
         pv = photonView;
-        //suspicionRate = 0;
+        suspicionRate = 0;
         footstep = gameObject.GetComponent<AudioSource>();
-        for (int i = 1; i < 24; i++)
-        {
-            checkpoints.Add(GameObject.Find("cp" + i));
-        }
 
         if (GameStateController.isPlayerOne)
         {
             // create librarian
             this.tag = "Librarian";
             player = GameObject.Find("PlayerOne(Clone)").transform;
+            patrolPath = GameObject.Find("Checkpoints-Librarian");
         }
         else
         {
             // create assistant
-            this.tag = "Assistant";
+            tag = "Assistant";
             player = GameObject.Find("PlayerTwo(Clone)").transform;
+            patrolPath = GameObject.Find("Checkpoints-Assistant");
         }
-        currentState = new Idle(this, agent, player);
+        foreach (Transform child in patrolPath.transform)
+        {
+            checkpoints.Add(child);
+        }
+        currentState = new Idle(this, agent, player, State.STATE.IDLE);
     }
 
     // Update is called once per frame
@@ -79,7 +82,7 @@ public class AI : MonoBehaviourPun
         // start updating when game is ready
         if (player)
         {
-            Debug.Log(currentState);
+            Debug.Log(currentState.currentState);
             currentState = currentState.Process();
         }
     }
@@ -88,7 +91,18 @@ public class AI : MonoBehaviourPun
     public void SetSoundDetected(float s)
     {
         //Debug.Log("Noise: " + s);
-        this.soundDetected = s;
-        this.noisePosition = player.transform.position;
+        soundDetected = s;
+        noisePosition = player.transform.position;
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collide with " + collision.gameObject);
+        if(collision.gameObject.name == "PlayerTwo(Clone)")
+        {
+            Debug.Log("Caught");
+            // penalty here and respawn player
+        }
+    }
+
 }
