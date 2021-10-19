@@ -58,7 +58,7 @@ public class AI : MonoBehaviourPun
         if (GameStateController.isPlayerOne)
         {
             // create librarian
-            this.tag = "Librarian";
+            tag = "Librarian";
             player = GameObject.Find("PlayerOne(Clone)").transform;
             patrolPath = GameObject.Find("Checkpoints-Librarian");
         }
@@ -66,7 +66,8 @@ public class AI : MonoBehaviourPun
         {
             // create assistant
             tag = "Assistant";
-            player = GameObject.Find("PlayerTwo(Clone)").transform;
+            player = GameObject.Find("Player(Clone)").transform;
+            //player = GameObject.Find("PlayerTwo(Clone)").transform;
             patrolPath = GameObject.Find("Checkpoints-Assistant");
         }
         foreach (Transform child in patrolPath.transform)

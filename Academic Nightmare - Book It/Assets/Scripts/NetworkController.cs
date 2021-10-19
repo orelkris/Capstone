@@ -35,6 +35,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     //Intiate connection to server
@@ -82,12 +83,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
             return;
         }
 
-        Photon.Realtime.RoomOptions opts = new Photon.Realtime.RoomOptions();
+        RoomOptions opts = new RoomOptions();
         opts.IsOpen = true;
         opts.IsVisible = true;
         opts.MaxPlayers = MaxPlayers;
 
-        PhotonNetwork.CreateRoom(roomNameInputField.text, opts, Photon.Realtime.TypedLobby.Default);
+        PhotonNetwork.CreateRoom(roomNameInputField.text, opts, TypedLobby.Default);
         MenuManager.Instance.OpenMenu("LoadingMenu");
     }
 
@@ -95,12 +96,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void DevTestCreateJoinRoom()
     {
         isTest = true;
-        Photon.Realtime.RoomOptions opts = new Photon.Realtime.RoomOptions();
+        RoomOptions opts = new RoomOptions();
         opts.IsOpen = true;
         opts.IsVisible = true;
         opts.MaxPlayers = MaxPlayers;
 
-        PhotonNetwork.JoinOrCreateRoom(devroomNameInputField.text, opts, Photon.Realtime.TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(devroomNameInputField.text, opts, TypedLobby.Default);
     }
 
     //Failed to create a room
@@ -123,12 +124,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void SetPlayerOne()
     {
         GameStateController.isPlayerOne = true;
+
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Hacker");
     }
 
     //Set the current player to be player two
     public void SetPlayerTwo()
     {
         GameStateController.isPlayerOne = false;
+        
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "Thief");
     }
 
     //Joined Room
@@ -146,7 +153,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         else
         {
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-            Player[] players = PhotonNetwork.PlayerList;
+            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
 
             foreach (Transform child in playerListContent)
             {

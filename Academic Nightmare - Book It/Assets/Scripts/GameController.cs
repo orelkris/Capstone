@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour
 {
     //public GameObject winnerUI;
-    public GameObject player1SpawnPosition;
-    public GameObject player2SpawnPosition;
     public static List<LocationTracker> ListOflocationColour;
     public static List<GameObject> ListOfSymbols;
     public static int numOfSymbols = 4;
@@ -20,13 +18,6 @@ public class GameController : MonoBehaviour
 
         if (GameStateController.isPlayerOne)
         {
-            PhotonNetwork.Instantiate("PlayerOne", player1SpawnPosition.transform.position,
-                        Quaternion.identity);
-
-            // Hide the player 2 canvas object from player 1
-            GameObject.Find("PanelCode").SetActive(false);
-            GameObject.Find("Crosshair").SetActive(false);
-
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
             //keep track of symbol location and the shelf colour they are associated with
@@ -52,11 +43,11 @@ public class GameController : MonoBehaviour
             Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
 
         }
-        else
-        {
-            GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
+        //else
+        //{
+            //GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
-        }
+        //}
     }
 
     public static Material FindColour(Vector3 v)
