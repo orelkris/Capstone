@@ -25,6 +25,12 @@ public class CellphoneView : MonoBehaviour
     public GameObject symbolPanel;
     public GameObject downloadPanel;
 
+    private void Start()
+    {
+        currentPanelIndex = 1;
+        currentPanelIndexPlayerTwo = 1;
+    }
+
     public void Update()
     {
         if (GameStateController.isPlayerOne)

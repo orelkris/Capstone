@@ -148,7 +148,7 @@ MonoBehaviour:
   alwaysActivate: {fileID: 8075643738270273884}
   panelToActivate: {fileID: 4101037260537561561}
   panelToActivatePlayerTwo: {fileID: 4859288573069669462}
-  panelToDeactivate: {fileID: 0}
+  panelToDeactivate: {fileID: 4859288573069669462}
   panelBlocking: {fileID: 8075643740349213554}
   symbolsPanel: {fileID: 8075643738282314950}
   phone: {fileID: 8075643739445237342}
@@ -953,7 +953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1230821235395498912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1230,7 +1230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5465686106992006601
 RectTransform:
   m_ObjectHideFlags: 0

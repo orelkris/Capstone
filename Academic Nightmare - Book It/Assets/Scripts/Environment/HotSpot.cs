@@ -109,8 +109,10 @@ public class HotSpot : MonoBehaviour
 
                 hasWifi = true;
                 Debug.Log("Has Wifi");
+                Debug.Log("DOWNLOAD PANEL " + phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex);
 
-                if (CellphoneView.currentPanelIndex == 4 && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
+                if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
+                        && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
                 {
                     // download image only if load image is active
                     // this happens only when the image has not yet been downloaded
@@ -154,8 +156,9 @@ public class HotSpot : MonoBehaviour
                 //loadImagePanel.SetActive(true);
             }
 
-            if (Mathf.Round(counter) == 120)
+            if (Mathf.Round(counter) >= 120)
             {
+                Debug.Log(counter);
                 SpawnHotSpot();
                 counter = 0;
             }

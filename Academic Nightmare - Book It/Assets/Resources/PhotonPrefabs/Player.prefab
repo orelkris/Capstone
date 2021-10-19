@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: -8442284769184271488}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 6361101477879952175}
   m_Layer: 8
   m_Name: PlayerModel
-  m_TagString: Player
+  m_TagString: Hacker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

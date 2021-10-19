@@ -50,7 +50,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 Quaternion.identity
             );
 
-            GameObject.FindGameObjectWithTag("Player").tag = "Hacker";
+            //GameObject.FindGameObjectWithTag("Player").gameObject.tag = "Hacker";
+            //Debug.Log(GameObject.FindGameObjectWithTag("Player").tag);
 
 
             // Hide the player 2 canvas object from player 1
@@ -65,7 +66,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 Quaternion.identity
             );
 
-            GameObject.FindGameObjectWithTag("Player").tag = "Thief";
+            //default tag is Hacker
+            GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";
         }
     }
 

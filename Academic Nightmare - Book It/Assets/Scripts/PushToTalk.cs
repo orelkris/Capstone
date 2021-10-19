@@ -36,6 +36,8 @@ public class PushToTalk : MonoBehaviourPun
             //enemy = GameObject.FindGameObjectWithTag("Assistant").GetComponent<AI>();
             enemy = FindObjectOfType<AI>();
         }
+
+        currentPeak = 0f;
     }
 
     void Update()
