@@ -162,10 +162,11 @@ GameObject:
   - component: {fileID: 2500252068355727174}
   - component: {fileID: 9020563967350208168}
   - component: {fileID: 5797858986919925225}
+  - component: {fileID: -8356864273496172573}
   - component: {fileID: -8442284769184271488}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,6 +230,23 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-8356864273496172573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889379558338760150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushButton: 108
+  VoiceRecorder: {fileID: 2895956326542271418, guid: 19bea52f7e418fd4dbea2b6383b81d0f, type: 3}
+  sensitivity: 200
+  loudness: 0
+  spinSpeed: 3
 --- !u!114 &-8442284769184271488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,6 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selection: {fileID: 0}
   MoveSpeed: 4
   SprintSpeed: 8
   RotationSpeed: 1

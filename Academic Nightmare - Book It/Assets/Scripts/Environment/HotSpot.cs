@@ -59,6 +59,7 @@ public class HotSpot : MonoBehaviour
         // create a sphere object
         hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         hotSpot.GetComponent<MeshRenderer>().enabled = false;
+        hotSpot.GetComponent<SphereCollider>().isTrigger = true;
 
         SpawnHotSpot();
 

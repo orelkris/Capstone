@@ -50,6 +50,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 Quaternion.identity
             );
 
+            GameObject.FindGameObjectWithTag("Player").tag = "Hacker";
+
+
             // Hide the player 2 canvas object from player 1
             GameObject.Find("PanelCode").SetActive(false);
             GameObject.Find("Crosshair").SetActive(false);
@@ -61,6 +64,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 spawnPositions[1], 
                 Quaternion.identity
             );
+
+            GameObject.FindGameObjectWithTag("Player").tag = "Thief";
         }
     }
 

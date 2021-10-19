@@ -28,6 +28,11 @@ public class PlayerManager : MonoBehaviourPun
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
+        } 
+
+        if(player.CustomProperties["class"].Equals("hacker"))
+        {
+            player.TagObject = "Hacker";
         }
     }
 

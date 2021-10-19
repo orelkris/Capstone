@@ -64,7 +64,7 @@ public class PushToTalk : MonoBehaviourPun
         if(loudness > 0)
         {
             //if(view.IsMine) view.RPC("SensingSound", RpcTarget.Others, loudness);
-            enemy.SetSoundDetected(loudness);
+            //enemy.SetSoundDetected(loudness);
         }
 
         if(VoiceRecorder.TransmitEnabled)

@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 29b803fc13fadc54bbe8cc79d3a67028
   - enabled: 1
-    path: Assets/Scenes/Solo Scenes/Kris.unity
-    guid: d63bf90a33ecac748b797d82e1b13421
+    path: Assets/Scenes/Solo Scenes/Kris2.unity
+    guid: e1e2f782e19754c47944f3f47e894ba0
   - enabled: 1
     path: Assets/Scenes/Solo Scenes/Henson.unity
     guid: c4e26c40eb78a7e449a154f3f3a91664
+  - enabled: 1
+    path: Assets/Scenes/Solo Scenes/Kris.unity
+    guid: d63bf90a33ecac748b797d82e1b13421
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

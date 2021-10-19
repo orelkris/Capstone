@@ -1,4 +1,6 @@
 using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SymbolInformation : MonoBehaviour
@@ -14,6 +16,7 @@ public class SymbolInformation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         string code = RandomNameGenerator();
         PhotonView pv = GetComponent<PhotonView>();
         pv.RPC(nameof(ReceiveCode), RpcTarget.All, code);
@@ -23,10 +26,10 @@ public class SymbolInformation : MonoBehaviour
         int index = selfMaterial.name.IndexOf(' ');
         selfName = selfMaterial.name.Substring(0, index);
         shelfColour = GameController.FindColour(this.GetComponent<Transform>().position);
-        //Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);
+        Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);
 
         selfObject = new SymbolObject(selfName, selfMaterial, shelfColour, selfCode);
-        //Debug.Log("FINAL CODE : " + selfObject.m_code);
+        Debug.Log("FINAL CODE : " + selfObject.m_code);
 
     }
 
