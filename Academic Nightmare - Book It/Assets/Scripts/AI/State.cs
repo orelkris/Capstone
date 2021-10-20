@@ -68,13 +68,16 @@ public class State
     {
         Vector3 direction = player.transform.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
+        Vector3 eyesPos = new Vector3(agent.transform.position.x, agent.height, agent.transform.position.z);
+        float sphereCastRadius = 4.0f;
         RaycastHit hit;
         if (direction.magnitude < npc.visDist && angle < npc.visAngle)
         {
             //Debug.Log("Object detected between AI and player at"+ hit.distance);
-            if (Physics.Raycast(agent.transform.position, (player.transform.position - agent.transform.position), out hit, npc.visDist))
+            //Debug.DrawRay(eyesPos, direction, Color.red, npc.visDist);
+            if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, npc.visDist))
             {
-                if (hit.transform == player.transform)
+                if (hit.transform.gameObject == player)
                 {
                     Debug.Log("Player is seen");
                     return true;
@@ -164,7 +167,6 @@ public class Roam : State
         float lastDist = Mathf.Infinity;
         for (int i = 0; i < npc.checkpoints.Count; i++)
         {
-            Debug.Log(i);
             Transform thisWP = npc.checkpoints[i];
             float distance = Vector3.Distance(npc.transform.position, thisWP.position);
             if (distance < lastDist)
