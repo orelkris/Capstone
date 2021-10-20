@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b55f857c794434d4e9cebdc771f22d5c, type: 2}
 --- !u!1 &34736667
 GameObject:
   m_ObjectHideFlags: 0
@@ -7105,6 +7105,7 @@ MonoBehaviour:
   levelText: {fileID: 1117420061}
   levelSelectDropdown: {fileID: 391411692}
   startGameButton: {fileID: 1570433573}
+  isDevBuild: 1
   isTest: 0
   MaxPlayers: 2
 --- !u!114 &1441747939
@@ -8947,7 +8948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1667607447
 RectTransform:
   m_ObjectHideFlags: 0

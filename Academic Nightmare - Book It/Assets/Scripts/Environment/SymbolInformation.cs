@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SymbolInformation : MonoBehaviour
@@ -16,20 +14,19 @@ public class SymbolInformation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         string code = RandomNameGenerator();
         PhotonView pv = GetComponent<PhotonView>();
         pv.RPC(nameof(ReceiveCode), RpcTarget.All, code);
 
-         
+
         selfMaterial = this.GetComponent<Renderer>().material;
         int index = selfMaterial.name.IndexOf(' ');
         selfName = selfMaterial.name.Substring(0, index);
         shelfColour = GameController.FindColour(this.GetComponent<Transform>().position);
-        Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);
+        //Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);
 
         selfObject = new SymbolObject(selfName, selfMaterial, shelfColour, selfCode);
-        Debug.Log("FINAL CODE : " + selfObject.m_code);
+        //Debug.Log("FINAL CODE : " + selfObject.m_code);
 
     }
 
@@ -39,7 +36,7 @@ public class SymbolInformation : MonoBehaviour
     {
         return this.selfObject.m_code;
     }
-    
+
     [PunRPC]
     private string RandomNameGenerator()
     {
@@ -55,7 +52,7 @@ public class SymbolInformation : MonoBehaviour
             output += c;
         }
 
-        
+
         return output;
     }
 
@@ -77,7 +74,7 @@ public class SymbolObject
     public Material m_shelfColour;
     public string m_code;
     public string m_fileName;
-    
+
 
     public SymbolObject(string name, GameObject symbol, Material material, Material shelfColour, string code, string fileName = "")
     {
@@ -89,7 +86,7 @@ public class SymbolObject
         m_fileName = fileName;
     }
 
-    public SymbolObject(string name,  Material material, string code)
+    public SymbolObject(string name, Material material, string code)
     {
         m_name = name;
         m_material = material;
