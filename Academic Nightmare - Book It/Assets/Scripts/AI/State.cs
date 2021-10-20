@@ -68,14 +68,17 @@ public class State
     {
         Vector3 direction = player.transform.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
-        Vector3 eyesPos = new Vector3(agent.transform.position.x, agent.height, agent.transform.position.z);
+        Vector3 eyesPos = new Vector3(agent.transform.position.x, (agent.transform.position.y + agent.height), agent.transform.position.z);
         float sphereCastRadius = 4.0f;
+        float visionRange = npc.aiMemorizePlayer? Mathf.Infinity: npc.visDist;
         RaycastHit hit;
         if (direction.magnitude < npc.visDist && angle < npc.visAngle)
         {
             //Debug.Log("Object detected between AI and player at"+ hit.distance);
             //Debug.DrawRay(eyesPos, direction, Color.red, npc.visDist);
-            if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, npc.visDist))
+            //Debug.Log("Eyes Pos:"+eyesPos);
+            //Debug.Log("Player tag: " + player.tag);
+            if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, visionRange))
             {
                 if (hit.transform.gameObject == player)
                 {
@@ -194,7 +197,7 @@ public class Roam : State
             }
             //move to next check point
             agent.SetDestination(npc.checkpoints[currentIndex].transform.position);
-            Debug.Log("Current Index: " + currentIndex);
+            //Debug.Log("Current Index: " + currentIndex);
         }
         //start chasing player if it sees one
         if (CanSeePlayer() == true)
@@ -245,6 +248,7 @@ public class Pursue : State
                 Debug.Log("Reset to 5");
                 //npc.chaseDuration = 5f;
                 pursueTime = 5f;
+                npc.aiMemorizePlayer = true;
             }
             else
             {
@@ -253,6 +257,7 @@ public class Pursue : State
                 pursueTime -= Time.deltaTime;
                 if(pursueTime <= 0)
                 {
+                    npc.aiMemorizePlayer = false;
                     agent.SetDestination(agent.transform.position);
                     nextState = new Roam(npc, agent, player, currentState);
                     stage = EVENT.EXIT;

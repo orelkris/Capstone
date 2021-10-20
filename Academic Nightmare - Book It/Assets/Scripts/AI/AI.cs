@@ -26,7 +26,7 @@ public class AI : MonoBehaviourPun
     public float suspicionRate;
 
     // AI vision
-    public float visDist = 40.0f;
+    public float visDist = 60.0f;
     public float visAngle = 130.0f;
 
     // AI chase
@@ -36,7 +36,7 @@ public class AI : MonoBehaviourPun
     // AI hearing
     public float soundDetected = 0;
     public Vector3 noisePosition;
-    public float hearingRange = 75f;
+    public float hearingRange = 100f;
     public float hearingSensitivity = 0.01f;
     public float spinSpeed = 3f;
     public bool canSpin = false;
@@ -99,7 +99,7 @@ public class AI : MonoBehaviourPun
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collide with " + collision.gameObject);
-        if(collision.gameObject.name == "PlayerTwo(Clone)")
+        if(collision.gameObject.name == "Player(Clone)")
         {
             Debug.Log("Caught");
             // penalty here and respawn player
