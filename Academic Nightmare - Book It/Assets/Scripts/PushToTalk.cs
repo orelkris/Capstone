@@ -18,7 +18,8 @@ public class PushToTalk : MonoBehaviourPun
     AudioSource _audio;
     private bool _isInitialized = false;
     private float volume;
-    private AI enemy;
+    private GameObject enemy;
+    private AI enemyAI;
     private Vector3 noisePosition;
     public float spinSpeed = 3f;
 
@@ -31,20 +32,23 @@ public class PushToTalk : MonoBehaviourPun
         view = photonView;
         VoiceRecorder.TransmitEnabled = false;
         _device = Microphone.devices[0];
-        if (!GameStateController.isPlayerOne)
+        if (GameStateController.isPlayerOne)
         {
-            //enemy = GameObject.FindGameObjectWithTag("Assistant").GetComponent<AI>();
-            enemy = FindObjectOfType<AI>();
+            enemy = GameObject.Find("Librarian");
         }
-
-        currentPeak = 0f;
+        else
+        {
+            enemy = GameObject.Find("Assistant");
+        }
+        enemyAI = enemy.transform.GetChild(0).gameObject.GetComponent<AI>();    
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(PushButton))
+        // push to talk
+        if (Input.GetKeyDown(PushButton))
         {
-            if(view.IsMine)
+            if (view.IsMine)
             {
                 Debug.Log("Start talking");
                 VoiceRecorder.TransmitEnabled = true;
@@ -52,7 +56,7 @@ public class PushToTalk : MonoBehaviourPun
                 _isInitialized = true;
             }
         }
-        else if(Input.GetKeyUp(PushButton))
+        else if (Input.GetKeyUp(PushButton))
         {
             if (view.IsMine)
             {
@@ -62,20 +66,32 @@ public class PushToTalk : MonoBehaviourPun
                 _isInitialized = false;
             }
         }
+
+        // toggle mic
+        //if(Input.GetKeyDown(PushButton))
+        //{
+        //    if(view.IsMine)
+        //    {
+        //        VoiceRecorder.TransmitEnabled = !VoiceRecorder.TransmitEnabled;
+        //        if(!VoiceRecorder.TransmitEnabled)
+        //        {
+        //            InitMic();
+        //            _isInitialized = true;
+        //            Debug.Log("Mic On");
+        //        }
+        //        else
+        //        {
+        //            StopMicrophone();
+        //            _isInitialized = false;
+        //            Debug.Log("Mic off");
+        //        }
+        //    }
+        //}
         loudness = LevelMax();
         if(loudness > 0)
         {
-            //if(view.IsMine) view.RPC("SensingSound", RpcTarget.Others, loudness);
-            //enemy.SetSoundDetected(loudness);
-        }
-
-        if(VoiceRecorder.TransmitEnabled)
-        {
-            currentPeak = loudness;
-        }
-        else
-        {
-            currentPeak = 0f;
+            // if sound detected through microphone, send amplitude value to AI and the other player
+            enemy.GetComponentInChildren<AI>().SetSoundDetected(loudness);
         }
 
     }
@@ -100,7 +116,6 @@ public class PushToTalk : MonoBehaviourPun
         if (_clipRecord)
         {
             _clipRecord.GetData(waveData, micPosition);
-            // Getting a peak on the last 128 samples
             for (int i = 0; i < _window; i++)
             {
                 float wavePeak = waveData[i] * waveData[i];
@@ -122,6 +137,6 @@ public class PushToTalk : MonoBehaviourPun
     void OnDestroy()
     {
         StopMicrophone();
-    }
+    }   
 
 }

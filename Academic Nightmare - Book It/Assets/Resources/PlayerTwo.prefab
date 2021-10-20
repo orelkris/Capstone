@@ -198,6 +198,7 @@ MonoBehaviour:
   VoiceRecorder: {fileID: 6105498717854292400}
   sensitivity: 200
   loudness: 0
+  spinSpeed: 3
 --- !u!114 &-1916610307361251366
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 8234252875647238130}
   - component: {fileID: 7312151607233452713}
   - component: {fileID: 4258185366881698994}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: AudioBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 4849176364992015413}
   - component: {fileID: 6726650398896345842}
   - component: {fileID: 8943015779659712863}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 618279240886275944}
   - component: {fileID: 1525531164234746266}
   - component: {fileID: 6361101477879952175}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Hacker
   m_Icon: {fileID: 0}

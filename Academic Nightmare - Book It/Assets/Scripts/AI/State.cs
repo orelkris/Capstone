@@ -15,24 +15,28 @@ public class State
         ENTER, UPDATE, EXIT
     };
 
-    public STATE name;
+    public STATE currentState;
     protected EVENT stage;
     protected AI npc;
-    protected Transform player;
-    protected STATE prevState;
-    protected State nextState; // not the enum state
+    protected GameObject player;
+    public STATE prevState;
+    protected State nextState;
     protected NavMeshAgent agent;
+    //public MonoBehaviour mb;
 
-
-
-    public State(AI _npc, NavMeshAgent _agent, Transform _player)
+    public State(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
     {
         npc = _npc;
         agent = _agent;
         stage = EVENT.ENTER;
         player = _player;
+        //mb = GameObject.FindObjectOfType<MonoBehaviour>();
     }
 
+    //public State()
+    //{
+        
+    //}
     public virtual void Enter() { stage = EVENT.UPDATE; }
     public virtual void Update() { stage = EVENT.UPDATE; }
     public virtual void Exit() { stage = EVENT.EXIT; }
@@ -62,22 +66,26 @@ public class State
     //TODO: add raycast so player can hide behind object
     public bool CanSeePlayer()
     {
-        Vector3 direction = player.position - npc.transform.position;
+        Vector3 direction = player.transform.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
+        Vector3 eyesPos = new Vector3(agent.transform.position.x, (agent.transform.position.y + agent.height), agent.transform.position.z);
+        float sphereCastRadius = 4.0f;
+        float visionRange = npc.aiMemorizePlayer? Mathf.Infinity: npc.visDist;
         RaycastHit hit;
         if (direction.magnitude < npc.visDist && angle < npc.visAngle)
         {
             //Debug.Log("Object detected between AI and player at"+ hit.distance);
-            if (Physics.Raycast(agent.transform.position, (player.position - agent.transform.position), out hit, npc.visDist))
+            //Debug.DrawRay(eyesPos, direction, Color.red, npc.visDist);
+            //Debug.Log("Eyes Pos:"+eyesPos);
+            //Debug.Log("Player tag: " + player.tag);
+            if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, visionRange))
             {
-                if (hit.transform == player)
+                if (hit.transform.gameObject == player)
                 {
                     Debug.Log("Player is seen");
                     return true;
                 }
-
             }
-            //return true;
         }
         Debug.Log("Player not seen");
         return false;
@@ -85,7 +93,7 @@ public class State
 
     public bool CheckSoundDetected()
     {
-        if(npc.soundDetected > 0)
+        if(npc.soundDetected > npc.hearingSensitivity)
         {
             float noiseDistance = Vector3.Distance(npc.transform.position, npc.noisePosition);
             if (noiseDistance < npc.hearingRange)
@@ -96,51 +104,51 @@ public class State
         }
         return false;
     }
-
 }
 
 public class Idle : State
 {
-    public Idle(AI _npc, NavMeshAgent _agent, Transform _player)
-        : base(_npc, _agent, _player)
+    public Idle(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
+        : base(_npc, _agent, _player, _prevState)
     {
-        name = STATE.IDLE;
+        currentState = STATE.IDLE;
     }
 
     public override void Enter()
     {
-        //Debug.Log("Enter Idle");
         base.Enter();
     }
 
     public override void Update()
     {
-        //Debug.Log("Update Idle");
-        if (CanSeePlayer() == true)
+        // Check if both players are connected and game has started. replace with global variable if any
+        if (player)
         {
-            //Debug.Log("Player spotted");
-            nextState = new Pursue(npc, agent, player);
-            stage = EVENT.EXIT;
-        } else if(CheckSoundDetected() == true)
-        {
-            //Debug.Log("Noise heard");
-            nextState = new Suspect(npc, agent, player);
-            stage = EVENT.EXIT;
+            if (CanSeePlayer() == true)
+            {
+                nextState = new Pursue(npc, agent, player, currentState);
+                stage = EVENT.EXIT;
+            }
+            else if (CheckSoundDetected() == true)
+            {
+                nextState = new Suspect(npc, agent, player, currentState);
+                stage = EVENT.EXIT;
+            }
+            //else if (prevState == STATE.PURSUE || prevState == STATE.SUSPECT)
+            //{
+            //    nextState = new Idle(npc, agent, player, currentState);
+            //    stage = EVENT.EXIT;
+            //}
+            else
+            {
+                nextState = new Roam(npc, agent, player, currentState);
+                stage = EVENT.EXIT;
+            }
         }
-        else if (Random.Range(0, 100) < 30)
-        {
-            //Debug.Log("Patrol");
-            nextState = new Roam(npc, agent, player);
-            stage = EVENT.EXIT;
-        }
-        // base.Update();
     }
 
     public override void Exit()
     {
-        //Debug.Log("Exit Idle");
-        // clean up animation
-        prevState = STATE.IDLE;
         base.Exit();
     }
 }
@@ -149,36 +157,33 @@ public class Roam : State
 {
     int currentIndex = -1;
     GameObject assignedCheckpoint = null;
-    public Roam(AI _npc, NavMeshAgent _agent, Transform _player)
-        : base(_npc, _agent, _player)
+    public Roam(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
+        : base(_npc, _agent, _player, _prevState)
     {
-        name = STATE.ROAM;
+        currentState = STATE.ROAM;
         agent.speed = 3.5f;
         agent.isStopped = false;
     }
 
     public override void Enter()
     {
-        //Debug.Log("Enter Roam");
         float lastDist = Mathf.Infinity;
         for (int i = 0; i < npc.checkpoints.Count; i++)
         {
-            GameObject thisWP = npc.checkpoints[i];
-            float distance = Vector3.Distance(npc.transform.position, thisWP.transform.position);
+            Transform thisWP = npc.checkpoints[i];
+            float distance = Vector3.Distance(npc.transform.position, thisWP.position);
             if (distance < lastDist)
             {
-                currentIndex = i - 1;
+                currentIndex = i;
                 lastDist = distance;
             }
         }
-
         base.Enter();
     }
 
     public override void Update()
     {
-        //Debug.Log("Update Roam");
-        //TODO: can we randomize the patrol pattern?
+        //TODO: randomize the pattern by choosing from 1 of the 3 closest checkpoint
         if (agent.remainingDistance < 1)
         {
             //reach to the end of the checkpoint list
@@ -191,27 +196,25 @@ public class Roam : State
                 currentIndex++;
             }
             //move to next check point
-            //TODO: add rotation
             agent.SetDestination(npc.checkpoints[currentIndex].transform.position);
+            //Debug.Log("Current Index: " + currentIndex);
         }
         //start chasing player if it sees one
         if (CanSeePlayer() == true)
         {
-            nextState = new Pursue(npc, agent, player);
+            nextState = new Pursue(npc, agent, player, currentState);
             stage = EVENT.EXIT;
         }
         // if AI hear sounds, start suspecting and think about what to do
         else if(CheckSoundDetected() == true)
         {
-            nextState = new Suspect(npc, agent, player);
+            nextState = new Suspect(npc, agent, player, currentState);
             stage = EVENT.EXIT;
         }
     }
 
     public override void Exit()
     {
-        //Debug.Log("Exit Roam");
-        prevState = STATE.ROAM;
         base.Exit();
     }
 }
@@ -219,10 +222,10 @@ public class Roam : State
 public class Pursue : State
 {
     float pursueTime = 5f;
-    public Pursue(AI _npc, NavMeshAgent _agent, Transform _player)
-        : base(_npc, _agent, _player)
+    public Pursue(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
+        : base(_npc, _agent, _player, _prevState)
     {
-        name = STATE.PURSUE;
+        currentState = STATE.PURSUE;
         agent.speed = 4.8f;
         agent.isStopped = false;
         pursueTime = Time.deltaTime;
@@ -239,13 +242,13 @@ public class Pursue : State
         //If enemy cannot see player, start counting down
         if (agent.hasPath)
         {
-            agent.SetDestination(player.position);
-            Debug.Log("Purse time left: " + pursueTime);
+            agent.SetDestination(player.transform.position);
             if (CanSeePlayer())
             {
                 Debug.Log("Reset to 5");
                 //npc.chaseDuration = 5f;
                 pursueTime = 5f;
+                npc.aiMemorizePlayer = true;
             }
             else
             {
@@ -254,8 +257,9 @@ public class Pursue : State
                 pursueTime -= Time.deltaTime;
                 if(pursueTime <= 0)
                 {
+                    npc.aiMemorizePlayer = false;
                     agent.SetDestination(agent.transform.position);
-                    nextState = new Roam(npc, agent, player);
+                    nextState = new Roam(npc, agent, player, currentState);
                     stage = EVENT.EXIT;
                     Debug.Log("Stop Chasing");
                 }
@@ -265,48 +269,49 @@ public class Pursue : State
 
     public override void Exit()
     {
-        //Debug.Log("Exit Pursue");
-        prevState = STATE.PURSUE;
         base.Exit();
     }
 }
 
 public class Suspect : State
 {
-    public Suspect(AI _npc, NavMeshAgent _agent, Transform _player)
-    : base(_npc, _agent, _player)
+    // this state should take action base on suspect rate
+    public Suspect(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
+    : base(_npc, _agent, _player, _prevState)
     {
-        name = STATE.SUSPECT;
+        currentState = STATE.SUSPECT;
         agent.speed = 6f;
+        npc.suspicionRate = 10;
     }
 
     public override void Enter()
     {
-        //Debug.Log("Enter Suspect");
         base.Enter();
     }
 
     public override void Update()
     {
-        //Debug.Log("Update Suspect");
         if(CheckSoundDetected() == true && CanSeePlayer() == false)
         {
             agent.SetDestination(npc.noisePosition);
             npc.soundDetected = 0;
-            nextState = new Idle(npc, agent, player);
+            nextState = new Idle(npc, agent, player, currentState);
             stage = EVENT.EXIT;
         }
         else if(CanSeePlayer() == true)
         {
-            nextState = new Pursue(npc, agent, player);
+            nextState = new Pursue(npc, agent, player, currentState);
+            stage = EVENT.EXIT;
+        }
+        else
+        {
+            nextState = new Roam(npc, agent, player, currentState);
             stage = EVENT.EXIT;
         }
     }
 
     public override void Exit()
     {
-        //Debug.Log("Exit Suspect");
-        prevState = STATE.SUSPECT;
         base.Exit();
     }
 }

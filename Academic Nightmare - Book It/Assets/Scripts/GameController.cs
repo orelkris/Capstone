@@ -51,7 +51,13 @@ public class GameController : MonoBehaviour
             }
 
             Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
+
         }
+        //else
+        //{
+            //GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
+            //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
+        //}
     }
 
     private void Update()
