@@ -109,7 +109,6 @@ public class HotSpot : MonoBehaviour
 
                 hasWifi = true;
                 Debug.Log("Has Wifi");
-                Debug.Log("DOWNLOAD PANEL " + phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex);
 
                 if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
                         && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
@@ -117,64 +116,59 @@ public class HotSpot : MonoBehaviour
                     // download image only if load image is active
                     // this happens only when the image has not yet been downloaded
 
-                    canDownload += Time.deltaTime;
+                    //********LOADBAR*******/
 
-
-                    //********LOADBAR*******//
-                    progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
-                    progressBar.value = 0.1f * Mathf.Round(canDownload);
-                    Debug.Log(progressBar.value);
-
-                    if (progressBar.value == 1)
+                    // just in case the player turned off the cellphone, always check for null values
+                    if (GameObject.Find("ProgressSlider") != null)
                     {
-                        downloadComplete = true;
-                        canDownload = 0;
-                        progressBar.value = 0;
+                        canDownload += Time.deltaTime;
 
-                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-                        CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
-                        phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+                        progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
 
+                        progressBar.value = 0.1f * Mathf.Round(canDownload);
+                        //Debug.Log(progressBar.value);
+
+                        if (progressBar.value == 1)
+                        {
+                            downloadComplete = true;
+                            canDownload = 0;
+                            progressBar.value = 0;
+
+                            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+                            CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+                            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+
+                        }
                     }
                 }
-            }
-            else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
-            {
-                hasWifi = false;
+
+                else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
+                {
+                    hasWifi = false;
+                }
+
+                //if (hasWifi && audioToggle)
+                // {
+                //audioHotSpot.Play();
+                //   audioToggle = false;
+                // }
+
+                if (!hasWifi)
+                {
+                    // audioHotSpot.Stop();
+                    //audioToggle = true;
+                    //loadImagePanel.SetActive(true);
+                }
+
             }
 
-            //if (hasWifi && audioToggle)
-            // {
-            //audioHotSpot.Play();
-            //   audioToggle = false;
-            // }
-
-            if (!hasWifi)
-            {
-                // audioHotSpot.Stop();
-                //audioToggle = true;
-                //loadImagePanel.SetActive(true);
-            }
-
-            if (Mathf.Round(counter) >= 120)
-            {
-                Debug.Log(counter);
-                SpawnHotSpot();
-                counter = 0;
-            }
-
-            // if the random float is above 40, change the colour of the sphere based on the list of colours
-            if (Mathf.Round(counter) % 2 == 0)
-            {
-                hotSpot.GetComponent<Renderer>().material.color = Color.magenta;
-            }
-            else
-            {
-                hotSpot.GetComponent<Renderer>().material.color = Color.yellow;
-            }
         }
 
-
-
+        if (Mathf.Round(counter) >= 60)
+        {
+            Debug.Log(counter);
+            SpawnHotSpot();
+            counter = 0;
+        }
     }
 }

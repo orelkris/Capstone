@@ -200,7 +200,7 @@ namespace StarterAssets
 			if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
 			// a reference to the players current horizontal velocity
-			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+			float currentHorizontalSpeed = new Vector3(_controller.velocity.z, 0.0f, _controller.velocity.x).magnitude;
 
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
@@ -227,8 +227,17 @@ namespace StarterAssets
 			// if there is a move input rotate player when the player is moving
 			if (_input.move != Vector2.zero)
 			{
-				// move
-				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				if (GameController.symbolsFound == 1)
+				{
+					// move backwards...a fun little challenge
+					Debug.Log("CHANGED");
+					inputDirection = -transform.right * _input.move.x + -transform.forward * _input.move.y;
+				}
+				else
+                {
+					// move
+					inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				}
 			}
 
 			// move the player

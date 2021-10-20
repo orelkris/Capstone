@@ -10,11 +10,15 @@ public class GameController : MonoBehaviour
     public static int numOfSymbols = 4;
     public static int correctSymbolIndex = 0;
 
+    public static int symbolsFound;
+
     private bool onlyOneCanvas = false;
     //public GameObject symbolSpawnPosition;
 
     private void Awake()
     {
+        symbolsFound = 0;
+
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
