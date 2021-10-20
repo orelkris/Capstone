@@ -110,41 +110,44 @@ public class HotSpot : MonoBehaviour
                 hasWifi = true;
                 Debug.Log("Has Wifi");
 
-                if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
-                        && !downloadComplete && progressBar != null && GameStateController.isPlayerOne)
+                if (GameObject.Find("DownloadPanel") != null)
                 {
-                    // download image only if load image is active
-                    // this happens only when the image has not yet been downloaded
-
-                    //********LOADBAR*******/
-
-                    // just in case the player turned off the cellphone, always check for null values
-                    if (GameObject.Find("ProgressSlider") != null)
+                    if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
+                            && !downloadComplete && GameStateController.isPlayerOne)
                     {
-                        canDownload += Time.deltaTime;
+                        // download image only if load image is active
+                        // this happens only when the image has not yet been downloaded
 
-                        progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
+                        //********LOADBAR*******/
 
-                        progressBar.value = 0.1f * Mathf.Round(canDownload);
-                        //Debug.Log(progressBar.value);
-
-                        if (progressBar.value == 1)
+                        // just in case the player turned off the cellphone, always check for null values
+                        if (GameObject.Find("ProgressSlider") != null)
                         {
-                            downloadComplete = true;
-                            canDownload = 0;
-                            progressBar.value = 0;
+                            canDownload += Time.deltaTime;
 
-                            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-                            CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
-                            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+                            progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
 
+                            progressBar.value = 0.1f * Mathf.Round(canDownload);
+                            //Debug.Log(progressBar.value);
+
+                            if (progressBar.value == 1)
+                            {
+                                downloadComplete = true;
+                                canDownload = 0;
+                                progressBar.value = 0;
+
+                                phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
+                                CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+                                phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+
+                            }
                         }
                     }
-                }
 
-                else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
-                {
-                    hasWifi = false;
+                    else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
+                    {
+                        hasWifi = false;
+                    }
                 }
 
                 //if (hasWifi && audioToggle)
