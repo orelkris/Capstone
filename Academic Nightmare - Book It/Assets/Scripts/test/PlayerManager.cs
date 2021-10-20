@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviourPun
 
     private AudioBehaviour AB;
 
-    [SerializeField] 
+    [SerializeField]
     private InputActionReference pttReference;
 
     public string PlayerType { get => playerType; }
@@ -28,6 +28,11 @@ public class PlayerManager : MonoBehaviourPun
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
+        } 
+
+        if(player.CustomProperties["class"].Equals("hacker"))
+        {
+            player.TagObject = "Hacker";
         }
     }
 

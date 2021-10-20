@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
 
@@ -9,12 +9,22 @@ public class GameController : MonoBehaviour
     public static List<GameObject> ListOfSymbols;
     public static int numOfSymbols = 4;
     public static int correctSymbolIndex = 0;
+
+    public static int symbolsFound;
+
+    private bool onlyOneCanvas = false;
     //public GameObject symbolSpawnPosition;
 
     private void Awake()
     {
+        symbolsFound = 0;
+
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
+
+        PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
+
+        PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
 
         if (GameStateController.isPlayerOne)
         {
@@ -48,6 +58,29 @@ public class GameController : MonoBehaviour
             //GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
             //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
         //}
+    }
+
+    private void Update()
+    {
+        if (!onlyOneCanvas)
+        {
+            GameObject[] canvasList = GameObject.FindGameObjectsWithTag("Cellphone");
+            //GameObject[] hotSpotList = GameObject.FindGameObjectsWithTag("HotSpot");
+            for (int i = 0; i < canvasList.Length; i++)
+            {
+
+                bool ID = canvasList[i].GetComponent<PhotonView>().IsMine;
+                //bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
+                Debug.Log("PHOTONE ID MINE? " + ID);
+
+                if (!ID)
+                {
+                    DestroyImmediate(canvasList[i]);
+                    onlyOneCanvas = true;
+
+                }
+            }
+        }
     }
 
     public static Material FindColour(Vector3 v)

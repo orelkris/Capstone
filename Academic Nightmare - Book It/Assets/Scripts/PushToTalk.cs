@@ -23,6 +23,8 @@ public class PushToTalk : MonoBehaviourPun
     private Vector3 noisePosition;
     public float spinSpeed = 3f;
 
+    public static float currentPeak = 0f;
+
     private PhotonView view;
     void Start()
     {
@@ -91,6 +93,7 @@ public class PushToTalk : MonoBehaviourPun
             // if sound detected through microphone, send amplitude value to AI and the other player
             enemy.GetComponentInChildren<AI>().SetSoundDetected(loudness);
         }
+
     }
 
     void InitMic()

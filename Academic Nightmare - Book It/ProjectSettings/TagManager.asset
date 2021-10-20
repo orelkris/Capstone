@@ -17,6 +17,10 @@ TagManager:
   - CinemachineTarget
   - Assistant
   - Librarian
+  - Cellphone
+  - HotSpot
+  - Hacker
+  - Thief
   layers:
   - Default
   - TransparentFX

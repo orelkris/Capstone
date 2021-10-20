@@ -43,31 +43,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPath: {fileID: 0}
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  checkpoints: []
   footstep: {fileID: 0}
+  suspicionRate: 0
   visDist: 20
   visAngle: 45
   movingSpeed: 0
@@ -75,6 +53,7 @@ MonoBehaviour:
   soundDetected: 0
   noisePosition: {x: 0, y: 0, z: 0}
   hearingRange: 75
+  hearingSensitivity: 0.01
   spinSpeed: 3
   canSpin: 0
   isSpinningTime: 0

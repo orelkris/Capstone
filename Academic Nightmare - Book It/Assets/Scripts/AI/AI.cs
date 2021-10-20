@@ -10,7 +10,7 @@ public class AI : MonoBehaviourPun
 {
     NavMeshAgent agent;
     Animator anim;
-    private Transform player = null;
+    private GameObject player = null;
     public GameObject patrolPath = null; 
     public List<Transform> checkpoints = new List<Transform>();
     public enum DIFFICULTY
@@ -59,14 +59,14 @@ public class AI : MonoBehaviourPun
         {
             // create librarian
             tag = "Librarian";
-            player = GameObject.Find("PlayerOne(Clone)").transform;
+            player = GameObject.FindGameObjectWithTag("Hacker");
             patrolPath = GameObject.Find("Checkpoints-Librarian");
         }
         else
         {
             // create assistant
             tag = "Assistant";
-            player = GameObject.Find("Player(Clone)").transform;
+            player = GameObject.FindGameObjectWithTag("Thief");
             //player = GameObject.Find("PlayerTwo(Clone)").transform;
             patrolPath = GameObject.Find("Checkpoints-Assistant");
         }

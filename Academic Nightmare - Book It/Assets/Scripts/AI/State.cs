@@ -18,13 +18,13 @@ public class State
     public STATE currentState;
     protected EVENT stage;
     protected AI npc;
-    protected Transform player;
+    protected GameObject player;
     public STATE prevState;
     protected State nextState;
     protected NavMeshAgent agent;
     //public MonoBehaviour mb;
 
-    public State(AI _npc, NavMeshAgent _agent, Transform _player, STATE _prevState)
+    public State(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
     {
         npc = _npc;
         agent = _agent;
@@ -66,15 +66,15 @@ public class State
     //TODO: add raycast so player can hide behind object
     public bool CanSeePlayer()
     {
-        Vector3 direction = player.position - npc.transform.position;
+        Vector3 direction = player.transform.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
         RaycastHit hit;
         if (direction.magnitude < npc.visDist && angle < npc.visAngle)
         {
             //Debug.Log("Object detected between AI and player at"+ hit.distance);
-            if (Physics.Raycast(agent.transform.position, (player.position - agent.transform.position), out hit, npc.visDist))
+            if (Physics.Raycast(agent.transform.position, (player.transform.position - agent.transform.position), out hit, npc.visDist))
             {
-                if (hit.transform == player)
+                if (hit.transform == player.transform)
                 {
                     Debug.Log("Player is seen");
                     return true;
@@ -102,7 +102,7 @@ public class State
 
 public class Idle : State
 {
-    public Idle(AI _npc, NavMeshAgent _agent, Transform _player, STATE _prevState)
+    public Idle(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
         : base(_npc, _agent, _player, _prevState)
     {
         currentState = STATE.IDLE;
@@ -116,7 +116,7 @@ public class Idle : State
     public override void Update()
     {
         // Check if both players are connected and game has started. replace with global variable if any
-        if ( GameObject.Find("PlayerTwo(Clone)"))
+        if (player)
         {
             if (CanSeePlayer() == true)
             {
@@ -151,7 +151,7 @@ public class Roam : State
 {
     int currentIndex = -1;
     GameObject assignedCheckpoint = null;
-    public Roam(AI _npc, NavMeshAgent _agent, Transform _player, STATE _prevState)
+    public Roam(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
         : base(_npc, _agent, _player, _prevState)
     {
         currentState = STATE.ROAM;
@@ -164,11 +164,12 @@ public class Roam : State
         float lastDist = Mathf.Infinity;
         for (int i = 0; i < npc.checkpoints.Count; i++)
         {
+            Debug.Log(i);
             Transform thisWP = npc.checkpoints[i];
             float distance = Vector3.Distance(npc.transform.position, thisWP.position);
             if (distance < lastDist)
             {
-                currentIndex = i - 1;
+                currentIndex = i;
                 lastDist = distance;
             }
         }
@@ -216,7 +217,7 @@ public class Roam : State
 public class Pursue : State
 {
     float pursueTime = 5f;
-    public Pursue(AI _npc, NavMeshAgent _agent, Transform _player, STATE _prevState)
+    public Pursue(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
         : base(_npc, _agent, _player, _prevState)
     {
         currentState = STATE.PURSUE;
@@ -236,7 +237,7 @@ public class Pursue : State
         //If enemy cannot see player, start counting down
         if (agent.hasPath)
         {
-            agent.SetDestination(player.position);
+            agent.SetDestination(player.transform.position);
             if (CanSeePlayer())
             {
                 Debug.Log("Reset to 5");
@@ -268,7 +269,7 @@ public class Pursue : State
 public class Suspect : State
 {
     // this state should take action base on suspect rate
-    public Suspect(AI _npc, NavMeshAgent _agent, Transform _player, STATE _prevState)
+    public Suspect(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
     : base(_npc, _agent, _player, _prevState)
     {
         currentState = STATE.SUSPECT;
