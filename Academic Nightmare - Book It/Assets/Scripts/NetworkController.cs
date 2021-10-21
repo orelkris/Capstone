@@ -124,6 +124,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         // Test
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "hacker");
+        PhotonNetwork.LocalPlayer.TagObject = "Hacker";
     }
 
     //Set the current player to be player two
@@ -132,7 +133,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         GameStateController.isPlayerOne = false;
         
         // Test
-        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief");
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief"); // Identifies player type by custom props
+        
     }
 
     //Joined Room
@@ -172,7 +174,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         }
     }
-
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {

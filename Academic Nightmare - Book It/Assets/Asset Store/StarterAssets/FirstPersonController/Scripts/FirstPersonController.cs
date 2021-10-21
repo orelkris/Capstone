@@ -89,13 +89,13 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			if (!GameStateController.isPlayerOne)
-			{
-				code = GameObject.Find("Code").GetComponent<Text>();
-				Debug.Log("Hello from player 2");
-			}
+            if (!GameStateController.isPlayerOne)
+            {
+                code = GameObject.Find("Code").GetComponent<Text>();
+                Debug.Log("Hello from player 2");
+            }
 
-			_controller = GetComponent<CharacterController>();
+            _controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			// reset our timeouts on start
@@ -105,54 +105,54 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			if (!GameStateController.isPlayerOne)
-			{
-				if (_selection != null)
-				{
-					GameObject.Find("Top").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Left").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Right").GetComponent<Image>().color = Color.white;
+            if (!GameStateController.isPlayerOne)
+            {
+                if (_selection != null)
+                {
+                    GameObject.Find("Top").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Left").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Right").GetComponent<Image>().color = Color.white;
 
-					_selection = null;
+                    _selection = null;
 
-				}
-				RaycastHit hit;
+                }
+                RaycastHit hit;
 
-				var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+                var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
-				if (Physics.Raycast(ray, out hit, 5))
-				{
-					var selection = hit.transform;
-					if (selection.CompareTag("Symbol"))
-					{
+                if (Physics.Raycast(ray, out hit, 5))
+                {
+                    var selection = hit.transform;
+                    if (selection.CompareTag("Symbol"))
+                    {
 
-						GameObject.Find("Top").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Left").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Right").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Top").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Left").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Right").GetComponent<Image>().color = Color.red;
 
-						if (Input.GetMouseButtonDown(0))
-						{
-							/*
-							code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
-								hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
-								SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
-							*/
-							
-							code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
-							
+                        if (Input.GetMouseButtonDown(0))
+                        {
 
-							//if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
+                            code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+                                hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+                                SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
 
-						}
 
-						_selection = selection;
-					}
-				}
-			}
+                            code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
 
-			JumpAndGravity();
+
+                            //if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
+
+                        }
+
+                        _selection = selection;
+                    }
+                }
+            }
+
+            JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
