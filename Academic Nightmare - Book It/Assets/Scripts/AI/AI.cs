@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class AI : MonoBehaviourPun
 {
@@ -55,6 +56,7 @@ public class AI : MonoBehaviourPun
         suspicionRate = 0;
         footstep = gameObject.GetComponent<AudioSource>();
 
+        // tag not created on the rigt cycle
         if (GameStateController.isPlayerOne)
         {
             // create librarian
@@ -67,7 +69,6 @@ public class AI : MonoBehaviourPun
             // create assistant
             tag = "Assistant";
             player = GameObject.FindGameObjectWithTag("Thief");
-            //player = GameObject.Find("PlayerTwo(Clone)").transform;
             patrolPath = GameObject.Find("Checkpoints-Assistant");
         }
         foreach (Transform child in patrolPath.transform)
@@ -98,11 +99,9 @@ public class AI : MonoBehaviourPun
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collide with " + collision.gameObject);
-        if(collision.gameObject.name == "Player(Clone)")
+        if(collision.gameObject == player)
         {
-            Debug.Log("Caught");
-            // penalty here and respawn player
+            Debug.Log("Reset Floor");
         }
     }
 

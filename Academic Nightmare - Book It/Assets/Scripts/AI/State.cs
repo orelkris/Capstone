@@ -156,7 +156,6 @@ public class Idle : State
 public class Roam : State
 {
     int currentIndex = -1;
-    GameObject assignedCheckpoint = null;
     public Roam(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
         : base(_npc, _agent, _player, _prevState)
     {

@@ -16,7 +16,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     //temp spawn positions
     private Vector3[] spawnPositions = {
         new Vector3(-1, 54, 41),
-        new Vector3(-1, 3, 79)
+        new Vector3(-1, 3, 79),
+    };
+
+    private Vector3[] AISpawnPositions =
+    {
+        new Vector3(-1, 54, 41),
+        new Vector3(2, -1, 40)
     };
 
     private void Awake()
@@ -52,7 +58,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             //GameObject.FindGameObjectWithTag("Player").gameObject.tag = "Hacker";
             //Debug.Log(GameObject.FindGameObjectWithTag("Player").tag);
-
+            PhotonNetwork.Instantiate(
+                Path.Combine("AI", "Librarian"),
+                AISpawnPositions[0],
+                Quaternion.identity
+            );
 
             // Hide the player 2 canvas object from player 1
             GameObject.Find("PanelCode").SetActive(false);
@@ -60,14 +70,22 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            GameObject player =
             PhotonNetwork.Instantiate(
                 Path.Combine("PhotonPrefabs", "Player"), 
                 spawnPositions[1], 
                 Quaternion.identity
             );
 
+            PhotonNetwork.Instantiate(
+                Path.Combine("AI", "Assistant"),
+                AISpawnPositions[1],
+                Quaternion.identity
+            );
+
             //default tag is Hacker
-            GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";
+            //GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";
+            player.transform.GetChild(2).tag = "Thief";
         }
     }
 
