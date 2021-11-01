@@ -82,6 +82,20 @@ public class AI : MonoBehaviourPun
     void Update()
     {
         // start updating when game is ready
+        if (GameStateController.isPlayerOne)
+        {
+            // create librarian
+            tag = "Librarian";
+            player = GameObject.FindGameObjectWithTag("Hacker");
+            patrolPath = GameObject.Find("Checkpoints-Librarian");
+        }
+        else
+        {
+            // create assistant
+            tag = "Assistant";
+            player = GameObject.FindGameObjectWithTag("Thief");
+            patrolPath = GameObject.Find("Checkpoints-Assistant");
+        }
         if (player)
         {
             Debug.Log(currentState.currentState);
@@ -97,11 +111,18 @@ public class AI : MonoBehaviourPun
         noisePosition = player.transform.position;
     }
 
+    [PunRPC]
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject == player)
         {
             Debug.Log("Reset Floor");
+
+            PhotonNetwork.Destroy(player.transform.parent.GetComponent<PhotonView>());
+            PhotonNetwork.Destroy(this.transform.parent.GetComponent<PhotonView>());
+
+            RoomManager.Instance.SpawnPlayer();
+            // TODO: reflect on clock
         }
     }
 

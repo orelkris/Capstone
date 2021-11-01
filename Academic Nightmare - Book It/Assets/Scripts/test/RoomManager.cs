@@ -46,27 +46,37 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) => SpawnPlayer();
 
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
         {
-            PhotonNetwork.Instantiate(
+            GameObject player = PhotonNetwork.Instantiate(
                 Path.Combine("PhotonPrefabs", "Player"), 
                 spawnPositions[0], 
                 Quaternion.identity
             );
 
-            //GameObject.FindGameObjectWithTag("Player").gameObject.tag = "Hacker";
-            //Debug.Log(GameObject.FindGameObjectWithTag("Player").tag);
             PhotonNetwork.Instantiate(
                 Path.Combine("AI", "Librarian"),
                 AISpawnPositions[0],
                 Quaternion.identity
             );
 
+            //GameObject.FindGameObjectWithTag("Player").gameObject.tag = "Hacker";
+            //Debug.Log(GameObject.FindGameObjectWithTag("Player").tag);
+            //PhotonNetwork.Instantiate(
+            //    Path.Combine("AI", "Librarian"),
+            //    AISpawnPositions[0],
+            //    Quaternion.identity
+            //);
+
             // Hide the player 2 canvas object from player 1
-            GameObject.Find("PanelCode").SetActive(false);
-            GameObject.Find("Crosshair").SetActive(false);
+            if (GameObject.Find("PanelCode") && GameObject.Find("Crosshair"))
+            {
+                GameObject.Find("PanelCode").SetActive(false);
+                GameObject.Find("Crosshair").SetActive(false);
+            }
+            
         }
         else
         {
