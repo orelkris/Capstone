@@ -67,6 +67,8 @@ public class PushToTalk : MonoBehaviourPun
             }
         }
 
+        
+
         // toggle mic
         //if(Input.GetKeyDown(PushButton))
         //{
@@ -94,12 +96,21 @@ public class PushToTalk : MonoBehaviourPun
             enemy.GetComponentInChildren<AI>().SetSoundDetected(loudness);
         }
 
+        if (VoiceRecorder.TransmitEnabled)
+        {
+            currentPeak = VoiceRecorder.LevelMeter.CurrentPeakAmp;
+        }
+        else
+        {
+            currentPeak = 0;
+        }
+
     }
 
     void InitMic()
     {
         if (_device == null) _device = Microphone.devices[0];
-        _clipRecord = Microphone.Start(_device, true, 999, 44100);
+       _clipRecord = Microphone.Start(_device, true, 999, 44100);
     }
 
     void StopMicrophone()
