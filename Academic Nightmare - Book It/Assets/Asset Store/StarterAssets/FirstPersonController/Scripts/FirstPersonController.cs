@@ -61,6 +61,9 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+		[Space(10)]
+		public bool hasAnim = true;
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -114,7 +117,7 @@ namespace StarterAssets
 			
 		private void Update()
 		{
-            /*if (!GameStateController.isPlayerOne)
+            if (!GameStateController.isPlayerOne)
             {
                 if (_selection != null)
                 {
@@ -159,7 +162,7 @@ namespace StarterAssets
                         _selection = selection;
                     }
                 }
-            }*/
+            }
 
             JumpAndGravity();
 			GroundedCheck();
@@ -258,13 +261,17 @@ namespace StarterAssets
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-			anim.SetBool("Crouched", _input.crouch);
-
-			if (!_input.crouch)
+            if (hasAnim)
             {
-				anim.SetFloat("Speed", _animationBlend);
-				anim.SetFloat("MotionSpeed", inputMagnitude);
-            }
+				anim.SetBool("Crouched", _input.crouch);
+
+				if (!_input.crouch)
+				{
+					anim.SetFloat("Speed", _animationBlend);
+					anim.SetFloat("MotionSpeed", inputMagnitude);
+				}
+			}
+			
 		}	
 
 		private void JumpAndGravity()
@@ -314,14 +321,6 @@ namespace StarterAssets
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
-
-		void Crouch()
-        {
-            if (_input.crouch)
-            {
-
-            }
-        }
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{

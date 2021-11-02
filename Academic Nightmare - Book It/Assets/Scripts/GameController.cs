@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
 
                 bool ID = canvasList[i].GetComponent<PhotonView>().IsMine;
                 //bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
-                Debug.Log("PHOTONE ID MINE? " + ID);
+                /*Debug.Log("PHOTONE ID MINE? " + ID);*/
 
                 if (!ID)
                 {

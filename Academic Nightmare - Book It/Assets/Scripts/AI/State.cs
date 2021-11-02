@@ -83,13 +83,13 @@ public class State
                 {
                     if (hit.transform.gameObject == player)
                     {
-                        Debug.Log("Player is seen");
+                        /*Debug.Log("Player is seen");*/
                         return true;
                     }
                 }
             }
         }
-        Debug.Log("Player not seen");
+        /*Debug.Log("Player not seen");*/
         return false;
     }
 
@@ -187,7 +187,7 @@ public class Roam : State
         //TODO: randomize the pattern by choosing from 1 of the 3 closest checkpoint
         if (agent.remainingDistance < 1)
         {
-            Debug.Log(currentIndex);
+            /*Debug.Log(currentIndex);*/
             //reach to the end of the checkpoint list
             if (currentIndex >= npc.checkpoints.Count - 1)
             {
@@ -235,7 +235,7 @@ public class Pursue : State
 
     public override void Enter()
     {
-        Debug.Log("Enter Pursue");
+        /*Debug.Log("Enter Pursue");*/
         base.Enter();
     }
 
@@ -247,7 +247,7 @@ public class Pursue : State
             agent.SetDestination(player.transform.position);
             if (CanSeePlayer())
             {
-                Debug.Log("Reset to 5");
+                /*Debug.Log("Reset to 5");*/
                 //npc.chaseDuration = 5f;
                 pursueTime = 5f;
                 npc.aiMemorizePlayer = true;
@@ -263,7 +263,7 @@ public class Pursue : State
                     agent.SetDestination(agent.transform.position);
                     nextState = new Roam(npc, agent, player, currentState);
                     stage = EVENT.EXIT;
-                    Debug.Log("Stop Chasing");
+                    /*Debug.Log("Stop Chasing");*/
                 }
             }
         }

@@ -931,6 +931,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 6914955628133608441}
   TopClamp: 90
   BottomClamp: -90
+  hasAnim: 0
 --- !u!114 &4803636303281251410
 MonoBehaviour:
   m_ObjectHideFlags: 0
