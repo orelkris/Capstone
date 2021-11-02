@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 2500252068355727174}
   - component: {fileID: 9020563967350208168}
   - component: {fileID: 5797858986919925225}
-  - component: {fileID: -8356864273496172573}
   - component: {fileID: -8442284769184271488}
   m_Layer: 3
   m_Name: Player
@@ -227,23 +226,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-8356864273496172573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889379558338760150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PushButton: 108
-  VoiceRecorder: {fileID: 2895956326542271418, guid: 19bea52f7e418fd4dbea2b6383b81d0f, type: 3}
-  sensitivity: 200
-  loudness: 0
-  spinSpeed: 3
 --- !u!114 &-8442284769184271488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +731,7 @@ GameObject:
   - component: {fileID: 5989787084696773977}
   - component: {fileID: 747191254677838331}
   - component: {fileID: 6689847465161845903}
+  - component: {fileID: 9070578507354725216}
   m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Hacker
@@ -1211,3 +1194,20 @@ MonoBehaviour:
   trySamplingRateMatch: 0
   useMicrophoneTypeFallback: 1
   recordOnlyWhenJoined: 0
+--- !u!114 &9070578507354725216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081419487578241070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushButton: 108
+  VoiceRecorder: {fileID: 6689847465161845903}
+  sensitivity: 200
+  loudness: 0
+  spinSpeed: 3

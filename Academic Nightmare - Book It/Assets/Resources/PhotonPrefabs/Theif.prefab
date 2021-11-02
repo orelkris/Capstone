@@ -151,6 +151,23 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 571055198930047616}
+--- !u!114 &1052796631658359826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679446749938919238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushButton: 108
+  VoiceRecorder: {fileID: 6224281683595662299}
+  sensitivity: 200
+  loudness: 0
+  spinSpeed: 3
 --- !u!114 &1330749584343136895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +225,7 @@ MonoBehaviour:
   voiceDetectionThreshold: 0.01
   voiceDetectionDelayMs: 500
   unityMicrophoneDevice: 
-  photonMicrophoneDeviceId: 0
+  photonMicrophoneDeviceId: -1
   interestGroup: 0
   debugEchoMode: 0
   reliableMode: 0
@@ -251,7 +268,6 @@ GameObject:
   - component: {fileID: 2500252068355727174}
   - component: {fileID: 9020563967350208168}
   - component: {fileID: 5797858986919925225}
-  - component: {fileID: -8356864273496172573}
   - component: {fileID: -8442284769184271488}
   m_Layer: 3
   m_Name: Theif
@@ -317,23 +333,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-8356864273496172573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889379558338760150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PushButton: 108
-  VoiceRecorder: {fileID: 2895956326542271418, guid: 19bea52f7e418fd4dbea2b6383b81d0f, type: 3}
-  sensitivity: 200
-  loudness: 0
-  spinSpeed: 3
 --- !u!114 &-8442284769184271488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,9 +1293,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
---- !u!4 &2019098379824102908 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2661670794494357444, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
+--- !u!1 &1679446749938919238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3439615216850990462, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
   m_PrefabInstance: {fileID: 4104292442359288376}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5566399870969963949 stripped
@@ -1315,8 +1314,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1526109934113554791, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
   m_PrefabInstance: {fileID: 4104292442359288376}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1679446749938919238 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3439615216850990462, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
+--- !u!4 &2019098379824102908 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2661670794494357444, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
   m_PrefabInstance: {fileID: 4104292442359288376}
   m_PrefabAsset: {fileID: 0}
