@@ -26,10 +26,10 @@ public class SymbolInformation : MonoBehaviour
         int index = selfMaterial.name.IndexOf(' ');
         selfName = selfMaterial.name.Substring(0, index);
         shelfColour = GameController.FindColour(this.GetComponent<Transform>().position);
-        Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);
+        /*Debug.Log("FOUND SHELF COLOUR FROM SYMBOL " + shelfColour);*/
 
         selfObject = new SymbolObject(selfName, selfMaterial, shelfColour, selfCode);
-        Debug.Log("FINAL CODE : " + selfObject.m_code);
+        /*Debug.Log("FINAL CODE : " + selfObject.m_code);*/
 
     }
 

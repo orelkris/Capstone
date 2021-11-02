@@ -45,15 +45,15 @@ public class PlayerManager : MonoBehaviourPun
     {
         Debug.Log("PhotonView = " + photonView + "PlayerType = " + playerType);
 
-        AB = GetComponentInChildren<AudioBehaviour>();
+        /*AB = GetComponentInChildren<AudioBehaviour>();*/
 
         // Event handling
-        pttReference.action.started += ActivateMic;
-        pttReference.action.canceled += DeactivateMic;
+        /*pttReference.action.started += ActivateMic;
+        pttReference.action.canceled += DeactivateMic;*/
     }
 
     // Mic Input
-    private void ActivateMic(InputAction.CallbackContext obj) => AB.MicOn();
-    private void DeactivateMic(InputAction.CallbackContext obj) => AB.MicOff();
+/*    private void ActivateMic(InputAction.CallbackContext obj) => AB.MicOn();
+    private void DeactivateMic(InputAction.CallbackContext obj) => AB.MicOff();*/
 
 }
