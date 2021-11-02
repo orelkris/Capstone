@@ -82,7 +82,7 @@ MonoBehaviour:
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
-  IgnoreTag: EditorOnly
+  IgnoreTag: Hacker
   CameraRadius: 0.15
 --- !u!1 &571055199391916731
 GameObject:
@@ -164,9 +164,9 @@ GameObject:
   - component: {fileID: 5797858986919925225}
   - component: {fileID: -8356864273496172573}
   - component: {fileID: -8442284769184271488}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,9 +207,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 5797858986919925225}
-  - {fileID: 5797858986919925225}
-  - {fileID: 5797858986919925225}
   - {fileID: 5797858986919925225}
   sceneViewId: 0
   InstantiationId: 0
@@ -749,7 +746,7 @@ GameObject:
   - component: {fileID: 618279240886275944}
   - component: {fileID: 1525531164234746266}
   - component: {fileID: 6361101477879952175}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Hacker
   m_Icon: {fileID: 0}
@@ -918,6 +915,7 @@ MonoBehaviour:
   _selection: {fileID: 0}
   MoveSpeed: 4
   SprintSpeed: 8
+  CrouchSpeed: 2
   RotationSpeed: 1
   SpeedChangeRate: 10
   JumpHeight: 1.2
@@ -929,7 +927,7 @@ MonoBehaviour:
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 1
   CinemachineCameraTarget: {fileID: 6914955628133608441}
   TopClamp: 90
   BottomClamp: -90
@@ -949,6 +947,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  crouch: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -1088,7 +1087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!114 &1525531164234746266
 MonoBehaviour:

@@ -24,6 +24,8 @@ namespace StarterAssets
 		public float MoveSpeed = 4.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
 		public float SprintSpeed = 6.0f;
+		[Tooltip("Crouch speed of the character in m/s")]
+		public float CrouchSpeed = 2.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
@@ -72,11 +74,17 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
+		// animation values
+		private float _animationBlend;
+
 		private CharacterController _controller;
+		private Animator anim;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
+
+		private bool isAnimated;
 
 		private void Awake()
 		{
@@ -89,73 +97,74 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			if (!GameStateController.isPlayerOne)
-			{
-				code = GameObject.Find("Code").GetComponent<Text>();
-				Debug.Log("Hello from player 2");
-			}
+			/*if (!GameStateController.isPlayerOne)
+            {
+                code = GameObject.Find("Code").GetComponent<Text>();
+                Debug.Log("Hello from player 2");
+            }*/
 
-			_controller = GetComponent<CharacterController>();
+			isAnimated = TryGetComponent(out anim);
+            _controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 		}
-
+			
 		private void Update()
 		{
-			if (!GameStateController.isPlayerOne)
-			{
-				if (_selection != null)
-				{
-					GameObject.Find("Top").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Left").GetComponent<Image>().color = Color.white;
-					GameObject.Find("Right").GetComponent<Image>().color = Color.white;
+            /*if (!GameStateController.isPlayerOne)
+            {
+                if (_selection != null)
+                {
+                    GameObject.Find("Top").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Left").GetComponent<Image>().color = Color.white;
+                    GameObject.Find("Right").GetComponent<Image>().color = Color.white;
 
-					_selection = null;
+                    _selection = null;
 
-				}
-				RaycastHit hit;
+                }
+                RaycastHit hit;
 
-				var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+                var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
-				if (Physics.Raycast(ray, out hit, 5))
-				{
-					var selection = hit.transform;
-					if (selection.CompareTag("Symbol"))
-					{
+                if (Physics.Raycast(ray, out hit, 5))
+                {
+                    var selection = hit.transform;
+                    if (selection.CompareTag("Symbol"))
+                    {
 
-						GameObject.Find("Top").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Left").GetComponent<Image>().color = Color.red;
-						GameObject.Find("Right").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Top").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Left").GetComponent<Image>().color = Color.red;
+                        GameObject.Find("Right").GetComponent<Image>().color = Color.red;
 
-						if (Input.GetMouseButtonDown(0))
-						{
-							/*
-							code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
-								hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
-								SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
-							*/
-							
-							code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
-							
+                        if (Input.GetMouseButtonDown(0))
+                        {
 
-							//if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
+                            code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+                                hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+                                SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
 
-						}
 
-						_selection = selection;
-					}
-				}
-			}
+                            code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
 
-			JumpAndGravity();
+
+                            //if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
+
+                        }
+
+                        _selection = selection;
+                    }
+                }
+            }*/
+
+            JumpAndGravity();
 			GroundedCheck();
-			Move();
-		}
+            Move();
+        }
 
 		private void LateUpdate()
 		{
@@ -191,7 +200,12 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = MoveSpeed;
+
+			if (_input.sprint)
+				targetSpeed = SprintSpeed;
+			else if (_input.crouch)
+				targetSpeed = CrouchSpeed;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -219,13 +233,14 @@ namespace StarterAssets
 			{
 				_speed = targetSpeed;
 			}
+			_animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
 
 			// normalise input direction
 			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
-			if (_input.move != Vector2.zero)
+			if (!_input.move.Equals(Vector2.zero))
 			{
 				if (GameController.symbolsFound == 1)
 				{
@@ -242,7 +257,15 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-		}
+
+			anim.SetBool("Crouched", _input.crouch);
+
+			if (!_input.crouch)
+            {
+				anim.SetFloat("Speed", _animationBlend);
+				anim.SetFloat("MotionSpeed", inputMagnitude);
+            }
+		}	
 
 		private void JumpAndGravity()
 		{
@@ -291,6 +314,14 @@ namespace StarterAssets
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
+
+		void Crouch()
+        {
+            if (_input.crouch)
+            {
+
+            }
+        }
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
