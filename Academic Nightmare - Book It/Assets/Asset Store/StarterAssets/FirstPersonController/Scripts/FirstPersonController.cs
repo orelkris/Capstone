@@ -18,6 +18,8 @@ namespace StarterAssets
 	{
 		public Transform _selection;
 		public static Text code;
+		public Text codeText;
+		public GameObject player;
 
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -100,11 +102,15 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			/*if (!GameStateController.isPlayerOne)
+			player = this.gameObject;
+			
+			if(player.tag == "Thief")
             {
-                code = GameObject.Find("Code").GetComponent<Text>();
-                Debug.Log("Hello from player 2");
-            }*/
+				code = GameObject.Find("Code").GetComponent<Text>();
+			}
+			//code = GameObject.Find("Code") == null ? null : GameObject.Find("Code").GetComponent<Text>();
+			//Debug.Log("Hello from player 2");
+
 
 			isAnimated = TryGetComponent(out anim);
             _controller = GetComponent<CharacterController>();
@@ -144,12 +150,12 @@ namespace StarterAssets
                         GameObject.Find("Left").GetComponent<Image>().color = Color.red;
                         GameObject.Find("Right").GetComponent<Image>().color = Color.red;
 
-                        if (Input.GetMouseButtonDown(0))
+                        if (Input.GetMouseButtonDown(0) && player.tag == "Thief")
                         {
-
-                            code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
-                                hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
-                                SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
+							Debug.Log("TEST " + hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code);
+                           // code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+                              //  hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+                             //   SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
 
 
                             code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;

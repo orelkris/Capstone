@@ -899,6 +899,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selection: {fileID: 0}
+  codeText: {fileID: 0}
+  player: {fileID: 0}
   MoveSpeed: 4
   SprintSpeed: 8
   CrouchSpeed: 2

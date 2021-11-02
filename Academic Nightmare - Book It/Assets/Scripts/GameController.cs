@@ -60,17 +60,18 @@ public class GameController : MonoBehaviour
         if (!onlyOneCanvas)
         {
             GameObject[] canvasList = GameObject.FindGameObjectsWithTag("Cellphone");
-            //GameObject[] hotSpotList = GameObject.FindGameObjectsWithTag("HotSpot");
+            GameObject[] hotSpotList = GameObject.FindGameObjectsWithTag("HotSpot");
             for (int i = 0; i < canvasList.Length; i++)
             {
 
                 bool ID = canvasList[i].GetComponent<PhotonView>().IsMine;
-                //bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
+                bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
                 /*Debug.Log("PHOTONE ID MINE? " + ID);*/
 
                 if (!ID)
                 {
                     DestroyImmediate(canvasList[i]);
+                    DestroyImmediate(hotSpotList[i]);
                     onlyOneCanvas = true;
 
                 }
