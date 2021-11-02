@@ -26,8 +26,8 @@ public class GameController : MonoBehaviour
 
         PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
 
-        if (GameStateController.isPlayerOne)
-        {
+ /*       if (GameStateController.isPlayerOne)
+        {*/
             Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
             //keep track of symbol location and the shelf colour they are associated with
@@ -52,12 +52,7 @@ public class GameController : MonoBehaviour
 
             Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
 
-        }
-        //else
-        //{
-            //GameObject player2 = PhotonNetwork.Instantiate("PlayerTwo", player2SpawnPosition.transform.position, Quaternion.identity);
-            //GameObject.Find("MinimapCamera").GetComponent<MinimapFollower>().enabled = true;
-        //}
+        /*}*/
     }
 
     private void Update()

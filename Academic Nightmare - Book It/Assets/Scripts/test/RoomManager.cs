@@ -10,7 +10,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
 
-    // 
     private Player[] players;
 
     //temp spawn positions
@@ -24,6 +23,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         new Vector3(-1, 54, 41),
         new Vector3(2, -1, 40)
     };
+
+    readonly string playerPrefabPath = Path.Combine("PhotonPrefabs", "Player");
+    readonly string theifPrefabPath = Path.Combine("PhotonPrefabs", "Theif");
 
     private void Awake()
     {
@@ -50,11 +52,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
         {
-            GameObject player = PhotonNetwork.Instantiate(
-                Path.Combine("PhotonPrefabs", "Player"), 
+            PhotonNetwork.Instantiate(
+                playerPrefabPath, 
                 spawnPositions[0], 
                 Quaternion.identity
             );
+            PhotonNetwork.LocalPlayer.TagObject = "Theif"; // Identifies player type by tag
 
             PhotonNetwork.Instantiate(
                 Path.Combine("AI", "Librarian"),
@@ -82,7 +85,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             GameObject player =
             PhotonNetwork.Instantiate(
-                Path.Combine("PhotonPrefabs", "Player"), 
+                theifPrefabPath, 
                 spawnPositions[1], 
                 Quaternion.identity
             );

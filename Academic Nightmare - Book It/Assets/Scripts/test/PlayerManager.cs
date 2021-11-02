@@ -7,12 +7,11 @@ using Cinemachine;
 public class PlayerManager : MonoBehaviourPun
 {
     private Player player;
-    private string playerType;
+    private string playerType = null;
 
     private AudioBehaviour AB;
 
-    [SerializeField]
-    private InputActionReference pttReference;
+    [SerializeField] InputActionReference pttReference;
 
     public string PlayerType { get => playerType; }
     public Player Player { get => player; }
@@ -22,6 +21,7 @@ public class PlayerManager : MonoBehaviourPun
         // Set network values
         player = PhotonNetwork.LocalPlayer;
         playerType = (string)player.CustomProperties["class"];
+        /*playerType = player.;*/
 
         // Destroy what we dont need
         if (!photonView.IsMine)
@@ -30,15 +30,21 @@ public class PlayerManager : MonoBehaviourPun
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
         } 
 
-        if(player.CustomProperties["class"].Equals("hacker"))
+        /*if(playerType.Equals("hacker"))
         {
             player.TagObject = "Hacker";
         }
+        else
+        {
+            player.TagObject = "Thief";
+        }*/
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("PhotonView = " + photonView + "PlayerType = " + playerType);
+
         AB = GetComponentInChildren<AudioBehaviour>();
 
         // Event handling
