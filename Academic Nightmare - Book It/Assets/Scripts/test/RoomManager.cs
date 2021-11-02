@@ -80,7 +80,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 GameObject.Find("PanelCode").SetActive(false);
                 GameObject.Find("Crosshair").SetActive(false);
             }
-            
         }
         else
         {
