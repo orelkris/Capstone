@@ -1216,6 +1216,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2500252068355727174}
     m_Modifications:
     - target: {fileID: 826022687325945862, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
+      propertyPath: observableSearch
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 826022687325945862, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
       propertyPath: ObservedComponents.Array.data[1]
       value: 
       objectReference: {fileID: 5566399870969963949}
