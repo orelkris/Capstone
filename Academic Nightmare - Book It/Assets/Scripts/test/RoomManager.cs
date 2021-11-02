@@ -80,6 +80,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 GameObject.Find("PanelCode").SetActive(false);
                 GameObject.Find("Crosshair").SetActive(false);
             }
+
+            PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
         }
         else
         {

@@ -113,7 +113,7 @@ public class HotSpot : MonoBehaviour
                 if (GameObject.Find("DownloadPanel") != null)
                 {
                     if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
-                            && !downloadComplete && GameStateController.isPlayerOne)
+                            && !downloadComplete && player.tag == "Hacker")
                     {
                         // download image only if load image is active
                         // this happens only when the image has not yet been downloaded
@@ -166,7 +166,7 @@ public class HotSpot : MonoBehaviour
             }
         }
 
-        if (Mathf.Round(counter) >= 60)
+        if (Mathf.Round(counter) >= 90)
         {
             Debug.Log(counter);
             SpawnHotSpot();

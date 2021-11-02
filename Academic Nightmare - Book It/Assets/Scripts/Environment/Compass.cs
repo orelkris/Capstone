@@ -8,6 +8,7 @@ public class Compass : MonoBehaviour
 {
     public GameObject hotSpot;
     public GameObject player1;
+
     public Camera camera;
     Vector3 dir;
     public Slider closer;
@@ -22,7 +23,7 @@ public class Compass : MonoBehaviour
         hotSpot = GameObject.FindGameObjectWithTag("HotSpot");
 
         //if (GameObject.Find("PlayerOne(Clone)") != null && !GameStateController.isPlayerOne)
-        if (player1 != null && hotSpot != null && !GameStateController.isPlayerOne)
+        if (player1 != null && hotSpot != null)
         {
             toPosition = hotSpot.transform.position - player1.transform.position;
             //float angleToPosition = Vector3.Angle(toPosition, playerOneForward);
