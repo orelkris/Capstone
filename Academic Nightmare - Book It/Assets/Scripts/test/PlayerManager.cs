@@ -49,4 +49,5 @@ public class PlayerManager : MonoBehaviourPun
     // Mic Input
     private void ActivateMic(InputAction.CallbackContext obj) => AB.MicOn();
     private void DeactivateMic(InputAction.CallbackContext obj) => AB.MicOff();
+
 }
