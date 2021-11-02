@@ -57,6 +57,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 spawnPositions[0], 
                 Quaternion.identity
             );
+
             PhotonNetwork.LocalPlayer.TagObject = "Theif"; // Identifies player type by tag
 
             PhotonNetwork.Instantiate(

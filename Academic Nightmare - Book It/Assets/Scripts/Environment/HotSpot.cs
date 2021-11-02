@@ -164,7 +164,6 @@ public class HotSpot : MonoBehaviour
                 }
 
             }
-
         }
 
         if (Mathf.Round(counter) >= 60)
