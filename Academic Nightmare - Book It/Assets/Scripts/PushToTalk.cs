@@ -34,11 +34,11 @@ public class PushToTalk : MonoBehaviourPun
         _device = Microphone.devices[0];
         if (GameStateController.isPlayerOne)
         {
-            enemy = GameObject.Find("Librarian");
+            enemy = GameObject.Find("Librarian(Clone)");
         }
         else
         {
-            enemy = GameObject.Find("Assistant");
+            enemy = GameObject.Find("Assistant(Clone)");
         }
         enemyAI = enemy.transform.GetChild(0).gameObject.GetComponent<AI>();    
     }

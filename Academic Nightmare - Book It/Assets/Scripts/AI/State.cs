@@ -63,27 +63,29 @@ public class State
         return this;
     }
 
-    //TODO: add raycast so player can hide behind object
     public bool CanSeePlayer()
     {
-        Vector3 direction = player.transform.position - npc.transform.position;
-        float angle = Vector3.Angle(direction, npc.transform.forward);
-        Vector3 eyesPos = new Vector3(agent.transform.position.x, (agent.transform.position.y + agent.height), agent.transform.position.z);
-        float sphereCastRadius = 4.0f;
-        float visionRange = npc.aiMemorizePlayer? Mathf.Infinity: npc.visDist;
-        RaycastHit hit;
-        if (direction.magnitude < npc.visDist && angle < npc.visAngle)
+        if (player)
         {
-            //Debug.Log("Object detected between AI and player at"+ hit.distance);
-            //Debug.DrawRay(eyesPos, direction, Color.red, npc.visDist);
-            //Debug.Log("Eyes Pos:"+eyesPos);
-            //Debug.Log("Player tag: " + player.tag);
-            if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, visionRange))
+            Vector3 direction = player.transform.position - npc.transform.position;
+            float angle = Vector3.Angle(direction, npc.transform.forward);
+            Vector3 eyesPos = new Vector3(agent.transform.position.x, (agent.transform.position.y + agent.height), agent.transform.position.z);
+            float sphereCastRadius = 4.0f;
+            float visionRange = npc.aiMemorizePlayer ? Mathf.Infinity : npc.visDist;
+            RaycastHit hit;
+            if (direction.magnitude < npc.visDist && angle < npc.visAngle)
             {
-                if (hit.transform.gameObject == player)
+                //Debug.Log("Object detected between AI and player at"+ hit.distance);
+                //Debug.DrawRay(eyesPos, direction, Color.red, npc.visDist);
+                //Debug.Log("Eyes Pos:"+eyesPos);
+                //Debug.Log("Player tag: " + player.tag);
+                if (Physics.SphereCast(eyesPos, sphereCastRadius, direction, out hit, visionRange))
                 {
-                    Debug.Log("Player is seen");
-                    return true;
+                    if (hit.transform.gameObject == player)
+                    {
+                        Debug.Log("Player is seen");
+                        return true;
+                    }
                 }
             }
         }
@@ -156,7 +158,6 @@ public class Idle : State
 public class Roam : State
 {
     int currentIndex = -1;
-    GameObject assignedCheckpoint = null;
     public Roam(AI _npc, NavMeshAgent _agent, GameObject _player, STATE _prevState)
         : base(_npc, _agent, _player, _prevState)
     {
@@ -186,6 +187,7 @@ public class Roam : State
         //TODO: randomize the pattern by choosing from 1 of the 3 closest checkpoint
         if (agent.remainingDistance < 1)
         {
+            Debug.Log(currentIndex);
             //reach to the end of the checkpoint list
             if (currentIndex >= npc.checkpoints.Count - 1)
             {
