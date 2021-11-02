@@ -82,7 +82,7 @@ MonoBehaviour:
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
-  IgnoreTag: EditorOnly
+  IgnoreTag: Hacker
   CameraRadius: 0.15
 --- !u!1 &571055199391916731
 GameObject:
@@ -915,6 +915,7 @@ MonoBehaviour:
   _selection: {fileID: 0}
   MoveSpeed: 4
   SprintSpeed: 8
+  CrouchSpeed: 2
   RotationSpeed: 1
   SpeedChangeRate: 10
   JumpHeight: 1.2
@@ -946,6 +947,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  crouch: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

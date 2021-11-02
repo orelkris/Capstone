@@ -19,6 +19,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     };
 
     readonly string playerPrefabPath = Path.Combine("PhotonPrefabs", "Player");
+    readonly string theifPrefabPath = Path.Combine("PhotonPrefabs", "Theif");
 
     private void Awake()
     {
@@ -63,13 +64,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.Instantiate(
-                playerPrefabPath, 
+                theifPrefabPath, 
                 spawnPositions[1], 
                 Quaternion.identity
             );
 
             //default tag is Hacker
-            GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";
+            /*GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";*/
         }
     }
 
