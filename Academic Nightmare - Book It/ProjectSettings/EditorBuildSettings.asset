@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Solo Scenes/Kris2.unity
     guid: e1e2f782e19754c47944f3f47e894ba0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Production.unity
     guid: 6420fc51a29bf8b4c93544ed421d5ecf
   - enabled: 0
