@@ -3,47 +3,45 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using Photon.Realtime;
 using Cinemachine;
+using StarterAssets;
 
 public class PlayerManager : MonoBehaviourPun
 {
-    private Player player;
-    private string playerType = null;
-
-    private AudioBehaviour AB;
-
-    [SerializeField] InputActionReference pttReference;
-
-    public string PlayerType { get => playerType; }
+    // Player Info
+    Player player;
+    string playerType;
     public Player Player { get => player; }
+    public string PlayerType { get => playerType; }
+
+    // GameObject References
+    [SerializeField] GameObject playerModel;
+    private Camera mainCamera;
+
+    // Input System
+    [SerializeField] InputActionReference pttReference;
 
     private void Awake()
     {
         // Set network values
         player = PhotonNetwork.LocalPlayer;
         playerType = (string)player.CustomProperties["class"];
-        /*playerType = player.;*/
 
         // Destroy what we dont need
         if (!photonView.IsMine)
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<CinemachineVirtualCamera>().gameObject);
+            Destroy(playerModel.GetComponentInChildren<FirstPersonController>());
+            Destroy(playerModel.GetComponentInChildren<PlayerInput>());
+            Destroy(playerModel.GetComponentInChildren<StarterAssetsInputs>());
         } 
-
-        /*if(playerType.Equals("hacker"))
-        {
-            player.TagObject = "Hacker";
-        }
-        else
-        {
-            player.TagObject = "Thief";
-        }*/
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("PhotonView = " + photonView + "PlayerType = " + playerType);
+
+
 
         /*AB = GetComponentInChildren<AudioBehaviour>();*/
 

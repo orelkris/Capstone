@@ -21,6 +21,7 @@ TagManager:
   - HotSpot
   - Hacker
   - Thief
+  - Skeleton
   layers:
   - Default
   - TransparentFX
@@ -29,8 +30,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Model Features
-  - 
+  - HackerModel
+  - ThiefModel
   - 
   - 
   - 

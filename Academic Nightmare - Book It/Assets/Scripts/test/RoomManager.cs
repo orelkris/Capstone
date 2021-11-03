@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         new Vector3(2, -1, 40)
     };
 
-    readonly string playerPrefabPath = Path.Combine("PhotonPrefabs", "Player");
+    readonly string hackerPrefabPath = Path.Combine("PhotonPrefabs", "Hacker");
     readonly string theifPrefabPath = Path.Combine("PhotonPrefabs", "Theif");
 
     private void Awake()
@@ -53,26 +53,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
         {
             PhotonNetwork.Instantiate(
-                playerPrefabPath, 
+                hackerPrefabPath, 
                 spawnPositions[0], 
                 Quaternion.identity
             );
-
-            PhotonNetwork.LocalPlayer.TagObject = "Theif"; // Identifies player type by tag
 
             PhotonNetwork.Instantiate(
                 Path.Combine("AI", "Librarian"),
                 AISpawnPositions[0],
                 Quaternion.identity
             );
-
-            //GameObject.FindGameObjectWithTag("Player").gameObject.tag = "Hacker";
-            //Debug.Log(GameObject.FindGameObjectWithTag("Player").tag);
-            //PhotonNetwork.Instantiate(
-            //    Path.Combine("AI", "Librarian"),
-            //    AISpawnPositions[0],
-            //    Quaternion.identity
-            //);
 
             // Hide the player 2 canvas object from player 1
             if (GameObject.Find("PanelCode") && GameObject.Find("Crosshair"))
@@ -83,9 +73,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
         }
-        else
+        else if(PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("thief"))
         {
-            GameObject player =
             PhotonNetwork.Instantiate(
                 theifPrefabPath, 
                 spawnPositions[1], 
@@ -97,10 +86,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 AISpawnPositions[1],
                 Quaternion.identity
             );
-
-            //default tag is Hacker
-            //GameObject.FindGameObjectWithTag("Hacker").tag = "Thief";
-            player.transform.GetChild(2).tag = "Thief";
         }
     }
 
