@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
                     ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material)))));
             }
 
-            Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
+            //Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
 
             //Debug.Log(spawnLocation[1].transform.position);
             //Debug.Log(spawnLocation[2].transform.position);
