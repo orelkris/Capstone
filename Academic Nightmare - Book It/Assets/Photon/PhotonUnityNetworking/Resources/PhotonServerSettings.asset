@@ -60,6 +60,9 @@ MonoBehaviour:
   - SpawnHotSpot
   - OnCollisionEnter
   - HotSpotPosition
+  - pauseTimer
+  - startTimer
+  - initTimer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
