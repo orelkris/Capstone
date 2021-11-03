@@ -135,6 +135,14 @@ public class NetworkController : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief");
     }
 
+    public void SetGhost()
+    {
+        GameStateController.isGhost = false;
+
+        // Test
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "ghost");
+    }
+
     //Joined Room
     public override void OnJoinedRoom()
     {

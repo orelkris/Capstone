@@ -25,7 +25,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     };
 
     readonly string hackerPrefabPath = Path.Combine("PhotonPrefabs", "Hacker");
-    readonly string theifPrefabPath = Path.Combine("PhotonPrefabs", "Theif");
+    readonly string theifPrefabPath = Path.Combine("PhotonPrefabs", "Thief");
+    readonly string ghostPrefabPath = Path.Combine("PhotonPrefabs", "GhostCam");
 
     private void Awake()
     {
@@ -50,6 +51,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void SpawnPlayer()
     {
+        if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("ghost"))
+        {
+            PhotonNetwork.Instantiate(
+                ghostPrefabPath,
+                spawnPositions[0],
+                Quaternion.identity
+            );
+        }
+
         if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
         {
             PhotonNetwork.Instantiate(
