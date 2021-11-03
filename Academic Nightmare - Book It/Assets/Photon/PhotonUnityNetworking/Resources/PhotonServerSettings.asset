@@ -60,6 +60,7 @@ MonoBehaviour:
   - SpawnHotSpot
   - OnCollisionEnter
   - HotSpotPosition
+  - SymbolsFound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

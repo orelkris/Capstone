@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class SubmitSymbol : MonoBehaviour
 {
-
+    public GameObject gameManager;
     GameObject phone;
     GameObject downloadPanel;
+    GameController gm;
 
     private void Start()
     {
+        gm = new GameController();
+        gameManager = GameObject.Find("GameController");
         phone = GameObject.Find("CanvasPlayerOne(Clone)");
         downloadPanel = phone.GetComponent<CellphoneView>().downloadPanel;
 
@@ -22,9 +26,14 @@ public class SubmitSymbol : MonoBehaviour
         if (this.GetComponent<Image>().sprite.name == name)
         {
             Debug.Log("Correct");
-            GameController.symbolsFound++;
+            int temp = GameController.symbolsFound + 1;
 
-            if(GameController.symbolsFound == 1)
+            //GameController.symbolsFound++;
+            PhotonView pv = gameManager.GetComponent<PhotonView>();
+            pv.RPC("SymbolsFound", RpcTarget.All, temp);
+            Debug.Log("Found Symbols " + GameController.symbolsFound);
+
+            if (GameController.symbolsFound == 2)
             {
                 GameObject.Find("PanelReverseWarning").GetComponent<Animator>().SetBool("isHidden", false);
             }
