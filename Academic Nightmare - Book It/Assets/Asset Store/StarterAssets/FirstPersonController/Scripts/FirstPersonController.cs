@@ -103,9 +103,9 @@ namespace StarterAssets
 		private void Start()
 		{
 			player = this.gameObject;
-			
-			if(player.tag == "Thief")
-            {
+
+			if (player.tag == "Thief")
+			{
 				code = GameObject.Find("Code").GetComponent<Text>();
 			}
 			//code = GameObject.Find("Code") == null ? null : GameObject.Find("Code").GetComponent<Text>();
@@ -113,71 +113,80 @@ namespace StarterAssets
 
 
 			isAnimated = TryGetComponent(out anim);
-            _controller = GetComponent<CharacterController>();
+			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 		}
-			
+
 		private void Update()
 		{
-            if (!GameStateController.isPlayerOne)
-            {
-                if (_selection != null)
-                {
-                    GameObject.Find("Top").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Left").GetComponent<Image>().color = Color.white;
-                    GameObject.Find("Right").GetComponent<Image>().color = Color.white;
+			if (!GameStateController.isPlayerOne)
+			{
+				if (_selection != null)
+				{
+					GameObject.Find("Top").GetComponent<Image>().color = Color.white;
+					GameObject.Find("Bottom").GetComponent<Image>().color = Color.white;
+					GameObject.Find("Left").GetComponent<Image>().color = Color.white;
+					GameObject.Find("Right").GetComponent<Image>().color = Color.white;
 
-                    _selection = null;
+					_selection = null;
 
-                }
-                RaycastHit hit;
+				}
+				RaycastHit hit;
 
-                var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+				var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
-                if (Physics.Raycast(ray, out hit, 5))
-                {
-                    var selection = hit.transform;
-                    if (selection.CompareTag("Symbol"))
-                    {
+				if (Physics.Raycast(ray, out hit, 5))
+				{
+					var selection = hit.transform;
+					if (selection.CompareTag("Symbol"))
+					{
 
-                        GameObject.Find("Top").GetComponent<Image>().color = Color.red;
-                        GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
-                        GameObject.Find("Left").GetComponent<Image>().color = Color.red;
-                        GameObject.Find("Right").GetComponent<Image>().color = Color.red;
+						GameObject.Find("Top").GetComponent<Image>().color = Color.red;
+						GameObject.Find("Bottom").GetComponent<Image>().color = Color.red;
+						GameObject.Find("Left").GetComponent<Image>().color = Color.red;
+						GameObject.Find("Right").GetComponent<Image>().color = Color.red;
 
-                        if (Input.GetMouseButtonDown(0) && player.tag == "Thief")
-                        {
+						if (Input.GetMouseButtonDown(0) && player.tag == "Thief")
+						{
 							Debug.Log("TEST " + hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code);
-                           // code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
-                              //  hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
-                             //   SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
+							// code.text = (SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code == null ?
+							//  hit.transform.gameObject.GetComponent<SymbolInformation>().selfCode :
+							//   SpawnSymbol.FindSymbol(hit.collider.gameObject.name).m_code);
 
 
-                            code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
+							code.text = hit.transform.gameObject.GetComponent<SymbolInformation>().selfObject.m_code;
 
 
-                            //if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
+							//if(SpawnBook.FindSymbol(hit.collider.gameObject.name) != null)
 
-                        }
+						}
 
-                        _selection = selection;
-                    }
-                }
-            }
+						_selection = selection;
+					}
+				}
+			}
 
-            JumpAndGravity();
+			JumpAndGravity();
 			GroundedCheck();
-            Move();
-        }
+			Move();
+		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (player.tag == "Hacker" && !CellphoneView.cellphoneVisible)
+            {
+				CameraRotation();
+			}
+
+			if(player.tag == "Thief" && !CellphoneView.cellPhoneVisiblePlayerTwo)
+            {
+				CameraRotation();
+            }
+
 		}
 
 		private void GroundedCheck()
@@ -254,8 +263,12 @@ namespace StarterAssets
 				if (GameController.symbolsFound == 1)
 				{
 					// move backwards...a fun little challenge
-					Debug.Log("CHANGED");
+					//Debug.Log("CHANGED");
 					inputDirection = -transform.right * _input.move.x + -transform.forward * _input.move.y;
+				}
+				else if(GameController.symbolsFound == 3)
+                {
+					inputDirection = Vector3.zero * _input.move.x + Vector3.zero * _input.move.y;
 				}
 				else
                 {

@@ -60,6 +60,7 @@ MonoBehaviour:
   - SpawnHotSpot
   - OnCollisionEnter
   - HotSpotPosition
+  - SymbolsFound
   - pauseTimer
   - startTimer
   - initTimer
