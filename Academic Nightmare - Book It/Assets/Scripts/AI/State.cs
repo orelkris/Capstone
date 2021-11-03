@@ -187,7 +187,6 @@ public class Roam : State
         //TODO: randomize the pattern by choosing from 1 of the 3 closest checkpoint
         if (agent.remainingDistance < 1)
         {
-            /*Debug.Log(currentIndex);*/
             //reach to the end of the checkpoint list
             if (currentIndex >= npc.checkpoints.Count - 1)
             {
@@ -199,7 +198,6 @@ public class Roam : State
             }
             //move to next check point
             agent.SetDestination(npc.checkpoints[currentIndex].transform.position);
-            //Debug.Log("Current Index: " + currentIndex);
         }
         //start chasing player if it sees one
         if (CanSeePlayer() == true)
@@ -266,6 +264,11 @@ public class Pursue : State
                     /*Debug.Log("Stop Chasing");*/
                 }
             }
+        }
+        else
+        {
+            nextState = new Roam(npc, agent, player, currentState);
+            stage = EVENT.EXIT;
         }
     }
 
