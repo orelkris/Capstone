@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if(GameController.symbolsFound == 1)
+        if(GameController.symbolsFound == 3)
         {
             if(GameObject.Find("MainPanel") == null)
             {

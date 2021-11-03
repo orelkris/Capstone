@@ -260,13 +260,13 @@ namespace StarterAssets
 			// if there is a move input rotate player when the player is moving
 			if (!_input.move.Equals(Vector2.zero))
 			{
-				if (GameController.symbolsFound == 2)
+				if (GameController.symbolsFound == 1)
 				{
 					// move backwards...a fun little challenge
-					Debug.Log("CHANGED");
+					//Debug.Log("CHANGED");
 					inputDirection = -transform.right * _input.move.x + -transform.forward * _input.move.y;
 				}
-				else if(GameController.symbolsFound == 1)
+				else if(GameController.symbolsFound == 3)
                 {
 					inputDirection = Vector3.zero * _input.move.x + Vector3.zero * _input.move.y;
 				}
