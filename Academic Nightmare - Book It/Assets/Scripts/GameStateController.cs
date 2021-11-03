@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameStateController : MonoBehaviour
 {
     //value to see if player is player one or two
-    public static bool isPlayerOne;
-    public static bool isDevBuild = true;
+    public static bool isPlayerOne = true;
+    public static bool isDevBuild = false;
     public static int levelSelect = 1;
 }

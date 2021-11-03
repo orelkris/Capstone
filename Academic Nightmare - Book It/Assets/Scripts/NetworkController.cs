@@ -26,7 +26,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject levelSelectDropdown;
     [SerializeField] GameObject startGameButton;
 
-    public bool isDevBuild = true;
+    public bool isDevBuild = false;
     //bool to check if using for quick testing
     public bool isTest = false;
     //Room option to set the number of players to 2
@@ -123,6 +123,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         GameStateController.isPlayerOne = true;
 
         // Test
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("class"))
+            PhotonNetwork.LocalPlayer.CustomProperties.Remove("class");
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "hacker");
         PhotonNetwork.LocalPlayer.TagObject = "Hacker";
     }
@@ -131,8 +133,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void SetPlayerTwo()
     {
         GameStateController.isPlayerOne = false;
-        
+
         // Test
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("class"))
+            PhotonNetwork.LocalPlayer.CustomProperties.Remove("class");
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief"); // Identifies player type by custom props
         
     }
@@ -168,6 +172,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
             {
                 photonView.RPC("RPC_GetPlayer", RpcTarget.Others, null);
                 photonView.RPC("RPC_GetLevelSelect", RpcTarget.Others, null);
+            }
+            else
+            {
+                SetPlayerOne();
             }
 
             MenuManager.Instance.OpenMenu("RoomMenu");
@@ -242,10 +250,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void PlayerChanged()
     {
-        if(playerSelectDropdown.GetComponent<TMP_Dropdown>().value == 0)
-            GameStateController.isPlayerOne = true;
+        if (playerSelectDropdown.GetComponent<TMP_Dropdown>().value == 0)
+            SetPlayerOne();
         else
-            GameStateController.isPlayerOne = false;
+            SetPlayerTwo();
 
         photonView.RPC("RPC_SetPlayer", RpcTarget.Others, !GameStateController.isPlayerOne);
     }
@@ -259,7 +267,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_SetPlayer(bool isPlayerOne)
     {
-        GameStateController.isPlayerOne = isPlayerOne;
+        if (isPlayerOne)
+            SetPlayerOne();
+        else
+            SetPlayerTwo();
         playerText.GetComponent<TMP_Text>().text = "Player " + (GameStateController.isPlayerOne ? "1" : "2");
         playerSelectDropdown.GetComponent<TMP_Dropdown>().value = (GameStateController.isPlayerOne ? 0 : 1);
     }

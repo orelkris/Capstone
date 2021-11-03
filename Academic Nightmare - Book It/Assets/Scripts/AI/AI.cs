@@ -98,7 +98,6 @@ public class AI : MonoBehaviourPun
         }
         if (player)
         {
-            /*Debug.Log(currentState.currentState);*/
             currentState = currentState.Process();
         }
     }
