@@ -58,6 +58,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 spawnPositions[0],
                 Quaternion.identity
             );
+
+            Destroy(GameObject.FindGameObjectWithTag("Cellphone"));
         }
 
         if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
