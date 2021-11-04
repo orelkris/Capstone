@@ -7302,7 +7302,7 @@ MonoBehaviour:
   startGameButton: {fileID: 1570433573}
   isDevBuild: 1
   isTest: 0
-  MaxPlayers: 2
+  MaxPlayers: 3
 --- !u!114 &1441747939
 MonoBehaviour:
   m_ObjectHideFlags: 0
