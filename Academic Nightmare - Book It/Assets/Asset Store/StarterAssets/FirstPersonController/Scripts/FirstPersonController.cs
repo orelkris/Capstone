@@ -168,7 +168,7 @@ namespace StarterAssets
 				}
 			}
 
-			JumpAndGravity();
+			/*JumpAndGravity();*/
 			GroundedCheck();
 			Move();
 		}
