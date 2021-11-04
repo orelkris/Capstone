@@ -267,8 +267,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4754188397844391590}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalRotation: {x: -0.090918854, y: -0.8211019, z: -0.13695242, w: 0.54659814}
+  m_LocalPosition: {x: -1.0026227, y: 1.5899397, z: 78.99749}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2500252068355727174}
@@ -398,6 +398,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2500252068355727174}
     m_Modifications:
+    - target: {fileID: 611045259278794984, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
+      propertyPath: samplingRate
+      value: 48000
+      objectReference: {fileID: 0}
+    - target: {fileID: 611045259278794984, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
+      propertyPath: debugEchoMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 656042519884552622, guid: b3209fc16584bbf4abf4c907cf4d8227, type: 3}
       propertyPath: recorderInUse
       value: 
