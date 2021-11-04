@@ -42,8 +42,15 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //Intiate connection to server
     private void Start()
     {
-        Debug.Log("Connecting to Server");
-        PhotonNetwork.ConnectUsingSettings();
+        if (!PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        else
+        {
+            Debug.Log("Connecting to Server");
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     //Get message back from connecting to server
