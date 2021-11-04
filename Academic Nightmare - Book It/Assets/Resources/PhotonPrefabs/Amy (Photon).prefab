@@ -2150,8 +2150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PushButton: 108
-  VoiceRecorder: {fileID: 0}
+  PushButton: 102
+  VoiceRecorder: {fileID: 2653720504700251964}
   sensitivity: 200
   loudness: 0
   spinSpeed: 3

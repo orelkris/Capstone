@@ -411,6 +411,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6638333320918733699, guid: a6205abdf6c3d644fac70a54c2ba4cec, type: 3}
+      propertyPath: PushButton
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 6638333320918733699, guid: a6205abdf6c3d644fac70a54c2ba4cec, type: 3}
       propertyPath: VoiceRecorder
       value: 
       objectReference: {fileID: 5126820221563880295}

@@ -1015,9 +1015,9 @@ GameObject:
   - component: {fileID: 826022687325945862}
   - component: {fileID: 8076270376822611230}
   - component: {fileID: 8487793311113066389}
-  - component: {fileID: 5449429825007040840}
-  - component: {fileID: 2750033751986465388}
+  - component: {fileID: 9083656437044961631}
   - component: {fileID: 656042519884552622}
+  - component: {fileID: 2750033751986465388}
   - component: {fileID: 611045259278794984}
   m_Layer: 3
   m_Name: AJ (photon)
@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &5449429825007040840
+--- !u!114 &9083656437044961631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1339,11 +1339,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d481180653feeae4a8ea20fc6197cdf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PushButton: 108
-  VoiceRecorder: {fileID: 0}
+  PushButton: 102
+  VoiceRecorder: {fileID: 611045259278794984}
   sensitivity: 200
   loudness: 0
   spinSpeed: 3
+--- !u!114 &656042519884552622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3439615216850990462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 3
+  ignoreGlobalLogLevel: 0
+  recorderInUse: {fileID: 611045259278794984}
+  speakerInUse: {fileID: 2750033751986465388}
+  AutoCreateRecorderIfNotFound: 0
+  UsePrimaryRecorder: 0
+  SetupDebugSpeaker: 0
 --- !u!114 &2750033751986465388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,25 +1383,6 @@ MonoBehaviour:
     MinDelaySoft: 200
     MaxDelaySoft: 400
     MaxDelayHard: 1000
---- !u!114 &656042519884552622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3439615216850990462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logLevel: 3
-  ignoreGlobalLogLevel: 0
-  recorderInUse: {fileID: 611045259278794984}
-  speakerInUse: {fileID: 2750033751986465388}
-  AutoCreateRecorderIfNotFound: 0
-  UsePrimaryRecorder: 0
-  SetupDebugSpeaker: 0
 --- !u!114 &611045259278794984
 MonoBehaviour:
   m_ObjectHideFlags: 0
