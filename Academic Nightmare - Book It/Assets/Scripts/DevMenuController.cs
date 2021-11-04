@@ -18,4 +18,10 @@ public class DevMenuController : MonoBehaviour
         NetworkController.Instance.SetPlayerTwo();
         NetworkController.Instance.DevTestCreateJoinRoom();
     }
+
+    public void StartTestAsGhost()
+    {
+        NetworkController.Instance.SetGhost();
+        NetworkController.Instance.DevTestCreateJoinRoom();
+    }
 }

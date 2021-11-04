@@ -20,28 +20,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Production.unity
     guid: 414ea722afd3d734e9505b940a51baf6
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Hensons Scenes/Henson AI.unity
-    guid: 77a460120b6fa1a47a82d7a9212b52aa
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Ray.unity
-    guid: 4ecd7639a2dc22348a1a60f8d9685e4c
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Alex.unity
-    guid: b75be263f92c41644a00e74fa45d24c6
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Hensons Scenes/Henson.unity
-    guid: c4e26c40eb78a7e449a154f3f3a91664
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Kris.unity
-    guid: d63bf90a33ecac748b797d82e1b13421
-  - enabled: 0
-    path: Assets/Scenes/Solo Scenes/Kris2.unity
-    guid: e1e2f782e19754c47944f3f47e894ba0
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/Older Iterations/Sandbox Scene2.unity
-    guid: e83e8516796577c46aacb0b300d7eddf
   m_configObjects: {}

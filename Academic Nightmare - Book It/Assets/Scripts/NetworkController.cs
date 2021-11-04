@@ -126,7 +126,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("class"))
             PhotonNetwork.LocalPlayer.CustomProperties.Remove("class");
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "hacker");
-        PhotonNetwork.LocalPlayer.TagObject = "Hacker";
     }
 
     //Set the current player to be player two
@@ -138,7 +137,16 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("class"))
             PhotonNetwork.LocalPlayer.CustomProperties.Remove("class");
         PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "thief"); // Identifies player type by custom props
-        
+    }
+
+    public void SetGhost()
+    {
+        GameStateController.isGhost = false;
+
+        // Test
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("class"))
+            PhotonNetwork.LocalPlayer.CustomProperties.Remove("class");
+        PhotonNetwork.LocalPlayer.CustomProperties.Add("class", "ghost");
     }
 
     //Joined Room
@@ -179,7 +187,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
             }
 
             MenuManager.Instance.OpenMenu("RoomMenu");
-
         }
     }
 

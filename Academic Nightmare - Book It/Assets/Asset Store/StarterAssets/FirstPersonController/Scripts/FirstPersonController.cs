@@ -89,8 +89,6 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
-		private bool isAnimated;
-
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -108,12 +106,12 @@ namespace StarterAssets
 			{
 				code = GameObject.Find("Code").GetComponent<Text>();
 			}
+
 			//code = GameObject.Find("Code") == null ? null : GameObject.Find("Code").GetComponent<Text>();
 			//Debug.Log("Hello from player 2");
 
-
-			isAnimated = TryGetComponent(out anim);
-			_controller = GetComponent<CharacterController>();
+			hasAnim = TryGetComponent(out anim);
+            _controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			// reset our timeouts on start
@@ -258,7 +256,7 @@ namespace StarterAssets
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
-			if (!_input.move.Equals(Vector2.zero))
+			if (_input.move != Vector2.zero)
 			{
 				if (GameController.symbolsFound == 1)
 				{
@@ -283,14 +281,9 @@ namespace StarterAssets
             if (hasAnim)
             {
 				anim.SetBool("Crouched", _input.crouch);
-
-				if (!_input.crouch)
-				{
-					anim.SetFloat("Speed", _animationBlend);
-					anim.SetFloat("MotionSpeed", inputMagnitude);
-				}
+				anim.SetFloat("Speed", _animationBlend);
+				anim.SetFloat("MotionSpeed", inputMagnitude);
 			}
-			
 		}	
 
 		private void JumpAndGravity()

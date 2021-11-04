@@ -9,4 +9,5 @@ public class GameStateController : MonoBehaviour
     public static bool isPlayerOne = true;
     public static bool isDevBuild = false;
     public static int levelSelect = 1;
+    internal static bool isGhost;
 }
