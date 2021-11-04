@@ -8,7 +8,7 @@ using Photon.Voice.PUN;
 
 public class PushToTalk : MonoBehaviourPun
 {
-    public KeyCode PushButton = KeyCode.L;
+    public KeyCode PushButton = KeyCode.F;
     public Recorder VoiceRecorder;
     public float sensitivity = 200;
     public float loudness;

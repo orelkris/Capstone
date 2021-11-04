@@ -1,6 +1,8 @@
     using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -10,9 +12,15 @@ public class GameController : MonoBehaviour
     public static int numOfSymbols = 4;
     public static int correctSymbolIndex = 0;
 
+    public Animator finishedPanel;
+    public ParticleSystem successParticlesHacker;
+    public ParticleSystem successParticlesThief;
+
     public static int symbolsFound;
 
     private bool onlyOneCanvas = false;
+
+    Button btn;
     //public GameObject symbolSpawnPosition;
 
     private void Awake()
@@ -23,6 +31,8 @@ public class GameController : MonoBehaviour
         ListOflocationColour = new List<LocationTracker>();
 
         PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
+        btn = GameObject.Find("MainMenuButton").GetComponent<Button>();
+        btn.onClick.AddListener(LoadMainMenu);
 
         //PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
 
@@ -57,6 +67,19 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if(GameObject.Find("FinishedPanel") != null)
+        {
+            finishedPanel = GameObject.Find("FinishedPanel").GetComponent<Animator>();
+            if(GameObject.Find("Success Particles") != null)
+            {
+                successParticlesHacker = GameObject.Find("Success Particles").GetComponent<ParticleSystem>();
+            }
+            if(GameObject.Find("Success Particles Thief") != null)
+            {
+                successParticlesThief = GameObject.Find("Success Particles Thief").GetComponent<ParticleSystem>();
+            }
+        }
+
         if (!onlyOneCanvas)
         {
             GameObject[] canvasList = GameObject.FindGameObjectsWithTag("Cellphone");
@@ -77,6 +100,48 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+
+        if(GameController.symbolsFound == 3)
+        {
+            if(GameObject.Find("MainPanel") == null)
+            {
+
+            }
+            else
+            {
+                GameObject.Find("MainPanel").SetActive(false);
+            }
+
+            finishedPanel.SetTrigger("finished");
+            successParticlesHacker.Play();
+            successParticlesThief.Play();
+        }
+    }
+
+    //no idea how to reload the main menu level using photon!
+    public void LoadMainMenu()
+    {
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(0);
+        }
+        // get the current build of a level and add 1 to it. Can be reused for further level
+        // transitions for ease
+        //StartCoroutine(LoadLevelAsync(0));
+    }
+
+    // we do not want to load the level right away, we want
+    // to have enough time to play the load animation
+    System.Collections.IEnumerator LoadLevelAsync(int levelIndex)
+    {
+        //Play animation
+        finishedPanel.SetTrigger("retreat");
+        //Wait
+        yield return new WaitForSeconds(2);
+
+        //Load scene
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelIndex);
     }
 
     public static Material FindColour(Vector3 v)
@@ -105,6 +170,12 @@ public class GameController : MonoBehaviour
             list[i] = value;
         }
         return list;
+    }
+
+    [PunRPC]
+    public void SymbolsFound(int temp)
+    {
+        GameController.symbolsFound = temp;
     }
 }
 

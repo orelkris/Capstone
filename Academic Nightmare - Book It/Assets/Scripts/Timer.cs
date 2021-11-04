@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class Timer : MonoBehaviour
     private float timeLeft;
     private bool isPaused;
     private bool isDone;
+    public bool initilzed;
+    private PhotonView pv;
 
     private void Awake()
     {
@@ -18,12 +21,21 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
+        initilzed = false;
         setTimer(300.0f);//Default Time is seconds
-        startTimer();//Remove after Integration
+        startTimer();
+        pv = GetComponent<PhotonView>();
     }
 
     void Update()
     {
+        if (PhotonNetwork.IsMasterClient && !initilzed)
+        {
+            if (PhotonNetwork.PlayerList.Length > 1)
+            {
+                pv.RPC("initTimer", RpcTarget.All, null);
+            }
+        }
         if (!isPaused)
             timeLeft -= Time.deltaTime;
 
@@ -33,6 +45,7 @@ public class Timer : MonoBehaviour
             isDone = true;
             timeLeft = 0f;
         }
+        //Debug.Log(PhotonNetwork.Time);
     }
 
     public void setTimer(float t)
@@ -43,14 +56,30 @@ public class Timer : MonoBehaviour
         timeLeft = t;
     }
 
+    [PunRPC]
+    public void initTimer()
+    {
+        setTimer(480.0f);
+        startTimer();
+        initilzed = true;
+        Debug.Log("Timer Initialized");
+    }
+
+    [PunRPC]
     public void startTimer()
     {
         isPaused = false;
     }
 
+    [PunRPC]
     public void pauseTimer()
     {
         isPaused = true;
+    }
+
+    public bool isTimerPaused()
+    {
+        return isPaused;
     }
     
     public float getTimeLeft()
