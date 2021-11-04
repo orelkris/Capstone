@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
     private bool onlyOneCanvas = false;
 
-    Button btn;
+    Button btn,quitbtn;
     //public GameObject symbolSpawnPosition;
 
     private void Awake()
@@ -33,12 +33,14 @@ public class GameController : MonoBehaviour
         PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
         btn = GameObject.Find("MainMenuButton").GetComponent<Button>();
         btn.onClick.AddListener(LoadMainMenu);
+        quitbtn = GameObject.Find("MenuButton").GetComponent<Button>();
+        quitbtn.onClick.AddListener(LoadMainMenu);
 
         //PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
 
- /*       if (GameStateController.isPlayerOne)
-        {*/
-            Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
+        /*       if (GameStateController.isPlayerOne)
+               {*/
+        Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
             //keep track of symbol location and the shelf colour they are associated with
             for (int i = 1; i < spawnLocation.Length; i++)
@@ -196,5 +198,4 @@ public class LocationTracker
             location.y == v2.y &&
             location.z == v2.z);
     }
-    
 }
