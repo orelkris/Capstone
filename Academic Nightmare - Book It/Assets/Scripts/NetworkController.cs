@@ -42,7 +42,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     //Intiate connection to server
     private void Start()
     {
-        if (!PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom)
         {
             PhotonNetwork.LeaveRoom();
         }
