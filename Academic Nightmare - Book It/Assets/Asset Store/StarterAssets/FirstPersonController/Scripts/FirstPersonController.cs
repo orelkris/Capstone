@@ -107,6 +107,8 @@ namespace StarterAssets
 				code = GameObject.Find("Code").GetComponent<Text>();
 			}
 
+			Cursor.visible = false;
+
 			//code = GameObject.Find("Code") == null ? null : GameObject.Find("Code").GetComponent<Text>();
 			//Debug.Log("Hello from player 2");
 
@@ -175,12 +177,12 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			if (player.tag == "Hacker" && !CellphoneView.cellphoneVisible)
+			if (player.tag == "Hacker" && !CellphoneManagerHacker.cellphoneVisible)
             {
 				CameraRotation();
 			}
 
-			if(player.tag == "Thief" && !CellphoneView.cellPhoneVisiblePlayerTwo)
+			if(player.tag == "Thief" && !CellphoneManagerThief.cellphoneVisible)
             {
 				CameraRotation();
             }

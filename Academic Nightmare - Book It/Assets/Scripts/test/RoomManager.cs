@@ -91,11 +91,34 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 Quaternion.identity
             );
 
+    
+
+
+
             PhotonNetwork.Instantiate(
                 Path.Combine("AI", "Assistant"),
                 AISpawnPositions[1],
                 Quaternion.identity
             );
+        }
+    }
+
+    private void Update()
+    {
+        if(GameObject.FindGameObjectWithTag("CellphoneThief") != null)
+        {
+            if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("hacker"))
+            {
+                GameObject.FindGameObjectWithTag("CellphoneThief").SetActive(false);
+            }
+        }
+
+        if(GameObject.FindGameObjectWithTag("CellphoneHacker") != null)
+        {
+            if (PhotonNetwork.LocalPlayer.CustomProperties["class"].Equals("thief"))
+            {
+                GameObject.FindGameObjectWithTag("CellphoneHacker").SetActive(false);
+            }
         }
     }
 

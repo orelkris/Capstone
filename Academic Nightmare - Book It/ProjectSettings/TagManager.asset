@@ -22,6 +22,8 @@ TagManager:
   - Hacker
   - Thief
   - Skeleton
+  - CellphoneHacker
+  - CellphoneThief
   layers:
   - Default
   - TransparentFX

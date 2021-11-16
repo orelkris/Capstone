@@ -67,28 +67,6 @@ public class PushToTalk : MonoBehaviourPun
             }
         }
 
-        
-
-        // toggle mic
-        //if(Input.GetKeyDown(PushButton))
-        //{
-        //    if(view.IsMine)
-        //    {
-        //        VoiceRecorder.TransmitEnabled = !VoiceRecorder.TransmitEnabled;
-        //        if(!VoiceRecorder.TransmitEnabled)
-        //        {
-        //            InitMic();
-        //            _isInitialized = true;
-        //            Debug.Log("Mic On");
-        //        }
-        //        else
-        //        {
-        //            StopMicrophone();
-        //            _isInitialized = false;
-        //            Debug.Log("Mic off");
-        //        }
-        //    }
-        //}
         loudness = LevelMax();
         if(loudness > 0)
         {
@@ -96,13 +74,16 @@ public class PushToTalk : MonoBehaviourPun
             enemy.GetComponentInChildren<AI>().SetSoundDetected(loudness);
         }
 
-        if (VoiceRecorder.TransmitEnabled)
+        if(photonView.IsMine)
         {
-            currentPeak = VoiceRecorder.LevelMeter.CurrentPeakAmp;
-        }
-        else
-        {
-            currentPeak = 0;
+            if (VoiceRecorder.TransmitEnabled)
+            {
+                currentPeak = VoiceRecorder.LevelMeter.CurrentPeakAmp;
+            }
+            else
+            {
+                currentPeak = 0;
+            }
         }
 
     }

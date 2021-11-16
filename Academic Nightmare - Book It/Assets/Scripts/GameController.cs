@@ -20,53 +20,56 @@ public class GameController : MonoBehaviour
 
     private bool onlyOneCanvas = false;
 
-    Button btn;
+    //Button btn;
     //public GameObject symbolSpawnPosition;
 
-    private void Awake()
+    private void Start()
     {
         symbolsFound = 0;
 
         ListOfSymbols = new List<GameObject>();
         ListOflocationColour = new List<LocationTracker>();
 
-        PhotonNetwork.Instantiate("CanvasPlayerOne", Vector3.zero, Quaternion.identity);
-        btn = GameObject.Find("MainMenuButton").GetComponent<Button>();
-        btn.onClick.AddListener(LoadMainMenu);
+        //PhotonNetwork.Instantiate("CanvasHacker", Vector3.zero, Quaternion.identity);
+        //PhotonNetwork.Instantiate("CanvasThief", Vector3.zero, Quaternion.identity);
 
         //PhotonNetwork.Instantiate("HotSpot", Vector3.zero, Quaternion.identity);
 
  /*       if (GameStateController.isPlayerOne)
         {*/
-            Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
+        Transform[] spawnLocation = GameObject.Find("Symbol Location Holder").GetComponentsInChildren<Transform>();
             
-            //keep track of symbol location and the shelf colour they are associated with
-            for (int i = 1; i < spawnLocation.Length; i++)
-            {
-                //Debug.Log("SHELF COLOUR : " + ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material))).name);
-                ListOflocationColour.Add(new LocationTracker(spawnLocation[i].transform.position,
-                    ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material)))));
-            }
+        //keep track of symbol location and the shelf colour they are associated with
+        for (int i = 1; i < spawnLocation.Length; i++)
+        {
+            //Debug.Log("SHELF COLOUR : " + ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material))).name);
+            ListOflocationColour.Add(new LocationTracker(spawnLocation[i].transform.position,
+                ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material)))));
+        }
 
-            //Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
+        //Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
 
-            //Debug.Log(spawnLocation[1].transform.position);
-            //Debug.Log(spawnLocation[2].transform.position);
-            //Attempting to instantiate a symbol at a specified location
-            //getting a list of code
-            for(int i = 0; i < numOfSymbols; i++)
-            {
-                PhotonNetwork.InstantiateRoomObject($"Symbol{i + 1}", ListOflocationColour[i].location, Quaternion.identity);
-                ListOfSymbols.Add(GameObject.Find($"Symbol{i + 1}(Clone)"));
-            }
+        //Debug.Log(spawnLocation[1].transform.position);
+        //Debug.Log(spawnLocation[2].transform.position);
+        //Attempting to instantiate a symbol at a specified location
+        //getting a list of code
+        for(int i = 0; i < numOfSymbols; i++)
+        {
+            PhotonNetwork.InstantiateRoomObject($"Symbol{i + 1}", ListOflocationColour[i].location, Quaternion.identity);
+            ListOfSymbols.Add(GameObject.Find($"Symbol{i + 1}(Clone)"));
+        }
 
-            Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
+        Shuffle(ListOfSymbols, 0, ListOfSymbols.Count);
+
+        //btn = GameObject.Find("MainMenuButton").GetComponent<Button>();
+        //btn.onClick.AddListener(LoadMainMenu);
 
         /*}*/
     }
 
     private void Update()
     {
+        
         if(GameObject.Find("FinishedPanel") != null)
         {
             finishedPanel = GameObject.Find("FinishedPanel").GetComponent<Animator>();
@@ -78,28 +81,7 @@ public class GameController : MonoBehaviour
             {
                 successParticlesThief = GameObject.Find("Success Particles Thief").GetComponent<ParticleSystem>();
             }
-        }
-
-        if (!onlyOneCanvas)
-        {
-            GameObject[] canvasList = GameObject.FindGameObjectsWithTag("Cellphone");
-            //GameObject[] hotSpotList = GameObject.FindGameObjectsWithTag("HotSpot");
-            for (int i = 0; i < canvasList.Length; i++)
-            {
-
-                bool ID = canvasList[i].GetComponent<PhotonView>().IsMine;
-               // bool hotSpotID = hotSpotList[i].GetComponent<PhotonView>().IsMine;
-                /*Debug.Log("PHOTONE ID MINE? " + ID);*/
-
-                if (!ID)
-                {
-                    DestroyImmediate(canvasList[i]);
-                   //DestroyImmediate(hotSpotList[i]);
-                    onlyOneCanvas = true;
-
-                }
-            }
-        }
+        }        
 
         if(GameController.symbolsFound == 3)
         {
@@ -119,17 +101,17 @@ public class GameController : MonoBehaviour
     }
 
     //no idea how to reload the main menu level using photon!
-    public void LoadMainMenu()
-    {
+    //public void LoadMainMenu()
+    //{
 
-        if(PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel(0);
-        }
+       // if(PhotonNetwork.IsMasterClient)
+       // {
+        //    PhotonNetwork.LoadLevel(0);
+        //}
         // get the current build of a level and add 1 to it. Can be reused for further level
         // transitions for ease
         //StartCoroutine(LoadLevelAsync(0));
-    }
+   // }
 
     // we do not want to load the level right away, we want
     // to have enough time to play the load animation

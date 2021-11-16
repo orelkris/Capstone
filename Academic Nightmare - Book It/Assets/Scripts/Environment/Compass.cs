@@ -16,6 +16,8 @@ public class Compass : MonoBehaviour
     public Vector3 toPosition;
     public Vector3 playerOneForward;
 
+    public Text hasWifiText;
+
     // Update is called once per frame
     public void Update()
     {
@@ -49,9 +51,12 @@ public class Compass : MonoBehaviour
             }
             else if (Vector3.AngleBetween(player1.transform.right, toPosition) <= 3 && Vector3.AngleBetween(player1.transform.right, toPosition) > 1.3)
             {
-                if (toPosition.magnitude < 3)
+                if (HotSpot.hasWifi)
                 {
+                    hasWifiText = GameObject.Find("HasWifiText").GetComponent<Text>();
+                    hasWifiText.text = "Connected to WiFi!";
                     this.transform.rotation = Quaternion.EulerAngles(0, 0, -Vector3.AngleBetween(player1.transform.forward, toPosition) * 0);
+                    closer.value = 1;
                 }
                 else
                 {
@@ -62,49 +67,13 @@ public class Compass : MonoBehaviour
                 }
 
             }
-            /*
-            Debug.Log(GameObject.Find("PlayerOne(Clone)").transform.position - GameObject.Find("HotSpot(Clone)").transform.position);
-            toPosition = GameObject.Find("PlayerOne(Clone)").GetComponent<PlayerController>().toPosition;
-            Debug.Log("PLAYER 1 IS MOVING " + toPosition);
-            //float angleToPosition = Vector3.Angle(toPosition, playerOneForward);
-            //float angle = Vector3.SignedAngle(hotSpot.position, playerOneForward, Vector3.up); //Returns the angle between -180 and 180.
 
-
-            //Debug.Log(Vector3.AngleBetween(player1.forward, toPosition));
-
-            if (Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.right, toPosition) <= 1.3 && Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.right, toPosition) >= 0)
+            if(!HotSpot.hasWifi)
             {
-                Debug.Log(toPosition.magnitude);
-                if(toPosition.magnitude < 3)
-                {
-                    this.transform.rotation = Quaternion.EulerAngles(0, 0, -Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.forward, toPosition) * 0); 
-                }
-                else
-                {
-                    //Debug.Log("Left");
-                    // Debug.Log(Vector3.AngleBetween(player1.forward, toPosition) * -10);
-                    this.transform.rotation = Quaternion.EulerAngles(0, 0, -Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.forward, toPosition));
-                }
-
+                hasWifiText = GameObject.Find("HasWifiText").GetComponent<Text>();
+                hasWifiText.text = "";
+                closer.value = 1 / (toPosition).magnitude * 5f;
             }
-            else if (Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.right, toPosition) <= 3 && Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.right, toPosition) > 1.3)
-            {
-                if (toPosition.magnitude < 3)
-                {
-                    this.transform.rotation = Quaternion.EulerAngles(0, 0, -Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.forward, toPosition) * 0);
-                }
-                else
-                {
-                    //Debug.Log("Right");
-                    // Debug.Log(Vector3.AngleBetween(player1.forward, toPosition) * 10);
-                    this.transform.rotation = Quaternion.EulerAngles(0, 0, Vector3.AngleBetween(GameObject.Find("PlayerOne(Clone)").transform.forward, toPosition));
-                    //this.transform.Rotate(0,0, Vector3.AngleBetween(player1.forward, toPosition));
-                }
-
-            }
-            */
-
-            closer.value = 1 / (toPosition).magnitude * 3f;
         }
     }
 }

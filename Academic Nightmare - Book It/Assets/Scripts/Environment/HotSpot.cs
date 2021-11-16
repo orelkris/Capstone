@@ -24,17 +24,14 @@ public class HotSpot : MonoBehaviour
 
     //***********LOADBAR********//
     public static GameObject loadImagePanel;
-    //public static Slider progressBar;
-
-    // random list of colours
-    Color32[] colorList = { Color.red, Color.blue, Color.green, Color.magenta };
-    // Start is called before the first frame update
 
     //PHONE Canvas//
     GameObject phone;
 
     void Start()
     {
+        downloadComplete = false;
+
         Vector3 spot1 = new Vector3 { x = 56f, y = 55f, z = -48f };
 
         Vector3 spot2 = new Vector3 { x = 56f, y = 55f, z = -133f };
@@ -50,36 +47,70 @@ public class HotSpot : MonoBehaviour
 
         hotSpotIndex = 0;
 
-        //audioHotSpot.GetComponent<AudioSource>();
+        hotSpot = this.gameObject;
+
         counter = 0f;
         canDownload = 0f;
 
         player = GameObject.FindGameObjectWithTag("Hacker");
 
-        // create a sphere object
-        hotSpot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        hotSpot.GetComponent<MeshRenderer>().enabled = false;
-        hotSpot.GetComponent<SphereCollider>().isTrigger = true;
-
         SpawnHotSpot();
 
-        if (GameStateController.isPlayerOne)
+        //phone = GameObject.Find("CanvasHacker");
+        phone = GameObject.FindGameObjectWithTag("CellphoneHacker");
+
+        symbolPanel = phone.GetComponent<CellphoneManagerHacker>().symbolPanel;
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Hacker")
         {
-            //***********LOADBAR********//
-            //loadImagePanel = GameObject.Find("CanvasGlobal").GetComponent<CellphoneView>().cover;
-            progressBar = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().slider.GetComponent<Slider>();
+            hasWifi = true;
 
-            phone = GameObject.Find("CanvasPlayerOne(Clone)");
+            if (GameObject.Find("DownloadPanel") != null)
+            {
+                if (CellphoneManagerHacker.currentPanelIndex == phone.GetComponent<CellphoneManagerHacker>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
+                        && !downloadComplete && player.tag == "Hacker")
+                {
+                    // download image only if load image is active
+                    // this happens only when the image has not yet been downloaded
 
-            symbolPanel = GameObject.Find("CanvasPlayerOne(Clone)").GetComponent<CellphoneView>().symbolPanel;
+                    //********LOADBAR*******/
+
+                    // just in case the player turned off the cellphone, always check for null values
+                    if (GameObject.Find("ProgressSlider") != null)
+                    {
+                        canDownload += Time.deltaTime;
+
+                        progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
+
+                        progressBar.value = 0.1f * Mathf.Round(canDownload);
+                        Debug.Log("PROGRESS " + progressBar.value);
+
+                        if (progressBar.value == 1)
+                        {
+                            downloadComplete = true;
+                            canDownload = 0;
+                            progressBar.value = 0;
+
+                            phone.GetComponent<CellphoneManagerHacker>().cellphonePanels[CellphoneManagerHacker.currentPanelIndex].SetActive(false);
+                            CellphoneManagerHacker.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+                            phone.GetComponent<CellphoneManagerHacker>().cellphonePanels[CellphoneManagerHacker.currentPanelIndex].SetActive(true);
+
+                        }
+                    }
+                }
+            }
         }
-
-
-
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        hasWifi = false;
     }
 
     [PunRPC]
-    void SpawnHotSpot()
+    public void SpawnHotSpot()
     {
         hotSpot.transform.position = new Vector3(HotSpotLocation[hotSpotIndex].x,
             HotSpotLocation[hotSpotIndex].y,
@@ -95,82 +126,6 @@ public class HotSpot : MonoBehaviour
         if (hotSpotIndex == 4)
         {
             hotSpotIndex = 0;
-        }
-    }
-
-    void Update()
-    {
-        if (player != null)
-        {
-            counter += Time.deltaTime;
-
-            if (this.GetComponent<Collider>().bounds.Contains(player.transform.position))
-            {
-
-                hasWifi = true;
-                Debug.Log("Has Wifi");
-
-                if (GameObject.Find("DownloadPanel") != null)
-                {
-                    if (CellphoneView.currentPanelIndex == phone.GetComponent<CellphoneView>().downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex
-                            && !downloadComplete && player.tag == "Hacker")
-                    {
-                        // download image only if load image is active
-                        // this happens only when the image has not yet been downloaded
-
-                        //********LOADBAR*******/
-
-                        // just in case the player turned off the cellphone, always check for null values
-                        if (GameObject.Find("ProgressSlider") != null)
-                        {
-                            canDownload += Time.deltaTime;
-
-                            progressBar = GameObject.Find("ProgressSlider").GetComponent<Slider>();
-
-                            progressBar.value = 0.1f * Mathf.Round(canDownload);
-                            //Debug.Log(progressBar.value);
-
-                            if (progressBar.value == 1)
-                            {
-                                downloadComplete = true;
-                                canDownload = 0;
-                                progressBar.value = 0;
-
-                                phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-                                CellphoneView.currentPanelIndex = symbolPanel.GetComponent<SelfPanelIndex>().SelfIndex;
-                                phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
-
-                            }
-                        }
-                    }
-
-                    else if (!(this.GetComponent<Collider>().bounds.Contains(player.transform.position)))
-                    {
-                        hasWifi = false;
-                    }
-                }
-
-                //if (hasWifi && audioToggle)
-                // {
-                //audioHotSpot.Play();
-                //   audioToggle = false;
-                // }
-
-                if (!hasWifi)
-                {
-                    // audioHotSpot.Stop();
-                    //audioToggle = true;
-                    //loadImagePanel.SetActive(true);
-                }
-
-            }
-        }
-
-        if (Mathf.Round(counter) >= 90)
-        {
-            Debug.Log(counter);
-            SpawnHotSpot();
-            counter = 0;
         }
     }
 }

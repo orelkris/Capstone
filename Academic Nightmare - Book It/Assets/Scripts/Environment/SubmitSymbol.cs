@@ -10,13 +10,14 @@ public class SubmitSymbol : MonoBehaviour
     GameObject phone;
     GameObject downloadPanel;
     GameController gm;
+    GameObject hotSpot;
 
     private void Start()
     {
         gm = new GameController();
         gameManager = GameObject.Find("GameController");
-        phone = GameObject.Find("CanvasPlayerOne(Clone)");
-        downloadPanel = phone.GetComponent<CellphoneView>().downloadPanel;
+        phone = GameObject.FindGameObjectWithTag("CellphoneHacker");
+        downloadPanel = phone.GetComponent<CellphoneManagerHacker>().downloadPanel;
 
 
     }
@@ -43,14 +44,15 @@ public class SubmitSymbol : MonoBehaviour
 
             // reset the downloading bar
             HotSpot.downloadComplete = false;
-            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(false);
-            CellphoneView.currentPanelIndex = downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex;
-            phone.GetComponent<CellphoneView>().cellphonePanels[CellphoneView.currentPanelIndex].SetActive(true);
+            hotSpot = GameObject.FindGameObjectWithTag("HotSpot");
+            hotSpot.GetComponent<HotSpot>().SpawnHotSpot();
+            phone.GetComponent<CellphoneManagerHacker>().cellphonePanels[CellphoneManagerHacker.currentPanelIndex].SetActive(false);
+            CellphoneManagerHacker.currentPanelIndex = downloadPanel.GetComponent<SelfPanelIndex>().SelfIndex;
+            phone.GetComponent<CellphoneManagerHacker>().cellphonePanels[CellphoneManagerHacker.currentPanelIndex].SetActive(true);
         }
         else
         {
             Debug.Log("Incorrect");
-            //Debug.Log(this.GetComponent<Image>().sprite.name);
         }
     }
 }
