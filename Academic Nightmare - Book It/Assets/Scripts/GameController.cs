@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
 
     private bool onlyOneCanvas = false;
 
+
     //Button btn;
     //public GameObject symbolSpawnPosition;
 
@@ -82,6 +83,8 @@ public class GameController : MonoBehaviour
                 successParticlesThief = GameObject.Find("Success Particles Thief").GetComponent<ParticleSystem>();
             }
         }        
+
+        
 
         if(GameController.symbolsFound == 3)
         {

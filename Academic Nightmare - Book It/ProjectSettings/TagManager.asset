@@ -24,6 +24,9 @@ TagManager:
   - Skeleton
   - CellphoneHacker
   - CellphoneThief
+  - Code1
+  - Code2
+  - Code3
   layers:
   - Default
   - TransparentFX
