@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6806003565903980413}
   m_Layer: 0
   m_Name: Code1Text
-  m_TagString: Untagged
+  m_TagString: Code1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54680347e9fb2514dae48eccb36d1b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfIndex: 9
   code: {fileID: 0}
 --- !u!1 &541310254659108913
 GameObject:
@@ -1437,7 +1436,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1461,6 +1460,7 @@ MonoBehaviour:
   - {fileID: 5418517364525305146}
   - {fileID: 1819662104137596348}
   - {fileID: 7117617697831602227}
+  - {fileID: 3485027054440114617}
   cellphoneAlwaysActive: 0
   homepagePanel: {fileID: 1819662104137596348}
   compassPanel: {fileID: 7117617697831602227}
@@ -2267,7 +2267,7 @@ GameObject:
   - component: {fileID: 637946044510742272}
   m_Layer: 0
   m_Name: Code3Text
-  m_TagString: Untagged
+  m_TagString: Code3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2345,7 +2345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54680347e9fb2514dae48eccb36d1b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfIndex: 9
   code: {fileID: 0}
 --- !u!1 &4428165362227717133
 GameObject:
@@ -3542,7 +3541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.13406372, y: -0.06587219}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7879998830328812845
@@ -3855,7 +3854,7 @@ GameObject:
   - component: {fileID: 7639942650287334855}
   m_Layer: 0
   m_Name: Code2Text
-  m_TagString: Untagged
+  m_TagString: Code2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3933,7 +3932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54680347e9fb2514dae48eccb36d1b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfIndex: 9
   code: {fileID: 0}
 --- !u!1 &7871966217701966415
 GameObject:
