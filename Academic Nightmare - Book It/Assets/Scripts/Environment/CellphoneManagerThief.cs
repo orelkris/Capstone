@@ -20,9 +20,13 @@ public class CellphoneManagerThief : MonoBehaviour
     public GameObject homepagePanel;
     public GameObject compassPanel;
 
+    public Animator cellphoneAnimator;
+
     Button btn;
     private void Start()
     {
+        cellphoneAnimator = this.GetComponent<Animator>();
+
         cellphoneVisible = false;
         currentPanelIndex = 2;
 
@@ -38,6 +42,7 @@ public class CellphoneManagerThief : MonoBehaviour
 
             if (!cellphoneVisible)
             {
+                cellphoneAnimator.SetBool("open", true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
 
@@ -49,9 +54,11 @@ public class CellphoneManagerThief : MonoBehaviour
             }
             else
             {
-                cellphonePanels[cellphoneAlwaysActive].SetActive(false);
+                cellphoneAnimator.SetBool("open", false);
 
-                cellphonePanels[currentPanelIndex].SetActive(false);
+                //cellphonePanels[cellphoneAlwaysActive].SetActive(false);
+
+                //cellphonePanels[currentPanelIndex].SetActive(false);
 
                 cellphoneVisible = false;
 

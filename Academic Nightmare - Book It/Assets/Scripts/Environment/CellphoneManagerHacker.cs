@@ -7,6 +7,7 @@ using Photon.Pun;
 public class CellphoneManagerHacker : MonoBehaviour
 {
     public static bool cellphoneVisible = false;
+    public Animator cellphoneAnimator;
 
     //player 1 cellphone
     public GameObject cellphoneApps;
@@ -26,6 +27,8 @@ public class CellphoneManagerHacker : MonoBehaviour
 
     private void Start()
     {
+        cellphoneAnimator = this.GetComponent<Animator>();
+
         cellphoneVisible = false;
         currentPanelIndex = 2;
 
@@ -38,9 +41,9 @@ public class CellphoneManagerHacker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            
             if (!cellphoneVisible)
             {
+                cellphoneAnimator.SetBool("open", true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 
@@ -52,9 +55,11 @@ public class CellphoneManagerHacker : MonoBehaviour
             }
             else
             {
-                cellphonePanels[cellphoneAlwaysActive].SetActive(false);
+                cellphoneAnimator.SetBool("open", false);
 
-                cellphonePanels[currentPanelIndex].SetActive(false);
+                //cellphonePanels[cellphoneAlwaysActive].SetActive(false);
+
+                //cellphonePanels[currentPanelIndex].SetActive(false);
 
                 cellphoneVisible = false;
 

@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 396247064479884993}
   - component: {fileID: 396247064479884992}
   - component: {fileID: 9127107598118960043}
+  - component: {fileID: 5304545896082722110}
   m_Layer: 5
   m_Name: CanvasHacker
   m_TagString: CellphoneHacker
@@ -355,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4239771b1dbc34e97635c29713b15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellphoneAnimator: {fileID: 0}
   cellphoneApps: {fileID: 2961508913621431043}
   cellphonePanels:
   - {fileID: 8876431787609980988}
@@ -368,6 +370,25 @@ MonoBehaviour:
   homepagePanel: {fileID: 396247066267925193}
   symbolPanel: {fileID: 396247065648970843}
   downloadPanel: {fileID: 396247064918350831}
+--- !u!95 &5304545896082722110
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396247064479884995}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0ff3920c9d58e74096861e7bedd113e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &396247064521761926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &396247066267925198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3241,7 +3262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8876431787609980991
 RectTransform:
   m_ObjectHideFlags: 0
