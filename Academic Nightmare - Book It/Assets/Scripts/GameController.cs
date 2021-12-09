@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     //Button btn;
     //public GameObject symbolSpawnPosition;
 
-    private void Start()
+    private void Awake()
     {
         symbolsFound = 0;
 
@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
                 ((Material)Resources.Load($"Materials/Shelf/{spawnLocation[i].tag}", typeof(Material)))));
         }
 
-        //Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
+        Shuffle(ListOflocationColour, 1, ListOflocationColour.Count);
 
         //Debug.Log(spawnLocation[1].transform.position);
         //Debug.Log(spawnLocation[2].transform.position);
@@ -82,24 +82,14 @@ public class GameController : MonoBehaviour
             {
                 successParticlesThief = GameObject.Find("Success Particles Thief").GetComponent<ParticleSystem>();
             }
-        }        
+        }
 
-        
 
-        if(GameController.symbolsFound == 3)
+
+        if (GameController.symbolsFound == 1)
         {
-            if(GameObject.Find("MainPanel") == null)
-            {
 
-            }
-            else
-            {
-                GameObject.Find("MainPanel").SetActive(false);
-            }
-
-            finishedPanel.SetTrigger("finished");
-            successParticlesHacker.Play();
-            successParticlesThief.Play();
+            GameObject.Find("PanelReverseWarning").GetComponent<Animator>().SetBool("isHidden", false);  
         }
     }
 

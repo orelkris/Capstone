@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasThief
       objectReference: {fileID: 0}
+    - target: {fileID: 4038885224303625306, guid: 2f61d43c049fcc941938d85a1f20802a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5418517365572117895, guid: 2f61d43c049fcc941938d85a1f20802a, type: 3}
       propertyPath: m_Color.b
       value: 0.745283

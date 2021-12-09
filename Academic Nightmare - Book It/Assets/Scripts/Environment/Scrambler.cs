@@ -10,7 +10,7 @@ public class Scrambler : MonoBehaviour
     public Text code;
     bool solved = false;
 
-    private void Start()
+    private void Awake()
     {
         solved = false;
         code = this.GetComponent<Text>();
@@ -31,6 +31,7 @@ public class Scrambler : MonoBehaviour
         {
             if (GameController.symbolsFound == 2)
             {
+                // fix code
                 code.text = codeToEscape[1].ToString();
                 this.GetComponentInParent<Image>().color = Color.green;
                 solved = true;
@@ -40,6 +41,7 @@ public class Scrambler : MonoBehaviour
         {
             if (GameController.symbolsFound == 3)
             {
+                // fix code
                 code.text = codeToEscape[2].ToString();
                 this.GetComponentInParent<Image>().color = Color.green;
                 solved = true;

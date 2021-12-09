@@ -34,10 +34,13 @@ public class SubmitSymbol : MonoBehaviour
             pv.RPC("SymbolsFound", RpcTarget.All, temp);
             Debug.Log("Found Symbols " + GameController.symbolsFound);
 
-            if (GameController.symbolsFound == 1)
-            {
-                GameObject.Find("PanelReverseWarning").GetComponent<Animator>().SetBool("isHidden", false);
-            }
+           // if (GameController.symbolsFound == 1)
+           // {
+                //if(pv.IsMine)
+                //{
+                //    GameObject.Find("PanelReverseWarning").GetComponent<Animator>().SetBool("isHidden", false);
+               // }
+          //  }
             //advance the correct symbol
             GameController.correctSymbolIndex++;
             GameObject.Find("SymbolHolderPanel").GetComponent<LoadSymbolImage>().LoadColourCode();
